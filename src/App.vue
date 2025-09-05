@@ -17,6 +17,9 @@
 
     <!-- Contact Section -->
     <ContactSection />
+
+    <!-- Floating Navigation Section -->
+    <FloatingActionButtons @consultation-requested="handleConsultationRequest" />
   </div>
 </template>
 
@@ -27,6 +30,7 @@ import ServicesSection from './components/ServicesSection.vue'
 import SolutionsSection from './components/SolutionsSection.vue'
 import CompanyInfoSection from './components/CompanyInfoSection.vue'
 import ContactSection from './components/ContactSection.vue'
+import FloatingActionButtons from './components/FloatingActionButtons.vue'
 
 export default {
   name: 'App',
@@ -36,7 +40,8 @@ export default {
     ServicesSection,
     SolutionsSection,
     CompanyInfoSection,
-    ContactSection
+    ContactSection,
+    FloatingActionButtons
   },
   data() {
     return {
@@ -86,6 +91,12 @@ export default {
           }
         })
       })
+    },
+    // TODO 상담 요청 처리 로직
+    handleConsultationRequest(data) {
+      // 상담 요청 처리 로직
+      console.log('상담 요청:', data)
+      // 예: API 호출, 상담 요청 저장 등
     }
   }
 }
