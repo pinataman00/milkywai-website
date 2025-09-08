@@ -4,7 +4,16 @@
     <HeaderComponent :isScrolled="isScrolled" />
 
     <!-- Hero Section -->
-    <HeroSection @go-to-solution="goToSolution" />
+    <!-- <HeroSection @go-to-solution="goToSolution" /> -->
+    <!-- <HeroSection :background-type="heroBackgroundType" :show-selector="isDevelopmentMode"
+      @go-to-solution="goToSolution" /> -->
+
+<HeroSection 
+  :background-type="heroBackgroundType" 
+  :show-selector="isDevelopmentMode"
+  @background-changed="heroBackgroundType = $event"
+  @go-to-solution="goToSolution"
+/>
 
     <!-- Services Section -->
     <ServicesSection />
@@ -46,7 +55,13 @@ export default {
   data() {
     return {
       isScrolled: false,
-      activeSolution: 'cloudwai'
+      activeSolution: 'cloudwai',
+      // TODO 히어로 섹션 구현 중...
+      // 배경 타입 설정: 'milkyway', 'minimal', 'original'
+      heroBackgroundType: 'cyber',
+
+      // 개발 모드 설정 (배경 선택 버튼 표시 여부)
+      isDevelopmentMode: true // 배포시 false로 변경      
     }
   },
   mounted() {
@@ -63,7 +78,7 @@ export default {
     goToSolution(solutionType) {
       // 해당 솔루션 탭 활성화
       this.activeSolution = solutionType
-      
+
       // Solutions 섹션으로 스크롤
       const solutionsSection = document.querySelector('#solutions')
       if (solutionsSection) {
@@ -97,6 +112,26 @@ export default {
       // 상담 요청 처리 로직
       console.log('상담 요청:', data)
       // 예: API 호출, 상담 요청 저장 등
+    },
+    //TODO 히어로 섹션 수정 중...
+    handleGoToSolution(solutionType) {
+      // Solutions 섹션으로 스크롤하고 해당 솔루션 탭 활성화
+      if (this.$refs.solutionsSection) {
+        this.$refs.solutionsSection.activateSolution(solutionType)
+
+        // Solutions 섹션으로 부드럽게 스크롤
+        const solutionsElement = this.$refs.solutionsSection.$el
+        if (solutionsElement) {
+          const offsetTop = solutionsElement.offsetTop - 70
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          })
+        }
+      }
+    },
+    activateSolution(solutionType) {
+      this.activeSolution = solutionType
     }
   }
 }

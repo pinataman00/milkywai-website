@@ -1,24 +1,72 @@
 <template>
   <section class="hero" id="home">
+    <!-- 배경 선택 컨트롤 (개발용 - 실제 배포시 제거 가능) -->
+    <div class="background-selector" v-if="showSelector">
+      <button @click="$emit('background-changed', 'milkyway')" :class="{ active: backgroundType === 'milkyway' }"
+        class="bg-btn">
+        🌌 은하수 테크
+      </button>
+      <button @click="$emit('background-changed', 'cyber')" :class="{ active: backgroundType === 'cyber' }"
+        class="bg-btn">
+        🔮 사이버 그리드
+      </button>
+      <button @click="$emit('background-changed', 'minimal')" :class="{ active: backgroundType === 'minimal' }"
+        class="bg-btn">
+        🐭 미니멀 그리드
+      </button>
+      <!-- <button @click="$emit('background-changed', 'neural')" :class="{ active: backgroundType === 'neural' }"
+        class="bg-btn">
+        🤖 뉴럴 AI
+      </button> -->
+      <button @click="$emit('background-changed', 'holographic')" :class="{ active: backgroundType === 'holographic' }"
+        class="bg-btn">
+        👾 홀로그래픽
+      </button>
+      <!-- 다른 버튼들... -->
+    </div>
+
+    <!-- 동적 배경 컴포넌트 렌더링 -->
+    <div class="hero-background">
+      <component :is="currentBackgroundComponent" />
+    </div>
+
+    <!-- 히어로 컨텐츠 -->
     <div class="hero-content">
       <h1>클라우드·데이터·AI로 여는 비즈니스 혁신</h1>
       <p>혁신적인 기술과 전문성을 바탕으로 고객의 경쟁력을 높이는 최적의 솔루션을 제공합니다</p>
       <div class="services-preview">
-        <div class="service-tag" @click="handleServiceClick('cloudwai')">Cloud Service</div>
-        <div class="service-tag" @click="handleServiceClick('datawai')">Data Service</div>
-        <div class="service-tag" @click="handleServiceClick('dapq')">AI Service</div>
-        <div class="service-tag" @click="handleServiceClick('kubesync')">DevOps Service</div>
+        <div class="service-tag" @click="goToSolution('cloudwai')">Cloud Service</div>
+        <div class="service-tag" @click="goToSolution('datawai')">Data Service</div>
+        <div class="service-tag" @click="goToSolution('dapq')">AI Service</div>
+        <div class="service-tag" @click="goToSolution('kubesync')">DevOps Service</div>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import { backgroundComponents } from '../components/designs'
+
 export default {
   name: 'HeroSection',
-  emits: ['go-to-solution'],
+  props: {
+    backgroundType: {
+      type: String,
+      default: 'cyber',
+      validator: (value) => ['milkyway', 'minimal', 'cyber', 'fluid', 'neural', 'holographic'].includes(value)
+    },
+    showSelector: {
+      type: Boolean,
+      default: false // 개발 모드에서만 true로 설정
+    },
+  },
+  computed: {
+    currentBackgroundComponent() {
+      return backgroundComponents[this.backgroundType] || backgroundComponents.milkyway
+    }
+  },
   methods: {
-    handleServiceClick(solutionType) {
+    goToSolution(solutionType) {
       this.$emit('go-to-solution', solutionType)
     }
   }
@@ -27,82 +75,106 @@ export default {
 
 <style scoped>
 .hero {
-  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
-  background: url('../assets/hero_bg2.jpg') center/cover no-repeat;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-/* 어둡게 오버레이 (콘텐츠 클릭 막지 않도록) */
-.hero::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: rgba(0,0,0,.4);
-  pointer-events: none;
-}
-
-.hero::before {
-  content: '';
+.hero-background {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="30" cy="25" r="1.5" fill="rgba(255,255,255,0.05)"/><circle cx="60" cy="15" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.05)"/><circle cx="20" cy="60" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="45" cy="75" r="1.5" fill="rgba(255,255,255,0.05)"/><circle cx="70" cy="85" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="70" r="1.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
-/* .hero-content {
-  text-align: center;
-  color: white;
-  max-width: 800px;
-  padding: 0 20px;
-  position: relative;
-  z-index: 2;
-} */
+.hero-background :deep(.background-container) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
-/* .hero h1 {
+.hero-background :deep(.background-svg) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.background-selector {
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  z-index: 10;
+  display: flex;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.bg-btn {
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.bg-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.bg-btn.active {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  max-width: min(1100px, 96vw);
+  padding: 0 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  /* h1, p 세로로 쌓기 */
+  align-items: center;
+  /* 가로축 중앙 */
+  justify-content: center;
+  /* 세로축 중앙 */
+}
+
+.hero h1 {
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 20px;
   opacity: 0;
   transform: translateY(30px);
   animation: fadeInUp 1s ease forwards;
-} */
-.hero-content {
-  position: relative; z-index: 1;
-  color: #fff;
-  max-width: min(1100px, 96vw);
-  padding: 0 20px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;   /* h1, p 세로로 쌓기 */
-  align-items: center;      /* 가로축 중앙 */
-  justify-content: center;  /* 세로축 중앙 */
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
-
-.hero h1 {
-  white-space: nowrap;       /* 줄바꿈 금지 */
-  word-break: keep-all;      /* 한국어 임의 분리 방지 */
-  font-size: clamp(1.8rem, 5.2vw, 3rem);
-  line-height: 1.2;
-  font-weight: 700;
-  margin-bottom: 20px;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 1s ease forwards;
-}
-
 
 .hero p {
   font-size: 1.3rem;
   margin-bottom: 40px;
   opacity: 0;
   transform: translateY(30px);
-  animation: fadeInUp 1s ease .2s forwards;
+  animation: fadeInUp 1s ease 0.2s forwards;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 }
 
 .services-preview {
@@ -116,21 +188,23 @@ export default {
 }
 
 .service-tag {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   padding: 12px 24px;
   border-radius: 30px;
   font-weight: 500;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
   cursor: pointer;
   user-select: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .service-tag:hover {
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .service-tag:active {
@@ -149,6 +223,7 @@ export default {
   }
 }
 
+/* 모바일 대응 */
 @media (max-width: 768px) {
   .hero h1 {
     font-size: 2.5rem;
@@ -161,6 +236,38 @@ export default {
   .services-preview {
     flex-direction: column;
     align-items: center;
+    gap: 15px;
+  }
+
+  .service-tag {
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+  }
+
+  .background-selector {
+    flex-direction: column;
+    gap: 8px;
+    top: 10px;
+    right: 10px;
+  }
+
+  .bg-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
   }
 }
+
+/* 반응형 SVG 최적화 */
+/* @media (max-width: 1024px) {
+  .hero-svg {
+    transform: scale(1.1);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-svg {
+    transform: scale(1.2);
+  }
+} */
 </style>

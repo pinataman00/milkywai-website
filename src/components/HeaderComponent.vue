@@ -132,7 +132,7 @@ export default {
 }
 
 .logo-img {
-  height: 200px;
+  height: 180px;
   display: block;
 }
 </style>
