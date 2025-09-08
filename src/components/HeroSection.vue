@@ -1,7 +1,7 @@
 <template>
   <section class="hero" id="home">
     <!-- 배경 선택 컨트롤 (개발용 - 실제 배포시 제거 가능) -->
-    <div class="background-selector" v-if="showSelector">
+    <div class="background-selector" v-if="!showSelector">
       <button @click="$emit('background-changed', 'milkyway')" :class="{ active: backgroundType === 'milkyway' }"
         class="bg-btn">
         🌌 은하수 테크
@@ -14,10 +14,6 @@
         class="bg-btn">
         🐭 미니멀 그리드
       </button>
-      <!-- <button @click="$emit('background-changed', 'neural')" :class="{ active: backgroundType === 'neural' }"
-        class="bg-btn">
-        🤖 뉴럴 AI
-      </button> -->
       <button @click="$emit('background-changed', 'holographic')" :class="{ active: backgroundType === 'holographic' }"
         class="bg-btn">
         👾 홀로그래픽
@@ -111,7 +107,9 @@ export default {
   position: absolute;
   top: 80px;
   right: 20px;
-  z-index: 10;
+  /* z-index: 10; */
+  /* TODO 250908) z-index 수정 */
+  z-index: 1000;
   display: flex;
   gap: 10px;
   background: rgba(0, 0, 0, 0.5);
@@ -142,6 +140,7 @@ export default {
   border-color: rgba(255, 255, 255, 0.6);
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
+
 .hero-content {
   position: relative;
   z-index: 1;
@@ -166,6 +165,8 @@ export default {
   transform: translateY(30px);
   animation: fadeInUp 1s ease forwards;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+  line-height: 1.2; /* TODO 250908 추가함 */
 }
 
 .hero p {
@@ -175,6 +176,8 @@ export default {
   transform: translateY(30px);
   animation: fadeInUp 1s ease 0.2s forwards;
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  /* TODO 아래 내용 추가함 */
+  line-height: 1.6;
 }
 
 .services-preview {
@@ -198,6 +201,8 @@ export default {
   cursor: pointer;
   user-select: none;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  /* TODO 250908) */
+  min-height: 48px;
 }
 
 .service-tag:hover {
@@ -223,14 +228,50 @@ export default {
   }
 }
 
-/* 모바일 대응 */
-@media (max-width: 768px) {
+/* 태블릿 */
+@media (max-width: 1024px) {
   .hero h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+  }
+}
+
+/* 작은 모바일 */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.8rem;
   }
 
   .hero p {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+
+  .hero-content {
+    padding: 0 30px; /* 좌우 여백 증가 */
+  }
+
+
+  .hero h1 {
+    /* font-size: 2.5rem; */
+    font-size: 2.2rem;
+    line-height: 1.3;
+    margin-bottom: 15px;
+    word-break: keep-all; /* 한글 줄바꿈 개선 */
+  }
+
+  .hero p {
+    /* font-size: 1.1rem; */
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    word-break: keep-all;
   }
 
   .services-preview {
@@ -255,6 +296,11 @@ export default {
   .bg-btn {
     padding: 6px 12px;
     font-size: 0.8rem;
+    /* TODO 250908) 테스트 */
+    touch-action: manipulation;
+    /* 추가 */
+    -webkit-tap-highlight-color: transparent;
+    /* 추가 */
   }
 }
 

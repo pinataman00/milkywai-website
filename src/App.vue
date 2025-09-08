@@ -56,11 +56,7 @@ export default {
     return {
       isScrolled: false,
       activeSolution: 'cloudwai',
-      // TODO 히어로 섹션 구현 중...
-      // 배경 타입 설정: 'milkyway', 'minimal', 'original'
       heroBackgroundType: 'cyber',
-
-      // 개발 모드 설정 (배경 선택 버튼 표시 여부)
       isDevelopmentMode: true // 배포시 false로 변경      
     }
   },

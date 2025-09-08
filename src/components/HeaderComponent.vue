@@ -1,18 +1,21 @@
 <template>
   <header class="header" :class="{ scrolled: isScrolled }">
     <nav class="nav">
-      <!-- <div class="logo"><img :src="logo" alt="milkywai logo" class="logo-img" /></div> -->
       <a class="logo" href="#home">
         <img :src="logo" alt="milkywai logo" class="logo-img" />
       </a>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#solutions">Solutions</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
+      
+      <!-- 데스크톱 메뉴 -->
+      <ul class="nav-links" :class="{ 'mobile-open': isMobileMenuOpen }">
+        <li><a href="#home" @click="closeMobileMenu">Home</a></li>
+        <li><a href="#services" @click="closeMobileMenu">Services</a></li>
+        <li><a href="#solutions" @click="closeMobileMenu">Solutions</a></li>
+        <li><a href="#about" @click="closeMobileMenu">About</a></li>
+        <li><a href="#contact" @click="closeMobileMenu">Contact</a></li>
       </ul>
-      <div class="mobile-menu">
+      
+      <!-- 햄버거 메뉴 버튼 -->
+      <div class="mobile-menu" :class="{ active: isMobileMenuOpen }" @click="toggleMobileMenu">
         <span></span>
         <span></span>
         <span></span>
@@ -22,7 +25,8 @@
 </template>
 
 <script>
-import logo from '../assets/milkywai.svg'   // 로고 이미지 import
+import { ref } from 'vue'
+import logo from '../assets/milkywai.svg'
 
 export default {
   name: 'HeaderComponent',
@@ -33,7 +37,22 @@ export default {
     }
   },
   setup() {
-    return { logo }   // <= 템플릿에 노출
+    const isMobileMenuOpen = ref(false)
+
+    const toggleMobileMenu = () => {
+      isMobileMenuOpen.value = !isMobileMenuOpen.value
+    }
+
+    const closeMobileMenu = () => {
+      isMobileMenuOpen.value = false
+    }
+
+    return { 
+      logo,
+      isMobileMenuOpen,
+      toggleMobileMenu,
+      closeMobileMenu
+    }
   }
 }
 </script>
@@ -74,10 +93,18 @@ export default {
   background-clip: text;
 }
 
+.logo-img {
+  height: 180px;
+  display: block;
+}
+
+/* 데스크톱 스타일 */
 .nav-links {
   display: flex;
   list-style: none;
   gap: 40px;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-links a {
@@ -107,10 +134,16 @@ export default {
   width: 100%;
 }
 
+/* 햄버거 메뉴 - 기본적으로 숨김 */
 .mobile-menu {
   display: none;
   flex-direction: column;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  padding: 10px;
+  margin: -10px;
+  z-index: 1001;
 }
 
 .mobile-menu span {
@@ -121,18 +154,76 @@ export default {
   transition: 0.3s;
 }
 
+/* 모바일 스타일 */
 @media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
-
+  /* 햄버거 메뉴 버튼 보이기 */
   .mobile-menu {
     display: flex;
   }
+
+  /* 네비게이션 메뉴를 사이드바로 변경 */
+  .nav-links {
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    flex-direction: column;
+    background: white;
+    width: 250px;
+    height: calc(100vh - 70px);
+    padding: 20px;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease;
+    z-index: 999;
+    gap: 0; /* 모바일에서는 gap 제거 */
+  }
+
+  /* 모바일 메뉴가 열렸을 때 */
+  .nav-links.mobile-open {
+    right: 0 !important;
+  }
+
+  .nav-links li {
+    margin: 15px 0;
+  }
+
+  .nav-links a {
+    font-size: 1.1rem;
+    padding: 10px 0;
+    display: block;
+  }
+
+  /* 햄버거 메뉴 X 모양 변환 */
+  .mobile-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+
+  .mobile-menu.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
 }
 
-.logo-img {
-  height: 180px;
-  display: block;
+/* 오버레이 추가 (선택사항) */
+@media (max-width: 768px) {
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 </style>
