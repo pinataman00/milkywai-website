@@ -8,16 +8,13 @@
     <!-- <HeroSection :background-type="heroBackgroundType" :show-selector="isDevelopmentMode"
       @go-to-solution="goToSolution" /> -->
 
-<HeroSection 
-  :background-type="heroBackgroundType" 
-  :show-selector="isDevelopmentMode"
-  @background-changed="heroBackgroundType = $event"
-  @go-to-solution="goToSolution"
-/>
+    <HeroSection :background-type="heroBackgroundType" :show-selector="isDevelopmentMode"
+      @background-changed="heroBackgroundType = $event" @go-to-solution="goToSolution" />
 
     <!-- Services Section -->
-    <ServicesSection />
-
+    <!-- <ServicesSection /> -->
+    <!-- <ServiceSection /> -->
+    <ServiceSection @go-to-solution="goToSolution" />
     <!-- Solutions Section -->
     <SolutionsSection :activeSolution="activeSolution" @change-solution="changeSolution" />
 
@@ -35,7 +32,8 @@
 <script>
 import HeaderComponent from './components/HeaderComponent.vue'
 import HeroSection from './components/HeroSection.vue'
-import ServicesSection from './components/ServicesSection.vue'
+// import ServicesSection from './components/ServicesSection.vue'
+import ServiceSection from './components/ServiceSection.vue'
 import SolutionsSection from './components/SolutionsSection.vue'
 import CompanyInfoSection from './components/CompanyInfoSection.vue'
 import ContactSection from './components/ContactSection.vue'
@@ -46,7 +44,8 @@ export default {
   components: {
     HeaderComponent,
     HeroSection,
-    ServicesSection,
+    // ServicesSection,
+    ServiceSection,
     SolutionsSection,
     CompanyInfoSection,
     ContactSection,
@@ -135,4 +134,19 @@ export default {
 
 <style>
 @import './styles/main.css';
+
+/* .solution-detail {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} */
 </style>

@@ -3,7 +3,7 @@
     <div class="solution-hero">
       <div class="solution-hero-content">
         <div class="solution-badge">Data Integration</div>
-        <h3>DataWai</h3>
+        <h3>NeoFlow</h3>
         <p class="solution-tagline">통합 데이터 플랫폼 구축 솔루션</p>
         <p class="solution-description">다양한 데이터 소스로부터 수집, 가공, 적재까지 전 과정을 자동화하여 기업의 데이터 통합 관리를 간편하게 만들어주는 종합 솔루션입니다.</p>
       </div>
@@ -50,7 +50,7 @@
 
 <script>
 export default {
-  name: 'DataWai'
+  name: 'NeoFlow'
 }
 </script>
 

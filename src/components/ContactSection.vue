@@ -1,8 +1,10 @@
 <template>
   <section class="section contact-section" id="contact">
     <div class="container">
-      <h2 class="section-title">Contact Us</h2>
-      <p class="section-subtitle">언제든지 문의해 주세요. 전문가가 친절히 상담해 드리겠습니다.</p>
+      <img :src="logo" alt="milkywai logo" class="logo-img" />
+      <h2 class="section-title contact-title">Contact Us</h2>
+
+      <p class="section-subtitle">언제든지 문의해 주세요. 친절히 상담해 드리겠습니다</p>
 
       <div class="contact-info">
         <div class="contact-item">
@@ -33,11 +35,28 @@
 </template>
 
 <script>
+// import logo from '../assets/milkywai_compound_CI.svg'
+import logo from '../assets/favicon.svg'
+
 export default {
-  name: 'ContactSection'
+  name: 'ContactSection',
+  setup(){
+    return {
+      logo,
+    }
+  }
+
+
 }
 </script>
 
 <style scoped>
-/* 컴포넌트 특화 스타일이 필요한 경우 추가 */
+.logo-img {
+  height: 100px;
+  /* display: block; */
+}
+
+.contact-title {
+  color: white;
+}
 </style>

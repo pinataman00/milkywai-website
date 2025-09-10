@@ -166,6 +166,8 @@ body {
   font-size: 1.1rem;
   line-height: 1.8;
   opacity: 0.9;
+  /* word-break: keep-all; */
+  text-align: justify;
 }
 
 .solution-hero-visual {
@@ -387,10 +389,14 @@ body {
 
   .solution-tagline {
     font-size: 1.2rem;
+    word-break: keep-all;
   }
 
   .solution-features {
     padding: 40px 30px;
+  }
+  .solution-features p {
+    word-break: keep-all;
   }
 
   .features-grid {

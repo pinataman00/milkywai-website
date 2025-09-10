@@ -29,10 +29,10 @@
         </button>
         <button 
           class="solution-nav-btn" 
-          :class="{ active: activeSolution === 'datawai' }" 
-          @click="changeSolution('datawai')"
+          :class="{ active: activeSolution === 'neoflow' }" 
+          @click="changeSolution('neoflow')"
         >
-          DataWai
+          NeoFlow
         </button>
       </div>
 
@@ -40,7 +40,7 @@
       <CloudWai v-show="activeSolution === 'cloudwai'" />
       <KubeSync v-show="activeSolution === 'kubesync'" />
       <DapQDataQ v-show="activeSolution === 'dapq'" />
-      <DataWai v-show="activeSolution === 'datawai'" />
+      <NeoFlow v-show="activeSolution === 'neoflow'" />
     </div>
   </section>
 </template>
@@ -49,7 +49,7 @@
 import CloudWai from './solutions/CloudWai.vue'
 import KubeSync from './solutions/KubeSync.vue'
 import DapQDataQ from './solutions/DapQDataQ.vue'
-import DataWai from './solutions/DataWai.vue'
+import NeoFlow from './solutions/NeoFlow.vue'
 
 export default {
   name: 'SolutionsSection',
@@ -57,7 +57,7 @@ export default {
     CloudWai,
     KubeSync,
     DapQDataQ,
-    DataWai
+    NeoFlow
   },
   props: {
     activeSolution: {
@@ -98,6 +98,7 @@ export default {
   font-size: 1.2rem;
   color: #666;
   margin-bottom: 60px;
+  word-break: keep-all;
 }
 
 .solutions-section {
