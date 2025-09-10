@@ -209,14 +209,11 @@ export default {
   overflow: hidden;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-  /* background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
-  box-shadow: 0 8px 25px rgba(23, 162, 184, 0.4); */
 }
 
 .main-floating-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
-  /* box-shadow: 0 12px 35px rgba(23, 162, 184, 0.6); */
 }
 
 .main-floating-btn .btn-icon {
