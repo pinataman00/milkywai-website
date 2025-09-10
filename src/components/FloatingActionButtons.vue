@@ -2,7 +2,11 @@
   <div class="floating-actions">
     <!-- 메인 플로팅 버튼 (채팅 상담) -->
     <div class="main-floating-btn" @click="openChatConsultation">
-      <div class="btn-icon">💬</div>
+      <!-- <div class="btn-icon">💬</div> -->
+      <div class="btn-icon">
+      <img :src="logo" alt="milkywai logo" class="logo-img" />
+        
+      </div>
       <!-- <div class="btn-text">상담</div> -->
       <div class="pulse-ring"></div>
     </div>
@@ -85,13 +89,16 @@
 </template>
 
 <script>
+import logo from '../assets/favicon.svg'
+
 export default {
   name: 'FloatingActionButtons',
   data() {
     return {
       showSubButtons: false,
       showScrollToTop: false,
-      showChatModal: false
+      showChatModal: false,
+      logo,
     }
   },
   mounted() {
@@ -180,27 +187,36 @@ export default {
   gap: 15px;
 }
 
+.logo-img {
+  height: 50px;
+  /* display: block; */
+  filter: brightness(0) invert(1);
+}
+
 .main-floating-btn {
   position: relative;
   width: 70px;
   height: 70px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
   transition: all 0.3s ease;
   color: white;
   border: none;
   overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  /* background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+  box-shadow: 0 8px 25px rgba(23, 162, 184, 0.4); */
 }
 
 .main-floating-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
+  /* box-shadow: 0 12px 35px rgba(23, 162, 184, 0.6); */
 }
 
 .main-floating-btn .btn-icon {
