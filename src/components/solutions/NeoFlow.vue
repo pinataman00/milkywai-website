@@ -26,22 +26,26 @@
         <div class="feature-item">
           <div class="feature-icon">🔌</div>
           <h5>다양한 소스 연계</h5>
-          <p>데이터베이스, 파일, API 등 다양한 데이터 소스와의 통합 연결</p>
+          <p>데이터베이스, 파일, API...</p>
+          <p>모든 소스를 유연하게 통합해 하나의 데이터 허브를 완성합니다</p>
         </div>
         <div class="feature-item">
           <div class="feature-icon">⚙️</div>
           <h5>ETL 자동화</h5>
-          <p>Extract, Transform, Load 과정을 완전 자동화하여 데이터 처리 효율성 극대화</p>
+          <p>Extract, Transform, Load</p>
+          <p>데이터 추출·변환·적재 전 과정을 자동화하여, 압도적인 속도와 효율을 제공합니다</p>
         </div>
         <div class="feature-item">
           <div class="feature-icon">📅</div>
           <h5>스케줄링 관리</h5>
-          <p>데이터 처리 작업의 스케줄링 및 모니터링으로 안정적인 데이터 플로우 보장</p>
+          <p>지능형 스케줄링과 모니터링으로</p>
+          <p>끊김 없는 안정적인 데이터 플로우를 구현합니다</p>
         </div>
         <div class="feature-item">
           <div class="feature-icon">📈</div>
           <h5>데이터 품질 관리</h5>
-          <p>데이터 품질 검증 및 이상 데이터 탐지로 신뢰할 수 있는 분석 기반 제공</p>
+          <p>정교한 품질 검증과 이상 탐지로,</p>
+          <p>신뢰할 수 있는 데이터 기반 의사결정을 지원합니다</p>
         </div>
       </div>
     </div>

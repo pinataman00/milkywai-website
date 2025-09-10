@@ -5,7 +5,8 @@
         <div class="solution-badge">Container Management</div>
         <h3>KubeSync</h3>
         <p class="solution-tagline">MSA와 컨테이너 환경을 위한 통합 관리 솔루션</p>
-        <p class="solution-description">Kubernetes 환경에서 MSA 도입과 컨테이너들을 효율적으로 관리하며, CI/CD부터 모니터링까지 완전 자동화된 DevOps 환경을 제공합니다.</p>
+        <p class="solution-description">Kubernetes 환경에서 MSA 도입과 컨테이너들을 효율적으로 관리하며, CI/CD부터 모니터링까지 완전 자동화된 DevOps 환경을
+          제공합니다.</p>
       </div>
       <div class="solution-hero-visual">
         <div class="kube-diagram">
@@ -25,12 +26,14 @@
         <div class="feature-item">
           <div class="feature-icon">🔧</div>
           <h5>컨테이너 오케스트레이션</h5>
-          <p>컨테이너 관리 및 효율적인 리소스 운영으로 안정적인 서비스 제공</p>
+          <p>컨테이너 관리와 효율적인 리소스 운영</p>
+          <p>안정적인 서비스의 시작입니다</p>
         </div>
         <div class="feature-item">
           <div class="feature-icon">🔄</div>
           <h5>자동화 파이프라인</h5>
-          <p>애플리케이션 빌드부터 배포까지 완전 자동화된 CI/CD 파이프라인 구축</p>
+          <p>애플리케이션 빌드부터 배포까지</p>
+          <p>완전 자동화된 CI/CD 파이프라인 구축</p>
         </div>
         <div class="feature-item">
           <div class="feature-icon">👁️</div>
@@ -40,7 +43,8 @@
         <div class="feature-item">
           <div class="feature-icon">📈</div>
           <h5>Auto Scaling</h5>
-          <p>서비스 부하에 따른 자동 스케일링으로 최적의 성능과 비용 효율성 달성</p>
+          <p>부하에 따라 자동으로 확장되는 스케일링으로</p>
+          <p>성능은 높이고 비용은 줄이세요</p>
         </div>
       </div>
     </div>

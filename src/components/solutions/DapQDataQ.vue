@@ -27,22 +27,26 @@
         <div class="feature-item">
           <div class="feature-icon">💬</div>
           <h5>DapQ - AI Chat</h5>
-          <p>기업 내부 문서와 데이터를 기반으로 한 24/7 자동 응답 시스템</p>
+          <p>기업 전용 지식 기반의 AI 챗봇</p>
+          <p>24/7 즉각적이고 정확한 응답을 제공합니다</p>
         </div>
         <div class="feature-item">
           <div class="feature-icon">🔍</div>
           <h5>DataQ - SQL 자동생성</h5>
-          <p>자연어 질의를 SQL로 자동 변환하여 전문 지식 없이도 데이터 분석 가능</p>
+          <p>자연어 질의를 고도화된 SQL로 자동 변환하여</p>
+          <p>누구나 빠르고 정밀한 데이터 분석을 할 수 있습니다</p>
         </div>
         <div class="feature-item">
           <div class="feature-icon">📚</div>
           <h5>RAG 기반 검색</h5>
-          <p>Retrieval-Augmented Generation을 통한 정확하고 맥락적인 답변 제공</p>
+          <p>Retrieval-Augmented Generation 기술로</p>
+          <p>맥락에 맞고 신뢰성 높은 답변을 제공합니다</p>
         </div>
         <div class="feature-item">
           <div class="feature-icon">🎯</div>
           <h5>맞춤형 학습</h5>
-          <p>기업별 데이터와 업무 특성에 맞춘 개인화된 AI 모델 구축</p>
+          <p>기업 고유의 데이터와 프로세스를 반영한 맞춤형 AI 모델로</p>
+          <p>차별화된 경쟁력을 확보하세요</p>
         </div>
       </div>
     </div>
