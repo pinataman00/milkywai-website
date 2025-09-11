@@ -1,18 +1,16 @@
 <template>
   <div class="floating-actions">
-    <!-- 메인 플로팅 버튼 (채팅 상담) -->
-    <div class="main-floating-btn" @click="openChatConsultation">
-      <!-- <div class="btn-icon">💬</div> -->
+    <!-- 메인 플로팅 버튼 (로고 - 연락처로 이동) -->
+    <div class="main-floating-btn" @click="goToContact">
       <div class="btn-icon">
-      <img :src="logo" alt="milkywai logo" class="logo-img" />
-        
+        <img :src="logo" alt="milkywai logo" class="logo-img" />
       </div>
-      <!-- <div class="btn-text">상담</div> -->
       <div class="pulse-ring"></div>
     </div>
 
     <!-- 서브 액션 버튼들 -->
     <transition-group name="sub-btn" tag="div" class="sub-actions" v-show="showSubButtons">
+      <!-- 전화 문의 버튼 (주석처리 - 나중에 사용 예정)
       <div 
         key="phone"
         class="sub-floating-btn phone-btn" 
@@ -22,7 +20,9 @@
         <div class="btn-icon">📞</div>
         <div class="btn-tooltip">전화 문의</div>
       </div>
+      -->
       
+      <!-- 이메일 버튼 (주석처리 - 나중에 사용 예정)
       <div 
         key="kakao"
         class="sub-floating-btn kakao-btn" 
@@ -32,20 +32,21 @@
         <div class="btn-icon">✉️</div>
         <div class="btn-tooltip">이메일</div>
       </div>
+      -->
       
       <div 
         key="top"
         class="sub-floating-btn top-btn" 
         @click="scrollToTop"
         v-show="showScrollToTop"
-        :style="{ transitionDelay: '0.3s' }"
+        :style="{ transitionDelay: '0.1s' }"
       >
         <div class="btn-icon">⬆️</div>
         <div class="btn-tooltip">맨 위로</div>
       </div>
     </transition-group>
 
-    <!-- 채팅 상담 모달 -->
+    <!-- 채팅 상담 모달 (주석처리 - 나중에 사용 예정)
     <div class="chat-modal-overlay" v-if="showChatModal" @click="closeChatModal">
       <div class="chat-modal" @click.stop>
         <div class="modal-header">
@@ -85,6 +86,7 @@
         </div>
       </div>
     </div>
+    -->
   </div>
 </template>
 
@@ -97,7 +99,7 @@ export default {
     return {
       showSubButtons: false,
       showScrollToTop: false,
-      showChatModal: false,
+      // showChatModal: false, // 주석처리 - 나중에 사용 예정
       logo,
     }
   },
@@ -108,7 +110,10 @@ export default {
     const mainBtn = document.querySelector('.main-floating-btn')
     if (mainBtn) {
       mainBtn.addEventListener('mouseenter', () => {
-        this.showSubButtons = true
+        // 맨 위로 버튼이 표시되어야 할 때만 서브 버튼 표시
+        if (this.showScrollToTop) {
+          this.showSubButtons = true
+        }
       })
       
       // 전체 floating-actions 영역에서 마우스가 벗어날 때 숨김
@@ -126,6 +131,26 @@ export default {
       this.showScrollToTop = window.scrollY > 300
     },
     
+    goToContact() {
+      // Contact 섹션으로 스크롤 이동
+      const contactSection = document.querySelector('#contact')
+      if (contactSection) {
+        const offsetTop = contactSection.offsetTop - 70
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        })
+      }
+    },
+    
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    }
+    
+    /* 주석처리된 메서드들 - 나중에 사용 예정
     openChatConsultation() {
       this.showChatModal = true
     },
@@ -161,16 +186,10 @@ export default {
       // window.location.href = 'kakaotalk://plusfriend/chat/_your_channel_id'
     },
     
-    scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      })
-    },
-    
     openEmail() {
       window.location.href = 'mailto:contact@milkywai.co.kr?subject=서비스 문의&body=안녕하세요. MilkyWai 서비스에 대해 문의드립니다.'
     }
+    */
   }
 }
 </script>
@@ -189,7 +208,6 @@ export default {
 
 .logo-img {
   height: 50px;
-  /* display: block; */
   filter: brightness(0) invert(1);
 }
 
@@ -219,11 +237,6 @@ export default {
 .main-floating-btn .btn-icon {
   font-size: 1.5rem;
   margin-bottom: 2px;
-}
-
-.main-floating-btn .btn-text {
-  font-size: 0.75rem;
-  font-weight: 600;
 }
 
 .pulse-ring {
@@ -345,7 +358,8 @@ export default {
   transform: translateY(20px) scale(0.8);
 }
 
-/* 채팅 모달 */
+/* 채팅 모달 (주석처리된 스타일들) */
+/*
 .chat-modal-overlay {
   position: fixed;
   top: 0;
@@ -482,6 +496,7 @@ export default {
     transform: translateY(0);
   }
 }
+*/
 
 /* 모바일 대응 */
 @media (max-width: 768px) {
@@ -499,10 +514,6 @@ export default {
     font-size: 1.3rem;
   }
   
-  .main-floating-btn .btn-text {
-    font-size: 0.7rem;
-  }
-  
   .sub-floating-btn {
     width: 45px;
     height: 45px;
@@ -512,6 +523,7 @@ export default {
     font-size: 1rem;
   }
   
+  /*
   .consultation-options {
     grid-template-columns: 1fr;
   }
@@ -519,5 +531,6 @@ export default {
   .contact-buttons {
     flex-direction: column;
   }
+  */
 }
 </style>

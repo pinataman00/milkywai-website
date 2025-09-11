@@ -1,29 +1,20 @@
 <template>
   <div id="app">
     <!-- Header -->
-    <HeaderComponent :isScrolled="isScrolled" />
-
+    <HeaderComponent :is-scrolled="isScrolled" @solution-selected="handleSolutionSelected" />
+    <br/>
     <!-- Hero Section -->
-    <!-- <HeroSection @go-to-solution="goToSolution" /> -->
-    <!-- <HeroSection :background-type="heroBackgroundType" :show-selector="isDevelopmentMode"
-      @go-to-solution="goToSolution" /> -->
-
     <HeroSection :background-type="heroBackgroundType" :show-selector="isDevelopmentMode"
       @background-changed="heroBackgroundType = $event" @go-to-solution="goToSolution" />
 
     <!-- Services Section -->
-    <!-- <ServicesSection /> -->
-    <!-- <ServiceSection /> -->
     <ServiceSection @go-to-solution="goToSolution" />
     <!-- Solutions Section -->
     <SolutionsSection :activeSolution="activeSolution" @change-solution="changeSolution" />
-
     <!-- Company Info Section -->
     <CompanyInfoSection />
-
     <!-- Contact Section -->
     <ContactSection />
-
     <!-- Floating Navigation Section -->
     <FloatingActionButtons @consultation-requested="handleConsultationRequest" />
   </div>
@@ -32,7 +23,6 @@
 <script>
 import HeaderComponent from './components/HeaderComponent.vue'
 import HeroSection from './components/HeroSection.vue'
-// import ServicesSection from './components/ServicesSection.vue'
 import ServiceSection from './components/ServiceSection.vue'
 import SolutionsSection from './components/SolutionsSection.vue'
 import CompanyInfoSection from './components/CompanyInfoSection.vue'
@@ -67,6 +57,30 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
+    // HeaderComponent 드롭다운에서 솔루션 선택 시 호출
+    handleSolutionSelected(solutionId) {
+      console.log('Header 드롭다운에서 솔루션 선택:', solutionId)
+      this.activeSolution = solutionId
+
+      // Solutions 섹션으로 부드럽게 스크롤 (HeaderComponent에서도 하지만 확실히 하기 위해)
+      setTimeout(() => {
+        const solutionsSection = document.querySelector('#solutions')
+        if (solutionsSection) {
+          const offsetTop = solutionsSection.offsetTop - 70
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          })
+        }
+      }, 100)
+    },
+
+    // SolutionsSection에서 솔루션 변경 시 호출
+    handleSolutionChanged(solutionId) {
+      console.log('SolutionsSection에서 솔루션 변경:', solutionId)
+      this.activeSolution = solutionId
+    },
+
     handleScroll() {
       this.isScrolled = window.scrollY > 50
     },
@@ -135,18 +149,48 @@ export default {
 <style>
 @import './styles/main.css';
 
-/* .solution-detail {
-  animation: fadeInUp 0.6s ease forwards;
+/* ✅ 메인 컨텐츠 여백 관리 */
+.main-content {
+  /* Header가 fixed일 때를 대비한 상단 여백 */
+  margin-top: var(--header-height, 70px);
+  
+  /* 모바일에서 추가 여백 */
+  padding-top: 0;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* 📱 모바일 전용 여백 조정 */
+@media (max-width: 768px) {
+  .main-content {
+    /* 모바일에서 더 많은 상단 여백 */
+    margin-top: var(--header-height-mobile, 60px);
+    padding-top: 20px; /* 추가 여백 */
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+}
+
+/* 🖥️ 데스크톱에서는 여백 최소화 */
+@media (min-width: 769px) {
+  .main-content {
+    margin-top: var(--header-height-desktop, 70px);
+    padding-top: 0;
   }
-} */
+}
+
+/* ✅ CSS 변수를 통한 유연한 관리 */
+:root {
+  --header-height: 70px;
+  --header-height-mobile: 60px;
+  --header-height-desktop: 70px;
+  
+  /* 섹션 간 기본 여백 */
+  --section-gap: 2rem;
+  --section-gap-mobile: 1.5rem;
+}
+
+/* 📱 추가 모바일 최적화 */
+@media (max-width: 480px) {
+  .main-content {
+    margin-top: 50px; /* 더 작은 화면에서는 더 작은 여백 */
+    padding-top: 15px;
+  }
+}
 </style>

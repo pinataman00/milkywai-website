@@ -32,7 +32,6 @@
       <p>혁신적인 기술과 전문성을 바탕으로 고객의 경쟁력을 높이는 최적의 솔루션을 제공합니다</p>
       <div class="services-preview">
         <div class="service-tag" @click="goToSolution('cloudwai')">Cloud Service</div>
-        <!-- <div class="service-tag" @click="goToSolution('datawai')">Data Service</div> -->
         <div class="service-tag" @click="goToSolution('neoflow')">Data Service</div>
         <div class="service-tag" @click="goToSolution('dapq')">AI Service</div>
         <div class="service-tag" @click="goToSolution('kubesync')">DevOps Service</div>

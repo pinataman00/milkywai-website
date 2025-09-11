@@ -122,7 +122,6 @@ const serviceSolutionMapping = {
   'consulting': null,
   'cloud': 'cloudwai',
   'ai': 'dapq',
-  // 'data': 'datawai',
   'data': 'neoflow',
   'devops': 'kubesync'
 }
