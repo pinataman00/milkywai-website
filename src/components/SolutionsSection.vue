@@ -3,20 +3,20 @@
     <div class="container">
       <h2 class="section-title">Our Solutions</h2>
       <p class="section-subtitle">혁신적인 기술을 바탕으로 다양한 솔루션을 제공합니다</p>
-      
+
       <!-- Solution Navigation -->
-      <div class="solution-nav">
+      <div class="solution-nav" :class="{ 'nav-at-top': isNavAtTop }">
         <div class="solution-nav-item">
-          <button 
-            class="solution-nav-btn" 
-            :class="{ active: activeSolution === 'cloudwai' }" 
-            @click="changeSolution('cloudwai')"
-          >
+          <button class="solution-nav-btn" :class="{ active: activeSolution === 'cloudwai' }"
+            @click="changeSolution('cloudwai')">
             CloudWai
           </button>
           <div class="solution-tooltip">
             <div class="tooltip-content">
-              <h4>☁️ CloudWai</h4>
+              <div class="tooltip-solution-title">
+                <h4>☁️ CloudWai</h4>
+                <p>클라우드웨이</p>
+              </div>
               <p>클라우드 인프라 자동구성 및 통합관리 솔루션</p>
               <span class="tooltip-detail">프로비저닝-빌링-모니터링, One-Stop 관리</span>
             </div>
@@ -25,16 +25,17 @@
         </div>
 
         <div class="solution-nav-item">
-          <button 
-            class="solution-nav-btn" 
-            :class="{ active: activeSolution === 'kubesync' }" 
-            @click="changeSolution('kubesync')"
-          >
-            KubeSync
+          <button class="solution-nav-btn" :class="{ active: activeSolution === 'kubesync' }"
+            @click="changeSolution('kubesync')">
+            Orkis
           </button>
           <div class="solution-tooltip">
             <div class="tooltip-content">
-              <h4>⚙️ KubeSync</h4>
+
+              <div class="tooltip-solution-title">
+                <h4>⚙️ Orkis</h4>
+                <p>오르키스</p>
+              </div>
               <p>MSA와 컨테이너 환경을 위한 통합 관리 솔루션</p>
               <span class="tooltip-detail">컨테이너부터 CI/CD·모니터링까지 완전 자동화된 DevOps 시스템</span>
             </div>
@@ -43,36 +44,72 @@
         </div>
 
         <div class="solution-nav-item">
-          <button 
-            class="solution-nav-btn" 
-            :class="{ active: activeSolution === 'dapq' }" 
-            @click="changeSolution('dapq')"
-          >
-            DapQ & DataQ
+          <button class="solution-nav-btn" :class="{ active: activeSolution === 'verora' }"
+            @click="changeSolution('verora')">
+            Verora
           </button>
           <div class="solution-tooltip">
             <div class="tooltip-content">
-              <h4>🤖 DapQ & DataQ</h4>
-              <p>생성형 AI 기반 데이터 분석 및 질의응답 솔루션</p>
-              <span class="tooltip-detail">AI 채팅 서비스와 자연어-SQL 변환 플랫폼</span>
+              <div class="tooltip-solution-title">
+                <h4>🤖 Verora</h4>
+                <p>베로라</p>
+              </div>
+              <p>RAG 기반 생성형 AI 채팅 서비스</p>
+              <span class="tooltip-detail">기업 내부 데이터 기반 24/7 지능형 고객 지원</span>
             </div>
             <div class="tooltip-arrow"></div>
           </div>
         </div>
 
         <div class="solution-nav-item">
-          <button 
-            class="solution-nav-btn" 
-            :class="{ active: activeSolution === 'neoflow' }" 
-            @click="changeSolution('neoflow')"
-          >
+          <button class="solution-nav-btn" :class="{ active: activeSolution === 'dataq' }"
+            @click="changeSolution('dataq')">
+            Siora
+          </button>
+          <div class="solution-tooltip">
+            <div class="tooltip-content">
+              <div class="tooltip-solution-title">
+                <h4>🔍 Siora</h4>
+                <p>시오라</p>
+              </div>
+              <p>자연어를 SQL로 변환하는 데이터 분석 플랫폼</p>
+              <span class="tooltip-detail">SQL 지식 없이도 누구나 쉽게 데이터 분석 가능</span>
+            </div>
+            <div class="tooltip-arrow"></div>
+          </div>
+        </div>
+
+        <div class="solution-nav-item">
+          <button class="solution-nav-btn" :class="{ active: activeSolution === 'neoflow' }"
+            @click="changeSolution('neoflow')">
             NeoFlow
           </button>
           <div class="solution-tooltip">
             <div class="tooltip-content">
-              <h4>📊 NeoFlow</h4>
+              <div class="tooltip-solution-title">
+                <h4>📊 NeoFlow</h4>
+                <p>네오플로우</p>
+              </div>
               <p>통합 데이터 플랫폼 구축 솔루션</p>
               <span class="tooltip-detail">데이터 수집, 가공, 적재까지의 전과정 자동화</span>
+            </div>
+            <div class="tooltip-arrow"></div>
+          </div>
+        </div>
+
+        <div class="solution-nav-item">
+          <button class="solution-nav-btn" :class="{ active: activeSolution === 'dovora' }"
+            @click="changeSolution('dovora')">
+            Dovora
+          </button>
+          <div class="solution-tooltip">
+            <div class="tooltip-content">
+              <div class="tooltip-solution-title">
+                <h4>📄 Dovora</h4>
+                <p>도보라</p>
+              </div>
+              <p>AI 기반 지능형 문서 관리 시스템</p>
+              <span class="tooltip-detail">문서 내용 기반 정확한 답변으로 환각 현상 최소화</span>
             </div>
             <div class="tooltip-arrow"></div>
           </div>
@@ -80,27 +117,35 @@
       </div>
 
       <!-- Solution Details -->
-      <CloudWai v-show="activeSolution === 'cloudwai'" />
-      <KubeSync v-show="activeSolution === 'kubesync'" />
-      <DapQDataQ v-show="activeSolution === 'dapq'" />
-      <NeoFlow v-show="activeSolution === 'neoflow'" />
+      <div class="solution-content">
+        <CloudWai v-if="activeSolution === 'cloudwai'" class="solution-item" />
+        <Orkis v-if="activeSolution === 'kubesync'" class="solution-item" />
+        <Verora v-if="activeSolution === 'verora'" class="solution-item" />
+        <Siora v-if="activeSolution === 'dataq'" class="solution-item" />
+        <NeoFlow v-if="activeSolution === 'neoflow'" class="solution-item" />
+        <Dovora v-if="activeSolution === 'dovora'" class="solution-item" />
+      </div>
     </div>
   </section>
 </template>
 
 <script>
 import CloudWai from './solutions/CloudWai.vue'
-import KubeSync from './solutions/KubeSync.vue'
-import DapQDataQ from './solutions/DapQDataQ.vue'
+import Orkis from './solutions/Orkis.vue'
+import Verora from './solutions/Verora.vue'
+import Siora from './solutions/Siora.vue'
 import NeoFlow from './solutions/NeoFlow.vue'
+import Dovora from './solutions/Dovora.vue'
 
 export default {
   name: 'SolutionsSection',
   components: {
     CloudWai,
-    KubeSync,
-    DapQDataQ,
-    NeoFlow
+    Orkis,
+    Verora,
+    Siora,
+    NeoFlow,
+    Dovora
   },
   props: {
     activeSolution: {
@@ -108,10 +153,86 @@ export default {
       default: 'cloudwai'
     }
   },
+  data() {
+    return {
+      isNavAtTop: false
+    }
+  },
   emits: ['change-solution'],
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+    this.handleScroll() // 초기 상태 체크
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   methods: {
+    handleScroll() {
+      const solutionNav = document.querySelector('.solution-nav')
+      if (solutionNav) {
+        const navRect = solutionNav.getBoundingClientRect()
+        const headerHeight = 80
+        // solution-nav가 헤더 바로 아래에 있거나 그 위에 있을 때
+        this.isNavAtTop = navRect.top <= headerHeight + 50
+      }
+    },
     changeSolution(solutionType) {
       this.$emit('change-solution', solutionType)
+
+      // 모바일에서 선택된 버튼이 보이도록 가로 스크롤 조정
+      if (window.innerWidth <= 768) {
+        this.scrollActiveButtonIntoView(solutionType)
+      }
+
+      // PC/모바일 공통으로 solution-nav부터 보이도록 스크롤
+      this.scrollToSolutionDetail()
+    },
+
+    scrollActiveButtonIntoView(solutionType) {
+      // 선택된 버튼을 찾아서 가로 스크롤 영역에서 보이도록 조정
+      this.$nextTick(() => {
+        const activeButton = document.querySelector(`.solution-nav-btn.active`)
+        const navContainer = document.querySelector('.solution-nav')
+
+        if (activeButton && navContainer && window.innerWidth <= 768) {
+          // 버튼이 nav 컨테이너 중앙에 오도록 스크롤
+          const buttonRect = activeButton.getBoundingClientRect()
+          const navRect = navContainer.getBoundingClientRect()
+          const scrollLeft = navContainer.scrollLeft
+
+          const targetScrollLeft = scrollLeft + (buttonRect.left - navRect.left) - (navRect.width / 2) + (buttonRect.width / 2)
+
+          navContainer.scrollTo({
+            left: Math.max(0, targetScrollLeft),
+            behavior: 'smooth'
+          })
+        }
+      })
+    },
+
+    scrollToSolutionDetail() {
+      // DOM 업데이트 후 스크롤
+      this.$nextTick(() => {
+        setTimeout(() => {
+          // solution-nav가 보이도록 스크롤 (PC/모바일 공통)
+          const solutionNav = document.querySelector('.solution-nav')
+
+          if (solutionNav) {
+            const navRect = solutionNav.getBoundingClientRect()
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+            const headerHeight = 80 // 헤더 높이
+            const additionalOffset = 20 // nav 위쪽 여백
+
+            // solution-nav 상단이 헤더 아래 20px 위치에 오도록 계산
+            const targetPosition = scrollTop + navRect.top - headerHeight - additionalOffset
+
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            })
+          }
+        }, 200) // 애니메이션과 조화를 이루는 지연 시간
+      })
     }
   }
 }
@@ -192,6 +313,27 @@ export default {
   padding: 16px 20px;
 }
 
+.tooltip-solution-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.tooltip-solution-title h4 {
+  margin: 0;
+  color: #667eea;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.tooltip-solution-title p {
+  margin: 0;
+  color: #667eea;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
 .tooltip-content h4 {
   margin: 0 0 8px 0;
   color: #667eea;
@@ -199,7 +341,7 @@ export default {
   font-weight: 700;
 }
 
-.tooltip-content p {
+.tooltip-content > p {
   margin: 0 0 8px 0;
   color: #333;
   font-size: 0.95rem;
@@ -239,7 +381,7 @@ export default {
 }
 
 /* 활성화된 버튼의 tooltip 스타일 조정 */
-.solution-nav-btn.active + .solution-tooltip .tooltip-content h4 {
+.solution-nav-btn.active+.solution-tooltip .tooltip-content h4 {
   color: #5a6fd8;
 }
 
@@ -271,6 +413,30 @@ export default {
     transform: translateX(-50%) translateY(-5px);
   }
 
+  /* nav가 화면 상단에 있을 때 모든 tooltip을 아래로 */
+  .solution-nav.nav-at-top .solution-tooltip {
+    bottom: auto;
+    top: 120%;
+  }
+
+  .solution-nav.nav-at-top .solution-tooltip .tooltip-arrow {
+    top: auto;
+    bottom: 100%;
+    border-top: none;
+    border-bottom: 8px solid white;
+  }
+
+  .solution-nav.nav-at-top .solution-tooltip .tooltip-arrow::before {
+    top: auto;
+    bottom: -9px;
+    border-top: none;
+    border-bottom: 8px solid #e9ecef;
+  }
+
+  .solution-nav.nav-at-top .solution-nav-item:hover .solution-tooltip {
+    transform: translateX(-50%) translateY(5px);
+  }
+
   /* 애니메이션 지연 효과 */
   .solution-nav-item:nth-child(1) .solution-tooltip {
     transition-delay: 0s;
@@ -287,6 +453,10 @@ export default {
   .solution-nav-item:nth-child(4) .solution-tooltip {
     transition-delay: 0.3s;
   }
+
+  .solution-nav-item:nth-child(5) .solution-tooltip {
+    transition-delay: 0.4s;
+  }
 }
 
 /* 태블릿 대응 */
@@ -294,22 +464,103 @@ export default {
   .solution-nav {
     gap: 18px;
   }
-  
+
   .solution-nav-btn {
     padding: 12px 25px;
   }
 }
 
+/* Solution Content 애니메이션 */
+.solution-content {
+  position: relative;
+  min-height: 600px;
+  /* 최소 높이 설정으로 레이아웃 안정화 */
+}
+
+.solution-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.solution-item[style*="display: block"],
+.solution-item:not([style*="display: none"]) {
+  opacity: 1;
+  transform: translateY(0);
+  position: relative;
+}
+
+/* 버튼 전환 애니메이션 개선 */
+.solution-nav-btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.solution-nav-btn.active {
+  transform: translateY(-2px) scale(1.02);
+}
+
 @media (max-width: 768px) {
   .solution-nav {
-    flex-direction: column;
-    align-items: center;
+    margin-bottom: 30px;
+    /* 간격 축소 */
+    overflow-x: auto;
+    /* 가로 스크롤 활성화 */
+    overflow-y: hidden;
+    padding: 0 0 15px 0;
+    /* 스크롤바 여백 */
+    scrollbar-width: none;
+    /* Firefox - 스크롤바 숨김 */
+    -ms-overflow-style: none;
+    /* IE/Edge - 스크롤바 숨김 */
+    justify-content: flex-start;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    /* iOS 부드러운 스크롤 */
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    /* 줄바꿈 방지 - 핵심! */
     gap: 15px;
   }
 
+  /* 스크롤바 완전 숨김 (service-nav와 동일) */
+  .solution-nav::-webkit-scrollbar {
+    display: none;
+  }
+
   .solution-nav-btn {
-    width: 280px; /* 일관된 너비 설정 */
-    max-width: 90vw; /* 작은 화면에서 반응형 */
+    flex-shrink: 0;
+    /* 버튼 크기 고정 */
+    white-space: nowrap;
+    /* 텍스트 줄바꿈 방지 */
+    padding: 12px 20px;
+    /* 패딩 service-nav와 유사하게 */
+    font-size: 0.9rem;
+    /* 폰트 크기 */
+    min-width: fit-content;
+    /* 최소 너비 */
+    width: auto;
+    /* 자동 너비 */
+    margin-right: 8px;
+    /* 오른쪽 여백 추가 */
+  }
+
+  .solution-nav-btn:last-child {
+    margin-right: 0;
+    /* 마지막 버튼은 여백 제거 */
+  }
+
+  .solution-content {
+    min-height: 500px;
+    /* 모바일에서는 조금 더 작게 */
+  }
+
+  .solution-item {
+    transform: translateY(15px);
+    /* 모바일에서는 더 작은 이동 */
   }
 }
 </style>

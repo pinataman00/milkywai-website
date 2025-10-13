@@ -12,7 +12,7 @@
       <!-- Navigation -->
       <nav class="service-nav">
         <div v-for="nav in navigationItems" :key="nav.category" class="nav-item"
-          :class="{ active: activeCategory === nav.category }" @click="setActiveCategory(nav.category)">
+          :class="{ active: activeCategory === nav.category }" @click="handleNavItemClick(nav.category)">
           {{ nav.name }}
         </div>
       </nav>
@@ -22,24 +22,26 @@
         <!-- Featured Services (전체 서비스) -->
         <div class="service-category" :class="{ active: activeCategory === 'all' }">
           <!-- Featured Services Header -->
-          <div class="featured-header">
+          <!-- <div class="featured-header">
             <h3 class="featured-title">밀키웨이의 서비스를 소개합니다</h3>
             <p class="featured-subtitle">
               디지털 혁신에 필요한 모든 것
             </p>
-          </div>
+          </div> -->
 
           <!-- Featured Services Grid (데스크톱/태블릿) -->
           <div class="featured-services-grid">
-            <div v-for="(service, index) in featuredServices" :key="service.category" class="featured-service-card"
+            <div v-for="service in featuredServices" :key="service.category" class="featured-service-card"
               :class="{ highlighted: highlightedService === service.category }"
-              @click="setActiveCategory(service.category)" @mouseenter="highlightServiceFromFeatured(service.category)"
+              @click="handleFeaturedServiceClick(service.category)" @mouseenter="highlightServiceFromFeatured(service.category)"
               @mouseleave="clearHighlight">
-              <div class="featured-icon">{{ service.icon }}</div>
-              <h4 class="featured-service-title">{{ service.title }}</h4>
+              <div class="temp">
+                <div class="featured-icon">{{ service.icon }}</div>
+                <h4 class="featured-service-title">{{ service.title }}</h4>
+              </div>
               <p class="featured-service-desc">{{ service.description }}</p>
               <div class="featured-highlights">
-                <div v-for="highlight in service.highlights" :key="highlight" class="featured-highlight">
+                <div v-for="highlight in service.highlights.slice(0, 2)" :key="highlight" class="featured-highlight">
                   {{ highlight }}
                 </div>
               </div>
@@ -49,7 +51,7 @@
           <!-- Mobile Keywords (모바일 전용) -->
           <div class="mobile-services-keywords">
             <button v-for="service in featuredServices" :key="`mobile-${service.category}`" class="mobile-service-btn"
-              @click="setActiveCategory(service.category)">
+              @click="handleFeaturedServiceClick(service.category)">
               <span class="mobile-service-icon">{{ service.icon }}</span>
               <div class="mobile-service-title">{{ service.title }}</div>
               <div class="mobile-service-keyword">{{ service.highlights.join(' · ') }}</div>
@@ -121,14 +123,18 @@ const highlightedService = ref(null)
 const serviceSolutionMapping = {
   'consulting': null,
   'cloud': 'cloudwai',
-  'ai': 'dapq',
+  'dapq': 'dapq',
+  'dataq': 'dataq',
+  'dovora': 'dovora',
   'data': 'neoflow',
   'devops': 'kubesync'
 }
 
 const solutionServiceMapping = {
   'cloudwai': 'cloud',
-  'dapq': 'ai',
+  'dapq': 'dapq',
+  'dataq': 'dataq',
+  'dovora': 'dovora',
   'neoflow': 'data',
   'kubesync': 'devops'
 }
@@ -138,8 +144,10 @@ const navigationItems = reactive([
   { category: 'all', name: '전체 서비스' },
   { category: 'consulting', name: '컨설팅' },
   { category: 'cloud', name: '클라우드' },
-  { category: 'ai', name: 'AI' },
-  { category: 'data', name: '데이터' },
+  { category: 'dapq', name: 'AI 챗봇' },
+  { category: 'dataq', name: '데이터 분석' },
+  { category: 'dovora', name: 'AI 문서관리' },
+  { category: 'data', name: '데이터 플랫폼' },
   { category: 'devops', name: 'DevOps' }
 ])
 
@@ -157,35 +165,49 @@ const featuredServices = reactive([
     category: 'consulting',
     icon: '💡',
     title: '컨설팅',
-    description: '클라우드 전략 수립부터 데이터 활용까지 디지털 전환의 시작점',
+    description: '클라우드 전략 수립부터 데이터 활용까지, 디지털 전환의 완벽한 시작점을 제공합니다',
     highlights: ['전략 수립', '아키텍처 설계', '비용 최적화']
   },
   {
     category: 'cloud',
     icon: '☁️',
     title: '클라우드',
-    description: 'CloudWai와 함께, 클라우드 인프라 자동 구성부터 통합 관리까지',
+    description: 'CloudWai로 클라우드 인프라 자동 구성부터 통합 관리까지 한 번에 해결하세요',
     highlights: ['자동 프로비저닝', '통합 빌링', '실시간 모니터링']
   },
   {
-    category: 'ai',
+    category: 'dapq',
     icon: '🤖',
-    title: 'AI',
-    description: '생성형 AI 기반의 데이터 분석과 질의응답, 해답은 DapQ와 DataQ입니다',
-    highlights: ['AI 채팅', 'SQL 자동변환', 'RAG 검색']
+    title: 'AI 챗봇',
+    description: 'RAG 기술로 기업 데이터를 학습한 지능형 AI가 24시간 고객 응대를 책임집니다',
+    highlights: ['AI 채팅', 'RAG 검색', '24/7 고객지원']
+  },
+  {
+    category: 'dataq',
+    icon: '🔍',
+    title: '데이터 분석',
+    description: '복잡한 SQL 없이 자연어만으로 원하는 데이터 분석 결과를 즉시 확인하세요',
+    highlights: ['자연어 질의', 'SQL 자동변환', '실시간 분석']
+  },
+  {
+    category: 'dovora',
+    icon: '📄',
+    title: 'AI 문서관리',
+    description: 'AI 기반 지능형 문서 관리 시스템으로 문서 검색의 부재로 정보 검색에 시간 소요를 해결합니다',
+    highlights: ['문서 기반 답변', '환각 현상 최소화', '비용 절감']
   },
   {
     category: 'data',
     icon: '📊',
-    title: '데이터',
-    description: 'NeoFlow로 데이터 수집, 가공, 적재까지 통합 데이터 플랫폼을 구축해보세요',
+    title: '데이터 플랫폼',
+    description: 'NeoFlow로 흩어진 데이터를 하나로 통합하여 체계적인 데이터 관리를 실현하세요',
     highlights: ['데이터 통합', 'ETL 자동화', '품질 관리']
   },
   {
     category: 'devops',
     icon: '⚙️',
     title: 'DevOps',
-    description: 'KubeSync로 MSA 환경의 CI/CD부터 관측 가능성까지 완전 자동화할 수 있습니다',
+    description: 'Orkis가 MSA 환경의 복잡한 배포와 운영을 자동화로 간편하게 만들어 드립니다',
     highlights: ['CI/CD 자동화', '컨테이너 관리', '모니터링']
   }
 ])
@@ -230,23 +252,61 @@ const servicesData = reactive([
     visualFeatures: ['자동 프로비저닝', '통합 빌링', '실시간 모니터링', '토폴로지 맵']
   },
   {
-    category: 'ai',
-    badge: 'AI Analytics',
-    name: 'AI 구축 및 운영',
-    description: '생성형 AI와 RAG 기술을 활용한 지능형 서비스를 구축합니다. 기업 내부 데이터를 활용한 AI 채팅 서비스와 자연어를 SQL로 변환하는 데이터 분석 플랫폼을 제공합니다',
+    category: 'dapq',
+    badge: 'AI Chat',
+    name: 'AI 챗봇 서비스',
+    description: '생성형 AI와 RAG 기술을 활용한 지능형 채팅 서비스입니다. 기업 내부 문서와 데이터를 학습하여 정확하고 맞춤형 답변을 제공하며, 24시간 고객 지원이 가능합니다',
     highlights: [
-      '생성형 AI 채팅 서비스 (DapQ)',
-      '자연어 SQL 변환 플랫폼 (DataQ)',
-      'RAG 기반 검색 시스템',
-      'AI 기반 문서 처리 및 분석'
+      'RAG 기반 문서 검색 및 답변 생성',
+      '기업 맞춤형 AI 학습 및 응답',
+      '24/7 자동화된 고객 지원',
+      '다양한 문서 형식 지원 (PDF, Word, Excel 등)'
     ],
-    primaryAction: 'AI 솔루션 상담',
-    secondaryAction: 'DapQ & DataQ 보기',
+    primaryAction: 'Verora 상담 신청',
+    secondaryAction: 'Verora 보기',
     secondaryLink: '#solutions',
     solutionTarget: 'dapq',
     icon: '🤖',
-    visualTitle: '지능형 AI 플랫폼',
-    visualFeatures: ['RAG 기반 검색', '자연어 처리', '실시간 분석', '맞춤형 학습']
+    visualTitle: 'RAG 기반 AI 채팅',
+    visualFeatures: ['문서 임베딩', 'RAG 검색', '실시간 응답', '학습 최적화']
+  },
+  {
+    category: 'dataq',
+    badge: 'Data Analytics',
+    name: '데이터 분석 서비스',
+    description: 'AI를 이용해 자연어 질의를 SQL로 자동 변환하는 혁신적인 플랫폼입니다. SQL 전문 지식 없이도 원하는 데이터를 쉽게 추출하고 분석할 수 있습니다',
+    highlights: [
+      '자연어를 SQL로 실시간 변환',
+      '데이터베이스 스키마 자동 분석',
+      '메타데이터 기반 지능형 매핑',
+      '비즈니스 인사이트 자동 도출'
+    ],
+    primaryAction: 'Siora 상담 신청',
+    secondaryAction: 'Siora 보기',
+    secondaryLink: '#solutions',
+    solutionTarget: 'dataq',
+    icon: '🔍',
+    visualTitle: '자연어 SQL 변환',
+    visualFeatures: ['자연어 이해', 'SQL 생성', '메타데이터 분석', '인사이트 도출']
+  },
+  {
+    category: 'dovora',
+    badge: 'AI Document',
+    name: 'AI 문서 관리 서비스',
+    description: '문서 내용 기반 지능형 답변 시스템으로 기존의 복잡한 문서 관리 방식을 혁신합니다. 정확한 정보 검색과 환각 현상을 최소화하여 신뢰할 수 있는 답변을 제공합니다',
+    highlights: [
+      '문서 정보 기반 정확한 답변 생성',
+      '환각 현상 최소화로 신뢰성 향상',
+      '구축형 솔루션으로 정보 보안 강화',
+      '경량화된 LLM 사용으로 비용 절감'
+    ],
+    primaryAction: 'Dovora 상담 신청',
+    secondaryAction: 'Dovora 보기',
+    secondaryLink: '#solutions',
+    solutionTarget: 'dovora',
+    icon: '📄',
+    visualTitle: '지능형 문서 관리',
+    visualFeatures: ['문서 분석', '질의 응답', '정보 보호', '비용 최적화']
   },
   {
     category: 'data',
@@ -279,7 +339,7 @@ const servicesData = reactive([
       'Auto Scaling 및 성능 최적화'
     ],
     primaryAction: 'DevOps 문의',
-    secondaryAction: 'KubeSync 보기',
+    secondaryAction: 'Orkis 보기',
     secondaryLink: '#solutions',
     solutionTarget: 'kubesync',
     icon: '⚙️',
@@ -309,6 +369,11 @@ const highlightSolutionButton = (solutionType, highlight = true) => {
 // Methods
 const setActiveCategory = (category) => {
   activeCategory.value = category
+  
+  // 카테고리 변경 후 상세 내용으로 스크롤
+  if (category !== 'all') {
+    scrollToServiceDetail()
+  }
 }
 
 const highlightServiceFromFeatured = (serviceCategory) => {
@@ -332,6 +397,61 @@ const clearHighlight = () => {
   })
 }
 
+// 상세 내용으로 스크롤하는 함수 (service-nav가 보이도록 조정)
+const scrollToServiceDetail = () => {
+  // 약간의 지연을 두어 DOM이 업데이트된 후 스크롤
+  setTimeout(() => {
+    // service-nav 영역을 기준으로 스크롤 (nav가 보이도록)
+    const serviceNav = document.querySelector('.service-nav')
+
+    if (serviceNav) {
+      // service-nav가 화면 상단에 보이도록 스크롤
+      const navRect = serviceNav.getBoundingClientRect()
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      const headerHeight = 80 // 헤더 높이
+      const additionalOffset = 20 // service-nav 위쪽 여백
+
+      // service-nav 상단이 헤더 아래 20px 위치에 오도록 계산
+      const targetPosition = scrollTop + navRect.top - headerHeight - additionalOffset
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      })
+    }
+  }, 150) // DOM 업데이트를 위한 충분한 지연
+}
+
+// Featured Service 카드 클릭 핸들러
+const handleFeaturedServiceClick = (category) => {
+  setActiveCategory(category)
+
+  // PC/모바일 공통으로 service-nav가 보이도록 스크롤
+  scrollToServiceDetail()
+}
+
+// 네비게이션 아이템 클릭 핸들러
+const handleNavItemClick = (category) => {
+  setActiveCategory(category)
+
+  // "전체 서비스" 선택 시 HeaderComponent와 동일한 스크롤 위치로 이동
+  if (category === 'all') {
+    setTimeout(() => {
+      const servicesSection = document.querySelector('#services')
+      if (servicesSection) {
+        const offsetTop = servicesSection.offsetTop - 50 // HeaderComponent와 동일한 오프셋
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        })
+      }
+    }, 100)
+  } else {
+    // 개별 서비스 선택 시 service-nav가 보이도록 스크롤 (PC/모바일 공통)
+    scrollToServiceDetail()
+  }
+}
+
 const handleContactClick = (event) => {
   event.preventDefault()
   const contactSection = document.querySelector('#contact')
@@ -352,6 +472,9 @@ const handleSecondaryClick = (service) => {
     // URL 해시 업데이트 및 피드백 효과는 유지
     window.location.hash = `solutions-${service.solutionTarget}`
     showNavigationFeedback(service.solutionTarget)
+
+    // SolutionsSection의 solution-content로 스크롤 이동
+    scrollToSolutionContent(service.solutionTarget)
 
   } else if (service.secondaryLink && service.secondaryLink.startsWith('#')) {
     // 일반적인 앵커 링크 처리
@@ -417,6 +540,44 @@ const showNavigationFeedback = (solutionType) => {
   }
 }
 
+// SolutionsSection의 solution-nav부터 보이도록 스크롤하는 함수
+const scrollToSolutionContent = (solutionTarget) => {
+  // 솔루션 변경이 완료된 후 스크롤
+  setTimeout(() => {
+    const solutionsSection = document.querySelector('#solutions')
+    if (solutionsSection) {
+      // solution-nav가 화면 상단에 보이도록 스크롤
+      const solutionNav = solutionsSection.querySelector('.solution-nav')
+
+      if (solutionNav) {
+        const navRect = solutionNav.getBoundingClientRect()
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+        const headerHeight = 80 // 헤더 높이
+        const additionalOffset = 20 // nav 위쪽 여백
+
+        // solution-nav 상단이 헤더 아래 20px 위치에 오도록 계산
+        const targetPosition = scrollTop + navRect.top - headerHeight - additionalOffset
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        })
+      } else {
+        // fallback: SolutionsSection 상단으로 스크롤
+        const rect = solutionsSection.getBoundingClientRect()
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+        const headerHeight = 80
+        const targetPosition = scrollTop + rect.top - headerHeight
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        })
+      }
+    }
+  }, 300) // 솔루션 전환 애니메이션 완료 후
+}
+
 // Solutions Section에서 호버 이벤트 리스닝
 const handleSolutionHover = (event) => {
   const solutionType = event.detail.solutionType
@@ -458,56 +619,61 @@ onUnmounted(() => {
 window.serviceSection = {
   highlightServiceFromFeatured,
   clearHighlight,
-  setActiveCategory
+  setActiveCategory,
+  scrollToServiceDetail
 }
 
 // Expose methods for parent component
 defineExpose({
   setActiveCategory,
   highlightServiceFromFeatured,
-  clearHighlight
+  clearHighlight,
+  scrollToServiceDetail,
+  handleFeaturedServiceClick,
+  handleNavItemClick
 })
 </script>
 
 <style scoped>
 .services-section {
-  padding: 120px 0;
+  padding: 80px 0;
   background: #fff;
 }
 
 .container {
   max-width: 1600px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 20px;
 }
 
 /* Header */
 .section-header {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 50px;
 }
 
 .section-title {
-  font-size: 3.2rem;
+  font-size: 2.8rem;
   font-weight: 700;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   color: #333;
   letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .section-subtitle {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #666;
-  line-height: 1.8;
-  max-width: 900px;
-  margin: 0 auto 50px;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto 30px;
 }
 
 /* Navigation Tabs */
 .service-nav {
   display: flex;
   justify-content: center;
-  margin-bottom: 80px;
+  margin-bottom: 50px;
   border-bottom: 1px solid #e9ecef;
   flex-wrap: wrap;
   gap: 10px;
@@ -551,39 +717,51 @@ defineExpose({
 /* Featured Services */
 .featured-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 35px;
 }
 
 .featured-title {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .featured-subtitle {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #666;
-  line-height: 1.7;
+  line-height: 1.5;
 }
 
 .featured-services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
   margin-bottom: 80px;
+  margin-top: 15px;
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .featured-service-card {
   background: white;
-  border-radius: 20px;
-  padding: 35px 25px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  padding: 24px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 2px solid transparent;
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  height: auto;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .featured-service-card.highlighted {
@@ -606,60 +784,104 @@ defineExpose({
 }
 
 .featured-service-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
 .featured-service-card:hover::before {
   transform: scaleX(1);
 }
 
+.temp {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
 .featured-icon {
-  width: 70px;
-  height: 70px;
+  width: 38px;
+  height: 38px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 18px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  margin: 0 auto 20px;
+  font-size: 1.1rem;
   color: white;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.2);
+}
+
+.featured-service-card:hover .featured-icon {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35);
+}
+
+.featured-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .featured-service-title {
-  font-size: 1.3rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  color: #333;
-  margin-bottom: 12px;
-  text-align: center;
+  color: #2d3748;
+  margin-bottom: 0;
+  text-align: left;
+  line-height: 1.3;
+  flex: 1;
+  transition: color 0.2s ease;
+}
+
+.featured-service-card:hover .featured-service-title {
+  color: #667eea;
 }
 
 .featured-service-desc {
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 0.95rem;
+  color: #4a5568;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  margin-top: 6px;
+  text-align: left;
+  font-size: 0.85rem;
   word-break: keep-all;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .featured-highlights {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  justify-content: center;
-  margin-bottom: 25px;
+  justify-content: flex-start;
+  margin-top: auto;
 }
 
 .featured-highlight {
-  background: #f8f9fa;
-  color: #667eea;
-  padding: 5px 12px;
-  border-radius: 15px;
-  font-size: 0.8rem;
+  background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+  color: #5a67d8;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
-  border: 1px solid #e9ecef;
+  border: 1px solid #e2e8ff;
+  white-space: nowrap;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(90, 103, 216, 0.08);
+}
+
+.featured-service-card:hover .featured-highlight {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 /* Mobile Services */
@@ -668,39 +890,50 @@ defineExpose({
 }
 
 .mobile-service-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 15px;
-  padding: 20px 12px;
-  text-align: center;
+  background: white;
+  color: #333;
+  border: 2px solid #e9ecef;
+  border-radius: 16px;
+  padding: 20px 18px;
+  text-align: left;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
 }
 
 .mobile-service-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+  border-color: #667eea;
+}
+
+.mobile-service-btn:active {
+  transform: translateY(0);
 }
 
 .mobile-service-icon {
-  font-size: 1.8rem;
-  margin-bottom: 8px;
+  font-size: 2rem;
   display: block;
+  margin-bottom: 4px;
 }
 
 .mobile-service-title {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  margin-bottom: 6px;
+  color: #2d3748;
+  margin-bottom: 4px;
 }
 
 .mobile-service-keyword {
-  font-size: 0.75rem;
-  opacity: 0.9;
+  font-size: 0.85rem;
+  color: #667eea;
   font-weight: 500;
   word-break: keep-all;
+  line-height: 1.5;
 }
 
 /* Individual Service Detail */
@@ -868,16 +1101,16 @@ defineExpose({
 /* Stats Section */
 .stats-section {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  padding: 80px 50px;
+  padding: 60px 40px;
   border-radius: 20px;
   margin-top: 100px;
 }
 
 .stats-title {
   text-align: center;
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   color: #333;
 }
 
@@ -948,15 +1181,21 @@ defineExpose({
 }
 
 /* Responsive Design */
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
   .container {
     max-width: 1200px;
     padding: 0 30px;
   }
 
   .featured-services-grid {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    max-width: 1000px;
+  }
+
+  .featured-service-card {
+    height: 165px;
+    padding: 16px 14px;
   }
 
   .service-detail {
@@ -968,10 +1207,15 @@ defineExpose({
   .service-nav {
     margin-bottom: 60px;
     overflow-x: auto;
-    padding-bottom: 10px;
+    overflow-y: hidden;
+    padding: 0 0 15px 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
     justify-content: flex-start;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
   }
 
   .service-nav::-webkit-scrollbar {
@@ -979,25 +1223,62 @@ defineExpose({
   }
 
   .nav-item {
-    padding: 15px 25px;
-    font-size: 1rem;
+    padding: 12px 20px;
+    font-size: 0.9rem;
     flex-shrink: 0;
     min-width: fit-content;
+    white-space: nowrap;
+    margin-right: 8px;
   }
 
+  .nav-item:last-child {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 968px) {
   .featured-services-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 15px;
+    height: 420px;
   }
 
   .featured-service-card {
-    padding: 30px 20px;
+    padding: 14px;
+    height: 125px;
+    justify-content: space-between;
+  }
+
+  .temp {
+    gap: 10px;
+    margin-bottom: 8px;
   }
 
   .featured-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 1.8rem;
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+  }
+
+  .featured-service-title {
+    font-size: 0.9rem;
+  }
+
+  .featured-service-desc {
+    font-size: 0.75rem;
+    margin-top: 4px;
+    margin-bottom: 6px;
+  }
+
+  .featured-highlights {
+    gap: 4px;
+  }
+
+  .featured-highlight {
+    font-size: 0.65rem;
+    padding: 4px 8px;
   }
 
   .service-detail {
@@ -1037,11 +1318,11 @@ defineExpose({
   }
 
   .services-section {
-    padding: 60px 0;
+    padding: 40px 0;
   }
 
   .section-header {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
   }
 
   .section-title {
@@ -1071,19 +1352,19 @@ defineExpose({
   }
 
   .mobile-services-keywords {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     margin-bottom: 40px;
   }
 
   .featured-header {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   .featured-title {
-    font-size: 1.4rem;
-    margin-bottom: 15px;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
     line-height: 1.3;
   }
 

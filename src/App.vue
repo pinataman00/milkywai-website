@@ -9,6 +9,8 @@
 
     <!-- Services Section -->
     <ServiceSection @go-to-solution="goToSolution" />
+    <!-- Reference Section -->
+    <ReferenceSection />
     <!-- Solutions Section -->
     <SolutionsSection :activeSolution="activeSolution" @change-solution="changeSolution" />
     <!-- Company Info Section -->
@@ -24,6 +26,7 @@
 import HeaderComponent from './components/HeaderComponent.vue'
 import HeroSection from './components/HeroSection.vue'
 import ServiceSection from './components/ServiceSection.vue'
+import ReferenceSection from './components/ReferenceSection.vue'
 import SolutionsSection from './components/SolutionsSection.vue'
 import CompanyInfoSection from './components/CompanyInfoSection.vue'
 import ContactSection from './components/ContactSection.vue'
@@ -36,6 +39,7 @@ export default {
     HeroSection,
     // ServicesSection,
     ServiceSection,
+    ReferenceSection,
     SolutionsSection,
     CompanyInfoSection,
     ContactSection,
@@ -107,7 +111,11 @@ export default {
           e.preventDefault()
           const target = document.querySelector(this.getAttribute('href'))
           if (target) {
-            const offsetTop = target.offsetTop - 70
+            let offsetTop = target.offsetTop - 70
+            // Services 섹션은 section-header까지 포함해서 보이도록 조정
+            if (this.getAttribute('href') === '#services') {
+              offsetTop = target.offsetTop - 50
+            }
             window.scrollTo({
               top: offsetTop,
               behavior: 'smooth'

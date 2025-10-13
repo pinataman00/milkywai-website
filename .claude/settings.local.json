@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/user/Desktop/회사홈페이지 개발/MilkyWai_회사소개/**)",
+      "Read(//c/Users/user/Desktop/img_reference/**)",
+      "Bash(npm run build:*)",
+      "Read(//c/Users/user/Desktop/회사홈페이지 개발/MilkyWai_솔루션/**)",
+      "Bash(npm run dev:*)",
+      "WebSearch",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

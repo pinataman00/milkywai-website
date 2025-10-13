@@ -1,15 +1,18 @@
 <template>
   <div class="floating-actions">
     <!-- 메인 플로팅 버튼 (로고 - 연락처로 이동) -->
-    <div class="main-floating-btn" @click="goToContact">
+    <div class="main-floating-btn" @click="goToContact" v-show="!isInContactSection">
       <div class="btn-icon">
         <img :src="logo" alt="milkywai logo" class="logo-img" />
+        <div class="sparkle sparkle-1"></div>
+        <div class="sparkle sparkle-2"></div>
+        <div class="sparkle sparkle-3"></div>
       </div>
       <div class="pulse-ring"></div>
     </div>
 
     <!-- 서브 액션 버튼들 -->
-    <transition-group name="sub-btn" tag="div" class="sub-actions" v-show="showSubButtons">
+    <transition-group name="sub-btn" tag="div" class="sub-actions" v-show="showSubButtons || isInContactSection">
       <!-- 전화 문의 버튼 (주석처리 - 나중에 사용 예정)
       <div 
         key="phone"
@@ -34,14 +37,18 @@
       </div>
       -->
       
-      <div 
+      <div
         key="top"
-        class="sub-floating-btn top-btn" 
+        class="sub-floating-btn top-btn"
         @click="scrollToTop"
-        v-show="showScrollToTop"
+        v-show="showScrollToTop || isInContactSection"
         :style="{ transitionDelay: '0.1s' }"
       >
-        <div class="btn-icon">⬆️</div>
+        <div class="btn-icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m18 15-6-6-6 6"/>
+          </svg>
+        </div>
         <div class="btn-tooltip">맨 위로</div>
       </div>
     </transition-group>
@@ -99,6 +106,7 @@ export default {
     return {
       showSubButtons: false,
       showScrollToTop: false,
+      isInContactSection: false,
       // showChatModal: false, // 주석처리 - 나중에 사용 예정
       logo,
     }
@@ -129,6 +137,18 @@ export default {
   methods: {
     handleScroll() {
       this.showScrollToTop = window.scrollY > 300
+      this.checkContactSection()
+    },
+
+    checkContactSection() {
+      const contactSection = document.querySelector('#contact')
+      if (contactSection) {
+        const sectionTop = contactSection.offsetTop - 100
+        const sectionBottom = contactSection.offsetTop + contactSection.offsetHeight
+        const scrollPosition = window.scrollY + window.innerHeight / 2
+
+        this.isInContactSection = scrollPosition >= sectionTop && scrollPosition <= sectionBottom
+      }
     },
     
     goToContact() {
@@ -262,6 +282,49 @@ export default {
   }
 }
 
+.sparkle {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.sparkle-1 {
+  width: 4px;
+  height: 4px;
+  top: 15%;
+  right: 20%;
+  animation: sparkle-animation 2s infinite ease-in-out;
+}
+
+.sparkle-2 {
+  width: 3px;
+  height: 3px;
+  top: 60%;
+  left: 15%;
+  animation: sparkle-animation 2s infinite ease-in-out 0.7s;
+}
+
+.sparkle-3 {
+  width: 2px;
+  height: 2px;
+  top: 30%;
+  left: 70%;
+  animation: sparkle-animation 2s infinite ease-in-out 1.4s;
+}
+
+@keyframes sparkle-animation {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .sub-actions {
   display: flex;
   flex-direction: column;
@@ -294,7 +357,10 @@ export default {
 }
 
 .top-btn {
-  background: linear-gradient(135deg, #6c757d, #495057);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
 }
 
 .sub-floating-btn:hover {
@@ -302,8 +368,21 @@ export default {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
+.top-btn:hover {
+  transform: translateY(-2px) scale(1.1);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+}
+
 .sub-floating-btn .btn-icon {
   font-size: 1.2rem;
+}
+
+.top-btn .btn-icon {
+  font-size: 1.3rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-tooltip {

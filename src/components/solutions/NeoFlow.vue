@@ -3,14 +3,64 @@
     <div class="solution-hero">
       <div class="solution-hero-content">
         <div class="solution-badge">Data Integration</div>
-        <h3>NeoFlow</h3>
+        <div class="solution-header">
+          <h3>
+            <span class="solution-name">NeoFlow</span>
+            <span class="solution-pronunciation">네오플로우</span>
+          </h3>
+          <p class="solution-catchphrase">데이터의 흐름을 새롭게 정의하다</p>
+        </div>
         <p class="solution-tagline">통합 데이터 플랫폼 구축 솔루션</p>
         <p class="solution-description">다양한 데이터 소스로부터 수집, 가공, 적재까지 전 과정을 자동화하여 기업의 데이터 통합 관리를 간편하게 만들어주는 종합 솔루션입니다.</p>
       </div>
       <div class="solution-hero-visual">
-        <div class="data-diagram">
-          <div class="data-icon">📊</div>
-          <div class="data-flow" ref="dataFlowContainer">
+        <div class="icon-animation-container">
+          <!-- Main ETL Icon -->
+          <div class="main-icon-wrapper">
+            <div class="stream-icon-container">
+              <i class="fas fa-minus stream-line line-1"></i>
+              <i class="fas fa-minus stream-line line-2"></i>
+              <i class="fas fa-minus stream-line line-3"></i>
+            </div>
+            <div class="icon-label">Data Pipeline</div>
+          </div>
+
+          <!-- ETL Process Flow -->
+          <div class="etl-flow">
+            <div class="etl-stage" :class="{ active: activeStage === 'extract' }">
+              <i class="fas fa-download"></i>
+              <span>Extract</span>
+            </div>
+            <!-- <div class="flow-arrow">
+              <i class="fas fa-arrow-right" :class="{ active: extractActive }"></i>
+            </div> -->
+            <div class="etl-stage" :class="{ active: activeStage === 'transform' }">
+              <i class="fas fa-cogs"></i>
+              <span>Transform</span>
+            </div>
+            <!-- <div class="flow-arrow">
+              <i class="fas fa-arrow-right" :class="{ active: transformActive }"></i>
+            </div> -->
+            <div class="etl-stage" :class="{ active: activeStage === 'load' }">
+              <i class="fas fa-upload"></i>
+              <span>Load</span>
+            </div>
+          </div>
+
+          <!-- Data Sources & Destination -->
+          <!-- <div class="sources-destinations">
+            <div class="destination">
+              <i class="fas fa-warehouse"></i>
+              <span>Data Warehouse</span>
+              <div class="sources">
+                <i class="fas fa-database"></i>
+                <i class="fas fa-file-alt"></i>
+                <i class="fas fa-globe"></i>
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <!-- <div class="data-flow" ref="dataFlowContainer">
             <div v-for="(step, index) in pipelineSteps" :key="step.id" class="flow-item" :ref="`flowItem${index}`">
               <div class="data-step" :class="{
                 active: step.active,
@@ -27,22 +77,269 @@
                 <span class="arrow-vertical">↓</span>
               </div>
             </div>
+          </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="solution-features">
+    <h4>데이터 플랫폼 기능</h4>
+    <div class="features-grid">
+      <div class="feature-item" v-for="feature in features" :key="feature.id">
+        <div class="feature-icon">{{ feature.icon }}</div>
+        <h5>{{ feature.title }}</h5>
+        <p>{{ feature.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="use-case-section" :class="{ 'is-mobile': isMobile }">
+    <h4 @click="toggleAccordion('useCase')">
+      실사용 예시
+      <span class="accordion-icon">{{ accordionStates.useCase ? '−' : '+' }}</span>
+    </h4>
+    <div class="accordion-content" v-show="accordionStates.useCase">
+    <div class="use-case-demo">
+      <div class="use-case-step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h5>데이터 소스 연결</h5>
+          <p>Oracle DB, MySQL, MongoDB, API, 로그 파일 등 다양한 데이터 소스 연결</p>
+        </div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="use-case-step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h5>ETL 프로세스</h5>
+          <p>데이터 정제, 변환, 표준화 작업을 통해 분석 가능한 형태로 가공</p>
+        </div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="use-case-step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h5>데이터 웨어하우스</h5>
+          <p>통합된 데이터를 Data Lake 또는 DW에 적재하여 분석 환경 구축</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-example">
+      <h5>💡 사용 시나리오</h5>
+      <p class="scenario-context">제조업체의 전사 데이터 통합 및 실시간 생산 대시보드 구축</p>
+
+      <div class="before-after-container">
+        <div class="before-card">
+          <div class="card-header">
+            <span class="card-icon">❌</span>
+            <h6>도입 전</h6>
+          </div>
+          <div class="card-content">
+            <div class="card-item">
+              <span class="item-icon">📁</span>
+              <span class="item-text">다양한 데이터 소스 수동 관리</span>
+            </div>
+            <div class="card-item">
+              <span class="item-icon">⏱️</span>
+              <span class="item-text">데이터 통합 작업 수일 소요</span>
+            </div>
+            <div class="card-item">
+              <span class="item-icon">⚠️</span>
+              <span class="item-text">데이터 품질 불안정</span>
+            </div>
+            <div class="card-item">
+              <span class="item-icon">📊</span>
+              <span class="item-text">실시간 현황 파악 불가</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arrow-divider">→</div>
+
+        <div class="after-card">
+          <div class="card-header">
+            <span class="card-icon">✅</span>
+            <h6>NeoFlow 도입 후</h6>
+          </div>
+          <div class="card-content">
+            <div class="card-item">
+              <span class="item-icon">🔗</span>
+              <span class="item-text">모든 데이터 소스 자동 통합</span>
+            </div>
+            <div class="card-item">
+              <span class="item-icon">⚡</span>
+              <span class="item-text">30초 단위 실시간 동기화</span>
+            </div>
+            <div class="card-item">
+              <span class="item-icon">✓</span>
+              <span class="item-text">99.8% 데이터 품질 신뢰도</span>
+            </div>
+            <div class="card-item">
+              <span class="item-icon">📈</span>
+              <span class="item-text">실시간 생산 대시보드 제공</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="solution-features">
-      <h4>데이터 플랫폼 기능</h4>
-      <div class="features-grid">
-        <div class="feature-item" v-for="feature in features" :key="feature.id">
-          <div class="feature-icon">{{ feature.icon }}</div>
-          <h5>{{ feature.title }}</h5>
-          <p>{{ feature.description }}</p>
+    <div class="data-sources-section">
+      <h5>🔌 지원 데이터 소스</h5>
+      <p class="sources-description">다양한 데이터 소스와 손쉽게 연결하여 통합 데이터 플랫폼을 구축하세요</p>
+
+      <div class="source-category">
+        <h6>Database</h6>
+        <div class="source-cards">
+          <div class="source-card">
+            <div class="source-card-icon">🗄️</div>
+            <div class="source-card-name">MySQL</div>
+          </div>
+          <div class="source-card">
+            <div class="source-card-icon">🐘</div>
+            <div class="source-card-name">PostgreSQL</div>
+          </div>
+          <div class="source-card">
+            <div class="source-card-icon">🔷</div>
+            <div class="source-card-name">Oracle DB</div>
+          </div>
+          <div class="source-card">
+            <div class="source-card-icon">🍃</div>
+            <div class="source-card-name">MongoDB</div>
+          </div>
+          <div class="source-card">
+            <div class="source-card-icon">⚡</div>
+            <div class="source-card-name">Redis</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="source-category">
+        <h6>Cloud Storage</h6>
+        <div class="source-cards">
+          <div class="source-card">
+            <div class="source-card-icon">☁️</div>
+            <div class="source-card-name">AWS S3</div>
+          </div>
+          <div class="source-card">
+            <div class="source-card-icon">🔵</div>
+            <div class="source-card-name">Azure Blob</div>
+          </div>
+          <div class="source-card">
+            <div class="source-card-icon">🌐</div>
+            <div class="source-card-name">Google Cloud Storage</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="source-category">
+        <h6>Application & API</h6>
+        <div class="source-cards">
+          <div class="source-card">
+            <div class="source-card-icon">📊</div>
+            <div class="source-card-name">Salesforce</div>
+          </div>
+          <div class="source-card">
+            <div class="source-card-icon">💼</div>
+            <div class="source-card-name">SAP ERP</div>
+          </div>
+          <div class="source-card">
+            <div class="source-card-icon">🔗</div>
+            <div class="source-card-name">REST API</div>
+          </div>
+          <div class="source-card">
+            <div class="source-card-icon">📡</div>
+            <div class="source-card-name">GraphQL</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="source-category">
+        <h6>Streaming & Files</h6>
+        <div class="source-cards">
+          <div class="source-card">
+            <div class="source-card-icon">🚀</div>
+            <div class="source-card-name">Apache Kafka</div>
+          </div>
+          <div class="source-card">
+            <div class="source-card-icon">📋</div>
+            <div class="source-card-name">CSV / Excel</div>
+          </div>
+          <div class="source-card">
+            <div class="source-card-icon">📄</div>
+            <div class="source-card-name">JSON / XML</div>
+          </div>
+          <div class="source-card">
+            <div class="source-card-icon">📝</div>
+            <div class="source-card-name">Log Files</div>
+          </div>
         </div>
       </div>
     </div>
+
+    <div class="pipeline-stats-section">
+      <h5>📈 파이프라인 성능 지표</h5>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-value">50,000+</div>
+          <div class="stat-label">초당 처리 레코드</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-value">99.8%</div>
+          <div class="stat-label">데이터 품질 신뢰도</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🔄</div>
+          <div class="stat-value">실시간</div>
+          <div class="stat-label">데이터 동기화</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📊</div>
+          <div class="stat-value">30+</div>
+          <div class="stat-label">지원 데이터 포맷</div>
+        </div>
+      </div>
+    </div>
+    </div>
   </div>
+
+  <div class="solution-architecture" :class="{ 'is-mobile': isMobile }">
+    <h4 @click="toggleAccordion('architecture')">
+      NeoFlow 아키텍처
+      <span class="accordion-icon">{{ accordionStates.architecture ? '−' : '+' }}</span>
+    </h4>
+    <div class="accordion-content" v-show="accordionStates.architecture">
+    <div class="architecture-diagram">
+      <div class="arch-layer">
+        <h5>Data Sources</h5>
+        <div class="arch-components">
+          <div class="arch-component">RDBMS</div>
+          <div class="arch-component">NoSQL</div>
+          <div class="arch-component">Files & APIs</div>
+        </div>
+      </div>
+      <div class="arch-layer">
+        <h5>Processing Engine</h5>
+        <div class="arch-components">
+          <div class="arch-component">Data Pipeline</div>
+          <div class="arch-component">ETL/ELT Engine</div>
+          <div class="arch-component">Stream Processing</div>
+        </div>
+      </div>
+      <div class="arch-layer">
+        <h5>Data Storage</h5>
+        <div class="arch-components">
+          <div class="arch-component">Data Lake</div>
+          <div class="arch-component">Data Warehouse</div>
+          <div class="arch-component">Analytics Store</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -50,8 +347,19 @@ export default {
   name: 'NeoFlow',
   data() {
     return {
+      isMobile: false,
+      accordionStates: {
+        useCase: false,
+        architecture: false
+      },
       isFlowVisible: false,
       animationTimer: null,
+      activeSource: null,
+      mainIconActive: false,
+      activeStage: null,
+      extractActive: false,
+      transformActive: false,
+      loadActive: false,
       pipelineSteps: [
         { id: 1, name: '수집', active: false, completed: false },
         { id: 2, name: '가공', active: false, completed: false },
@@ -87,23 +395,42 @@ export default {
     }
   },
   mounted() {
-    // 즉시 플로우 표시
-    this.showDataFlow();
+    this.checkMobile();
+    window.addEventListener('resize', this.checkMobile);
 
-    // 1초 후 데모 애니메이션 시작
+    this.showDataFlow();
+    this.startMainIconAnimation();
+    this.startETLAnimation();
+    this.startDataSourceAnimation();
+
     setTimeout(() => {
       this.startPipelineDemo();
     }, 1000);
   },
+
   beforeUnmount() {
-    // 컴포넌트 해제 시 타이머 정리
     if (this.animationTimer) {
       clearTimeout(this.animationTimer);
     }
+    window.removeEventListener('resize', this.checkMobile);
   },
+
   methods: {
+    checkMobile() {
+      this.isMobile = window.innerWidth <= 576;
+      if (!this.isMobile) {
+        this.accordionStates.useCase = true;
+        this.accordionStates.architecture = true;
+      }
+    },
+
+    toggleAccordion(section) {
+      if (this.isMobile) {
+        this.accordionStates[section] = !this.accordionStates[section];
+      }
+    },
+
     showDataFlow() {
-      // 플로우 요소들을 즉시 표시
       this.isFlowVisible = true;
     },
 
@@ -114,16 +441,12 @@ export default {
     },
 
     startPipelineDemo() {
-      // 기존 애니메이션 정리
       this.resetPipeline();
 
-      // 단계별 활성화 애니메이션
       this.pipelineSteps.forEach((step, index) => {
         this.animationTimer = setTimeout(() => {
-          // 현재 단계 활성화
           step.active = true;
 
-          // 0.8초 후 완료 상태로 변경
           this.animationTimer = setTimeout(() => {
             step.active = false;
             step.completed = true;
@@ -131,24 +454,68 @@ export default {
         }, index * 900);
       });
 
-      // 전체 사이클 완료 후 재시작
       const totalDuration = this.pipelineSteps.length * 900 + 800 + 2000;
       this.animationTimer = setTimeout(() => {
-        this.startPipelineDemo(); // 무한 반복
+        this.startPipelineDemo();
       }, totalDuration);
     },
 
     resetPipeline() {
-      // 타이머 정리
       if (this.animationTimer) {
         clearTimeout(this.animationTimer);
       }
 
-      // 파이프라인 상태 초기화
       this.pipelineSteps.forEach(step => {
         step.active = false;
         step.completed = false;
       });
+    },
+
+    startMainIconAnimation() {
+      this.mainIconActive = true;
+      setInterval(() => {
+        this.mainIconActive = !this.mainIconActive;
+      }, 3000);
+    },
+
+    startETLAnimation() {
+      const stages = ['extract', 'transform', 'load'];
+      let currentIndex = 0;
+
+      const animateStage = () => {
+        if (currentIndex > 0) {
+          const prevStage = stages[currentIndex - 1];
+          this[prevStage + 'Active'] = false;
+        }
+
+        const currentStage = stages[currentIndex];
+        this.activeStage = currentStage;
+        this[currentStage + 'Active'] = true;
+
+        currentIndex = (currentIndex + 1) % stages.length;
+
+        setTimeout(() => {
+          this.activeStage = null;
+          if (currentIndex === 0) {
+            this[stages[2] + 'Active'] = false;
+          }
+          setTimeout(animateStage, 800);
+        }, 1500);
+      };
+
+      setTimeout(animateStage, 1000);
+    },
+
+    startDataSourceAnimation() {
+      setInterval(() => {
+        this.activeSource = !this.activeSource;
+      }, 2500);
+    }
+  },
+
+  beforeDestroy() {
+    if (this.animationTimer) {
+      clearTimeout(this.animationTimer);
     }
   }
 }
@@ -192,17 +559,50 @@ export default {
   margin-bottom: 15px;
 }
 
+.solution-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 50px;
+}
+
+.solution-header h3 {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.solution-name {
+  /* 영문 솔루션명 */
+}
+
+.solution-pronunciation {
+  font-size: 1.3rem;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.solution-catchphrase {
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.85;
+  margin: 0;
+  margin-top: -15px;
+}
+
 .solution-tagline {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   opacity: 0.9;
 }
 
 .solution-description {
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1.8;
   opacity: 0.9;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .solution-hero-visual {
@@ -217,12 +617,260 @@ export default {
   width: 100%;
 }
 
-.data-icon {
-  font-size: 4rem;
-  margin-bottom: 30px;
-  opacity: 0.9;
-  animation: float 3s ease-in-out infinite;
+/* ✅ Font Awesome Icon Animation Styles */
+.solution-hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
 }
+
+.icon-animation-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.main-icon-wrapper {
+  text-align: center;
+  margin-bottom: 40px;
+  z-index: 3;
+}
+
+.stream-icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+}
+
+.stream-line {
+  font-size: 4rem;
+  color: white;
+  filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.3));
+  opacity: 0;
+  transform: scaleX(0);
+  width: 100%;
+  line-height: 0.4;
+}
+
+.stream-line.line-1 {
+  animation: streamBuild 3s ease-in-out infinite;
+  animation-delay: 0s;
+  /* padding: 0px; */
+}
+
+.stream-line.line-2 {
+  animation: streamBuild 3s ease-in-out infinite;
+  animation-delay: 0.3s;
+  margin-left: -40px;
+}
+
+.stream-line.line-3 {
+  animation: streamBuild 3s ease-in-out infinite;
+  animation-delay: 0.6s;
+}
+
+@keyframes streamBuild {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  15% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  85% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+}
+
+.icon-label {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  /* color: white; */
+  opacity: 0.9;
+}
+
+.etl-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.etl-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+.etl-stage.active {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: white;
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+}
+
+.etl-stage i {
+  font-size: 2rem;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.etl-stage.active i {
+  color: #ffd700;
+  animation: iconGlow 1s infinite alternate;
+}
+
+.etl-stage span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  opacity: 0.9;
+}
+
+.flow-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flow-arrow i {
+  font-size: 1.5rem;
+  color: white;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+}
+
+.flow-arrow i.active {
+  color: #4CAF50;
+  opacity: 1;
+  animation: arrowPulse 1s infinite;
+}
+
+.sources-destinations {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 400px;
+}
+
+.sources,
+.destination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  border-radius: 12px;
+  /* background: rgba(255, 255, 255, 0.1); */
+  /* border: 2px solid rgba(255, 255, 255, 0.3); */
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.sources.active,
+.destination.active {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: white;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.sources {
+  position: relative;
+  flex-direction: row !important;
+  gap: 10px;
+}
+
+.sources i {
+  font-size: 1.2rem;
+  color: white;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.sources.active i {
+  opacity: 1;
+  animation: iconGlow 1s infinite alternate;
+}
+
+.destination i {
+  font-size: 2rem;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.destination.active i {
+  color: #ffd700;
+  animation: iconGlow 1s infinite alternate;
+}
+
+.sources span,
+.destination span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+  opacity: 0.9;
+  text-align: center;
+}
+
+@keyframes iconPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes iconGlow {
+  from {
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  }
+
+  to {
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.6);
+  }
+}
+
+@keyframes arrowPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+}
+
 
 @keyframes float {
 
@@ -359,8 +1007,8 @@ export default {
   position: absolute;
   top: -8px;
   right: -8px;
-  background: #4CAF50;
-  color: white;
+  background: white;
+  color: #333;
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -457,6 +1105,248 @@ export default {
   line-height: 1.6;
 }
 
+.use-case-section {
+  padding: 60px;
+  background: #f8f9fa;
+}
+
+.use-case-section h4 {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.use-case-demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.use-case-step {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  min-width: 200px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.use-case-step:hover {
+  transform: translateY(-5px);
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin: 0 auto 15px auto;
+}
+
+.step-content h5 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.step-content p {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.step-arrow {
+  font-size: 1.5rem;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.demo-example {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.demo-example h5 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #333;
+  text-align: center;
+}
+
+.scenario-context {
+  text-align: center;
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.before-after-container {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 25px;
+  align-items: center;
+}
+
+.before-card,
+.after-card {
+  border-radius: 12px;
+  padding: 25px;
+  transition: all 0.3s ease;
+}
+
+.before-card {
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+  border: 2px solid #ffcccc;
+}
+
+.before-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 100, 100, 0.15);
+}
+
+.after-card {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 2px solid #bbf7d0;
+}
+
+.after-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.15);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+  font-size: 1.5rem;
+}
+
+.card-header h6 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  color: #333;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.card-item:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateX(5px);
+}
+
+.item-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.item-text {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.arrow-divider {
+  font-size: 2rem;
+  color: #667eea;
+  font-weight: bold;
+  text-align: center;
+}
+
+.solution-architecture {
+  padding: 60px;
+  background: #f8f9fa;
+}
+
+.solution-architecture h4 {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.architecture-diagram {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.arch-layer {
+  flex: 1;
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.arch-layer h5 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #667eea;
+}
+
+.arch-components {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.arch-component {
+  background: #f8f9fa;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #555;
+  transition: background-color 0.3s ease;
+}
+
+.arch-component:hover {
+  background: #667eea;
+  color: white;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -495,6 +1385,36 @@ export default {
     gap: 25px;
   }
 
+  /* Font Awesome 아이콘 모바일 대응 */
+  .icon-animation-container {
+    height: 280px;
+  }
+
+  .etl-flow {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .flow-arrow {
+    transform: rotate(90deg);
+  }
+
+  .sources-destinations {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .sources,
+  .destination {
+    min-width: 100px;
+  }
+
+  .sources {
+    flex-direction: row;
+    gap: 10px;
+  }
+
   /* 모바일에서 세로 배치 */
   .data-flow {
     flex-direction: column;
@@ -525,6 +1445,523 @@ export default {
 
   .data-arrow.active {
     transform: scale(1.1);
+  }
+
+  .use-case-demo {
+    flex-direction: column;
+  }
+
+  .step-arrow {
+    transform: rotate(90deg);
+  }
+
+  .architecture-diagram {
+    flex-direction: column;
+  }
+
+  .use-case-step {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .before-after-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .arrow-divider {
+    transform: rotate(90deg);
+    font-size: 1.5rem;
+  }
+}
+
+/* Data Sources Section */
+.data-sources-section {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.data-sources-section h5 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #333;
+  text-align: center;
+}
+
+.sources-description {
+  text-align: center;
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 40px;
+}
+
+.source-category {
+  margin-bottom: 35px;
+}
+
+.source-category:last-child {
+  margin-bottom: 0;
+}
+
+.source-category h6 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  border-left: 4px solid #667eea;
+}
+
+.source-cards {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.source-card {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 20px 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  min-width: 150px;
+  flex: 1;
+}
+
+.source-card:hover {
+  transform: translateY(-3px);
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+}
+
+.source-card-icon {
+  font-size: 1.8rem;
+}
+
+.source-card-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* Pipeline Stats Section */
+.pipeline-stats-section {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.pipeline-stats-section h5 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 35px;
+  color: #333;
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px 25px;
+  border-radius: 15px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .source-cards {
+    gap: 12px;
+  }
+
+  .source-card {
+    min-width: 130px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .solution-hero {
+    padding: 40px 20px;
+    gap: 35px;
+  }
+
+  .solution-hero h3 {
+    font-size: 1.8rem;
+    justify-content: center;
+    margin-bottom: 0px;
+  }
+
+  .solution-name {
+    text-align: center;
+  }
+
+  .solution-pronunciation {
+    font-size: 1rem;
+    margin-top: 5px;
+  }
+
+  .solution-header {
+    margin-bottom: 40px;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .solution-catchphrase {
+    text-align: center;
+    margin-top: 0;
+  }
+
+  .solution-tagline {
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .solution-description {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .solution-badge {
+    display: block;
+    text-align: center;
+    margin: 0 auto 25px;
+  }
+
+  .icon-animation-container {
+    height: auto;
+    max-width: 100%;
+    gap: 15px;
+  }
+
+  .main-icon-wrapper {
+    height: 70px;
+    margin-bottom: 20px;
+  }
+
+  .stream-line {
+    font-size: 2.5rem;
+  }
+
+  .etl-flow {
+    gap: 15px;
+  }
+
+  .etl-stage {
+    min-width: 80px;
+    padding: 15px;
+  }
+
+  .etl-stage i {
+    font-size: 1.5rem;
+  }
+
+  .etl-stage span {
+    font-size: 0.75rem;
+  }
+
+  .solution-features, .use-case-section, .solution-architecture {
+    padding: 25px 20px;
+  }
+
+  .solution-features h4, .use-case-section h4, .solution-architecture h4 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+  }
+
+  .features-grid {
+    gap: 15px;
+  }
+
+  .feature-item {
+    padding: 20px;
+  }
+
+  .feature-item h5 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+
+  .feature-item p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .feature-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+
+  .use-case-demo {
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  .use-case-step {
+    padding: 20px;
+    min-width: 180px;
+  }
+
+  .step-number {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  .step-content h5 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  .step-content p {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .step-arrow {
+    font-size: 1.3rem;
+  }
+
+  .demo-example {
+    padding: 20px;
+  }
+
+  .demo-example h5 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+
+  .scenario-context {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .before-after-container {
+    gap: 15px;
+  }
+
+  .before-card, .after-card {
+    padding: 15px;
+  }
+
+  .card-header {
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+  }
+
+  .card-icon {
+    font-size: 1.3rem;
+  }
+
+  .card-header h6 {
+    font-size: 0.95rem;
+  }
+
+  .card-content {
+    gap: 10px;
+  }
+
+  .card-item {
+    padding: 8px;
+    gap: 10px;
+  }
+
+  .item-icon {
+    font-size: 1.1rem;
+  }
+
+  .item-text {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .arrow-divider {
+    font-size: 1.5rem;
+  }
+
+  .data-sources-section,
+  .pipeline-stats-section {
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  .data-sources-section h5,
+  .pipeline-stats-section h5 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+
+  .sources-description {
+    font-size: 0.85rem;
+    margin-bottom: 25px;
+  }
+
+  .source-category {
+    margin-bottom: 25px;
+  }
+
+  .source-category h6 {
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    padding-left: 8px;
+  }
+
+  .source-cards {
+    gap: 10px;
+  }
+
+  .source-card {
+    min-width: 100%;
+    flex: none;
+    padding: 15px 18px;
+  }
+
+  .source-card-icon {
+    font-size: 1.5rem;
+  }
+
+  .source-card-name {
+    font-size: 0.85rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 20px 18px;
+  }
+
+  .stat-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .stat-value {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .arch-layer {
+    padding: 20px;
+  }
+
+  .arch-layer h5 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  .arch-components {
+    gap: 8px;
+  }
+
+  .arch-component {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  /* Accordion styles for mobile */
+  .use-case-section.is-mobile h4,
+  .solution-architecture.is-mobile h4 {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.3s ease;
+  }
+
+  .use-case-section.is-mobile h4:hover,
+  .solution-architecture.is-mobile h4:hover {
+    color: #667eea;
+  }
+
+  .use-case-section.is-mobile h4:active,
+  .solution-architecture.is-mobile h4:active {
+    transform: scale(0.98);
+  }
+
+  .accordion-icon {
+    font-size: 1.5rem;
+    font-weight: 300;
+    transition: transform 0.3s ease;
+    margin-left: 10px;
+  }
+
+  .accordion-content {
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+  }
+
+  .use-case-section.is-mobile .accordion-content,
+  .solution-architecture.is-mobile .accordion-content {
+    animation: accordionSlideDown 0.3s ease;
+  }
+
+  @keyframes accordionSlideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 </style>

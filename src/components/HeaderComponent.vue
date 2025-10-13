@@ -8,7 +8,8 @@
       <!-- 데스크톱/모바일 메뉴 -->
       <ul class="nav-links" :class="{ 'mobile-open': isMobileMenuOpen }">
         <li><a href="#home" @click="closeMobileMenu">Home</a></li>
-        <li><a href="#services" @click="closeMobileMenu">Services</a></li>
+        <li><a href="#services" @click="handleServicesClick">Services</a></li>
+        <li><a href="#reference" @click="closeMobileMenu">Reference</a></li>
         <li class="solutions-dropdown" @mouseenter="showDropdown" @mouseleave="hideDropdown">
           <a href="#solutions" @click="handleSolutionsClick" class="solutions-main-link">
             Solutions
@@ -96,21 +97,33 @@ export default {
       },
       {
         id: 'kubesync',
-        name: 'KubeSync',
+        name: 'Orkis',
         description: 'MSA와 컨테이너 환경 통합 관리',
         icon: '⚙️'
       },
       {
         id: 'dapq',
-        name: 'DapQ & DataQ',
-        description: '생성형 AI 기반 데이터 분석 및 질의응답',
+        name: 'Verora',
+        description: 'RAG 기반 생성형 AI 채팅 서비스',
         icon: '🤖'
+      },
+      {
+        id: 'dataq',
+        name: 'Siora',
+        description: '자연어를 SQL로 변환하는 데이터 분석 플랫폼',
+        icon: '🔍'
       },
       {
         id: 'neoflow',
         name: 'NeoFlow',
         description: '통합 데이터 플랫폼 구축',
         icon: '📊'
+      },
+      {
+        id: 'dovora',
+        name: 'Dovora',
+        description: 'AI 기반 지능형 문서 관리 시스템',
+        icon: '📄'
       }
     ])
 
@@ -145,6 +158,19 @@ export default {
       }, 150)
     }
 
+    const handleServicesClick = (event) => {
+      event.preventDefault()
+
+      // ServiceSection의 "전체 서비스" 카테고리로 설정
+      if (window.serviceSection) {
+        window.serviceSection.setActiveCategory('all')
+      }
+
+      // Services 섹션으로 이동
+      scrollToSection('#services')
+      closeMobileMenu()
+    }
+
     const handleSolutionsClick = (event) => {
       event.preventDefault()
 
@@ -174,7 +200,11 @@ export default {
     const scrollToSection = (selector) => {
       const section = document.querySelector(selector)
       if (section) {
-        const offsetTop = section.offsetTop - 70
+        // Services 섹션은 section-header까지 포함해서 보이도록 조정
+        let offsetTop = section.offsetTop - 70
+        if (selector === '#services') {
+          offsetTop = section.offsetTop - 50 // Services는 더 적은 오프셋으로 헤더까지 잘 보이게
+        }
         window.scrollTo({
           top: offsetTop,
           behavior: 'smooth'
@@ -192,6 +222,7 @@ export default {
       closeMobileMenu,
       showDropdown,
       hideDropdown,
+      handleServicesClick,
       handleSolutionsClick,
       handleSolutionClick,
     }
@@ -306,7 +337,8 @@ export default {
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
-  min-width: 600px;
+  min-width: 650px;
+  max-width: 700px;
   margin-top: 10px;
   border: 1px solid #f0f0f0;
   z-index: 1001;
@@ -342,15 +374,17 @@ export default {
 
 .solutions-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .solution-item {
   display: flex;
   align-items: center;
   gap: 15px;
-  padding: 20px;
+  padding: 18px;
   border-radius: 10px;
   transition: all 0.3s ease;
   text-decoration: none;
@@ -370,30 +404,31 @@ export default {
 }
 
 .solution-icon {
-  font-size: 2rem;
-  width: 50px;
-  height: 50px;
+  font-size: 1.8rem;
+  width: 45px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 12px;
+  border-radius: 10px;
   color: white;
   flex-shrink: 0;
 }
 
 .solution-info h4 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   color: #333;
 }
 
 .solution-info p {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #666;
-  line-height: 1.4;
+  line-height: 1.3;
   margin: 0;
+  word-break: keep-all;
 }
 
 /* 햄버거 메뉴 - 기본적으로 숨김 */
