@@ -4,11 +4,16 @@
       <div class="solution-hero-content">
         <div class="solution-badge">AI Chat Service</div>
         <div class="solution-header">
-          <h3>
-            <span class="solution-name">Verora</span>
-            <span class="solution-pronunciation">베로라</span>
-          </h3>
-          <p class="solution-catchphrase">대화 속에서 진실을 드러내다</p>
+          <div class="header-logo">
+            <img :src="symbolImage" alt="Verora Symbol" class="solution-header-logo">
+          </div>
+          <div class="header-text">
+            <h3>
+              <span class="solution-name">Verora</span>
+              <span class="solution-pronunciation">베로라</span>
+            </h3>
+            <p class="solution-catchphrase">대화 속에서 진실을 드러내다</p>
+          </div>
         </div>
         <p class="solution-tagline">생성형 AI 기반 지능형 채팅 서비스</p>
         <p class="solution-description">RAG(Retrieval-Augmented Generation) 기술로 기업 내부 데이터를 학습하여 정확하고 맞춤형 답변을 제공하는 24/7 AI 고객 지원 솔루션입니다</p>
@@ -27,7 +32,7 @@
 
                 <!-- <i class="fas fa-robot main-icon" :class="{ pulse: mainIconActive }"></i> -->
                 <i class="fas fa-robot main-icon"></i>
-                <div class="icon-label">AI Assistant</div>
+                <!-- <div class="icon-label">AI Assistant</div> -->
               </div>
 
               <!-- Right Chat Bubble -->
@@ -94,7 +99,7 @@
     </div>
 
     <div class="solution-features">
-      <h4>Verora 핵심 기능</h4>
+      <h4>핵심 기능</h4>
       <div class="features-grid">
         <div class="feature-item" v-for="feature in features" :key="feature.id">
           <div class="feature-icon">{{ feature.icon }}</div>
@@ -105,16 +110,11 @@
     </div>
 
     <div class="chat-demo-section" :class="{ 'is-mobile': isMobile }">
-      <h4 @click="toggleAccordion('demo')">
-        실시간 채팅 데모
-        <span class="accordion-icon">{{ accordionStates.demo ? '−' : '+' }}</span>
-      </h4>
       <div class="accordion-content" v-show="accordionStates.demo">
       <div class="chat-container">
         <div class="chat-header">
           <div class="chat-title">
-            <span class="chat-icon">💬</span>
-            Verora AI Assistant
+            <img :src="logoImage" alt="Verora" class="chat-logo">
             <span class="online-status">● 온라인</span>
           </div>
         </div>
@@ -126,7 +126,9 @@
             :class="{ 'user-message': message.isUser, 'ai-message': !message.isUser }"
           >
             <div class="message-content">
-              <div v-if="!message.isUser" class="ai-avatar">🤖</div>
+              <div v-if="!message.isUser" class="ai-avatar">
+                <img :src="symbolImage" alt="Verora AI" class="ai-avatar-img">
+              </div>
               <div class="message-bubble">
                 <span v-if="message.isTyping" class="typing-indicator">
                   <span></span><span></span><span></span>
@@ -147,7 +149,7 @@
 
     <div class="solution-architecture" :class="{ 'is-mobile': isMobile }">
       <h4 @click="toggleAccordion('architecture')">
-        Verora 아키텍처
+        시스템 아키텍처
         <span class="accordion-icon">{{ accordionStates.architecture ? '−' : '+' }}</span>
       </h4>
       <div class="accordion-content" v-show="accordionStates.architecture">
@@ -167,10 +169,15 @@
 </template>
 
 <script>
+import symbolImage from '../../assets/solutions-logo/logo-symbol/Verora_symbol.png'
+import logoImage from '../../assets/solutions-logo/Verora.png'
+
 export default {
   name: 'Verora',
   data() {
     return {
+      symbolImage,
+      logoImage,
       isFlowVisible: false,
       animationTimer: null,
       chatTimer: null,
@@ -478,11 +485,17 @@ export default {
 .solution-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
+  align-items: start;
   gap: 60px;
   padding: 60px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+}
+
+.solution-hero-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .solution-badge {
@@ -505,9 +518,28 @@ export default {
 
 .solution-header {
   display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 50px;
+}
+
+.header-logo {
+  flex-shrink: 0;
+}
+
+.solution-header-logo {
+  height: 5rem;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.header-text {
+  display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 50px;
 }
 
 .solution-header h3 {
@@ -539,20 +571,23 @@ export default {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 5px;
+  margin-top: auto;
   opacity: 0.9;
 }
 
 .solution-description {
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.8;
   opacity: 0.9;
+  word-break: keep-all;
   color: rgba(255, 255, 255, 0.87);
 }
 
 .solution-hero-visual {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  height: 100%;
 }
 
 .ai-diagram {
@@ -566,15 +601,18 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   gap: 30px;
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  height: 100%;
 }
 
 .main-icon-wrapper {
   position: relative;
   text-align: center;
+  margin-top: 80px;
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -912,6 +950,7 @@ export default {
 
 .solution-features {
   padding: 60px;
+  background: white;
 }
 
 .solution-features h4 {
@@ -1059,6 +1098,13 @@ export default {
   font-size: 1.1rem;
 }
 
+.chat-logo {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1) drop-shadow(0 0 0.5px white) drop-shadow(0 0 0.5px white);
+}
+
 .chat-icon {
   font-size: 1.2rem;
 }
@@ -1100,16 +1146,24 @@ export default {
 .ai-avatar, .user-avatar {
   width: 35px;
   height: 35px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
   flex-shrink: 0;
+  border-radius: 8px;
 }
 
 .ai-avatar {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 6px;
+}
+
+.ai-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1) drop-shadow(0 0 1px white) drop-shadow(0 0 1px white);
 }
 
 .user-avatar {
@@ -1242,6 +1296,11 @@ export default {
   .message-bubble { max-width: 85%; font-size: 0.9rem; }
 }
 
+/* Hide accordion icon on PC */
+.accordion-icon {
+  display: none;
+}
+
 /* Accordion styles for mobile */
 @media (max-width: 576px) {
   .chat-demo-section.is-mobile h4,
@@ -1265,6 +1324,7 @@ export default {
   }
 
   .accordion-icon {
+    display: inline;
     font-size: 1.5rem;
     font-weight: 300;
     transition: transform 0.3s ease;
@@ -1293,13 +1353,16 @@ export default {
   }
 
   .solution-hero {
-    padding: 40px 20px;
-    gap: 35px;
+    padding: 50px 20px;
+    gap: 45px;
   }
 
   .solution-hero h3 {
     font-size: 1.8rem;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
     margin-bottom: 0px;
   }
 
@@ -1309,13 +1372,20 @@ export default {
 
   .solution-pronunciation {
     font-size: 1rem;
-    margin-top: 5px;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: -5px;
   }
 
   .solution-header {
+    flex-direction: column;
     margin-bottom: 40px;
     align-items: center;
     gap: 5px;
+  }
+
+  .solution-header-logo {
+    height: 3.6rem;
   }
 
   .solution-catchphrase {

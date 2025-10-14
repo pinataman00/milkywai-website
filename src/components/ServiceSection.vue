@@ -36,7 +36,10 @@
               @click="handleFeaturedServiceClick(service.category)" @mouseenter="highlightServiceFromFeatured(service.category)"
               @mouseleave="clearHighlight">
               <div class="temp">
-                <div class="featured-icon">{{ service.icon }}</div>
+                <div class="featured-icon" :class="{ 'emoji-icon': typeof service.icon === 'string' && service.icon.length < 5 }">
+                  <img v-if="typeof service.icon !== 'string' || service.icon.length > 5" :src="service.icon" :alt="service.title + ' logo'" class="featured-icon-img">
+                  <template v-else>{{ service.icon }}</template>
+                </div>
                 <h4 class="featured-service-title">{{ service.title }}</h4>
               </div>
               <p class="featured-service-desc">{{ service.description }}</p>
@@ -52,7 +55,10 @@
           <div class="mobile-services-keywords">
             <button v-for="service in featuredServices" :key="`mobile-${service.category}`" class="mobile-service-btn"
               @click="handleFeaturedServiceClick(service.category)">
-              <span class="mobile-service-icon">{{ service.icon }}</span>
+              <span class="mobile-service-icon" :class="{ 'emoji-icon': typeof service.icon === 'string' && service.icon.length < 5 }">
+                <img v-if="typeof service.icon !== 'string' || service.icon.length > 5" :src="service.icon" :alt="service.title + ' logo'" class="mobile-service-icon-img">
+                <template v-else>{{ service.icon }}</template>
+              </span>
               <div class="mobile-service-title">{{ service.title }}</div>
               <div class="mobile-service-keyword">{{ service.highlights.join(' · ') }}</div>
             </button>
@@ -89,12 +95,18 @@
                   {{ service.primaryAction }}
                 </a>
                 <button class="action-btn btn-secondary" @click="handleSecondaryClick(service)">
-                  {{ service.secondaryAction }}
+                  <img v-if="typeof service.icon !== 'string' || service.icon.length > 5" :src="service.icon" :alt="service.name + ' logo'" class="btn-icon">
+                  <span>{{ service.secondaryAction }}</span>
                 </button>
               </div>
             </div>
             <div class="service-visual" @mouseenter="handleVisualHover" @mouseleave="handleVisualLeave">
-              <div class="visual-icon">{{ service.icon }}</div>
+              <!-- 동적 아이콘 컴포넌트 또는 이모지 -->
+              <div class="visual-icon">
+                <component v-if="serviceIconComponents[service.category]"
+                           :is="serviceIconComponents[service.category]" />
+                <template v-else>{{ service.serviceIcon }}</template>
+              </div>
               <h4 class="visual-title">{{ service.visualTitle }}</h4>
               <div class="visual-features">
                 <div v-for="feature in service.visualFeatures" :key="feature" class="visual-feature">
@@ -111,6 +123,24 @@
 
 <script setup>
 import { ref, reactive, onMounted, onUnmounted } from 'vue'
+
+// 심볼 로고 import
+import cloudWaiSymbol from '../assets/solutions-logo/logo-symbol/CloudWai_symbol.png'
+import veroraSymbol from '../assets/solutions-logo/logo-symbol/Verora_symbol.png'
+import sioraSymbol from '../assets/solutions-logo/logo-symbol/Siora_symbol.png'
+import dovoraSymbol from '../assets/solutions-logo/logo-symbol/Dovora_symbol.png'
+import neoFlowSymbol from '../assets/solutions-logo/logo-symbol/NeoFlow_symbol.png'
+import orkisSymbol from '../assets/solutions-logo/logo-symbol/Orkis_symbol.png'
+import faviconIcon from '../assets/favicon.svg'
+
+// Solution icon components import
+import CloudWaiIcon from './solution-icons/CloudWaiIcon.vue'
+import VeroraIcon from './solution-icons/VeroraIcon.vue'
+import SioraIcon from './solution-icons/SioraIcon.vue'
+import DovoraIcon from './solution-icons/DovoraIcon.vue'
+import NeoFlowIcon from './solution-icons/NeoFlowIcon.vue'
+import OrkisIcon from './solution-icons/OrkisIcon.vue'
+import ConsultingIcon from './solution-icons/ConsultingIcon.vue'
 
 // emit 정의 추가 (script setup 최상단에)
 const emit = defineEmits(['go-to-solution'])
@@ -139,6 +169,17 @@ const solutionServiceMapping = {
   'kubesync': 'devops'
 }
 
+// 서비스 카테고리별 아이콘 컴포넌트 매핑
+const serviceIconComponents = {
+  'cloud': CloudWaiIcon,
+  'dapq': VeroraIcon,
+  'dataq': SioraIcon,
+  'dovora': DovoraIcon,
+  'data': NeoFlowIcon,
+  'devops': OrkisIcon,
+  'consulting': ConsultingIcon
+}
+
 // 네비게이션 아이템
 const navigationItems = reactive([
   { category: 'all', name: '전체 서비스' },
@@ -163,49 +204,49 @@ const statsData = reactive([
 const featuredServices = reactive([
   {
     category: 'consulting',
-    icon: '💡',
+    icon: faviconIcon,
     title: '컨설팅',
     description: '클라우드 전략 수립부터 데이터 활용까지, 디지털 전환의 완벽한 시작점을 제공합니다',
     highlights: ['전략 수립', '아키텍처 설계', '비용 최적화']
   },
   {
     category: 'cloud',
-    icon: '☁️',
+    icon: cloudWaiSymbol,
     title: '클라우드',
     description: 'CloudWai로 클라우드 인프라 자동 구성부터 통합 관리까지 한 번에 해결하세요',
     highlights: ['자동 프로비저닝', '통합 빌링', '실시간 모니터링']
   },
   {
     category: 'dapq',
-    icon: '🤖',
+    icon: veroraSymbol,
     title: 'AI 챗봇',
     description: 'RAG 기술로 기업 데이터를 학습한 지능형 AI가 24시간 고객 응대를 책임집니다',
     highlights: ['AI 채팅', 'RAG 검색', '24/7 고객지원']
   },
   {
     category: 'dataq',
-    icon: '🔍',
+    icon: sioraSymbol,
     title: '데이터 분석',
     description: '복잡한 SQL 없이 자연어만으로 원하는 데이터 분석 결과를 즉시 확인하세요',
     highlights: ['자연어 질의', 'SQL 자동변환', '실시간 분석']
   },
   {
     category: 'dovora',
-    icon: '📄',
+    icon: dovoraSymbol,
     title: 'AI 문서관리',
     description: 'AI 기반 지능형 문서 관리 시스템으로 문서 검색의 부재로 정보 검색에 시간 소요를 해결합니다',
     highlights: ['문서 기반 답변', '환각 현상 최소화', '비용 절감']
   },
   {
     category: 'data',
-    icon: '📊',
+    icon: neoFlowSymbol,
     title: '데이터 플랫폼',
     description: 'NeoFlow로 흩어진 데이터를 하나로 통합하여 체계적인 데이터 관리를 실현하세요',
     highlights: ['데이터 통합', 'ETL 자동화', '품질 관리']
   },
   {
     category: 'devops',
-    icon: '⚙️',
+    icon: orkisSymbol,
     title: 'DevOps',
     description: 'Orkis가 MSA 환경의 복잡한 배포와 운영을 자동화로 간편하게 만들어 드립니다',
     highlights: ['CI/CD 자동화', '컨테이너 관리', '모니터링']
@@ -228,6 +269,7 @@ const servicesData = reactive([
     primaryAction: '상담 신청',
     secondaryAction: '포트폴리오 보기',
     secondaryLink: '#portfolio',
+    serviceIcon: '💡',
     icon: '💡',
     visualTitle: '전략적 클라우드 컨설팅',
     visualFeatures: ['아키텍처 설계', '비용 최적화', '보안 강화', '성능 튜닝']
@@ -247,7 +289,8 @@ const servicesData = reactive([
     secondaryAction: 'CloudWai 보기',
     secondaryLink: '#solutions',
     solutionTarget: 'cloudwai',
-    icon: '☁️',
+    serviceIcon: '☁️',
+    icon: cloudWaiSymbol,
     visualTitle: '완전 관리형 클라우드',
     visualFeatures: ['자동 프로비저닝', '통합 빌링', '실시간 모니터링', '토폴로지 맵']
   },
@@ -266,7 +309,8 @@ const servicesData = reactive([
     secondaryAction: 'Verora 보기',
     secondaryLink: '#solutions',
     solutionTarget: 'dapq',
-    icon: '🤖',
+    serviceIcon: '🤖',
+    icon: veroraSymbol,
     visualTitle: 'RAG 기반 AI 채팅',
     visualFeatures: ['문서 임베딩', 'RAG 검색', '실시간 응답', '학습 최적화']
   },
@@ -285,7 +329,8 @@ const servicesData = reactive([
     secondaryAction: 'Siora 보기',
     secondaryLink: '#solutions',
     solutionTarget: 'dataq',
-    icon: '🔍',
+    serviceIcon: '🔍',
+    icon: sioraSymbol,
     visualTitle: '자연어 SQL 변환',
     visualFeatures: ['자연어 이해', 'SQL 생성', '메타데이터 분석', '인사이트 도출']
   },
@@ -304,7 +349,8 @@ const servicesData = reactive([
     secondaryAction: 'Dovora 보기',
     secondaryLink: '#solutions',
     solutionTarget: 'dovora',
-    icon: '📄',
+    serviceIcon: '📄',
+    icon: dovoraSymbol,
     visualTitle: '지능형 문서 관리',
     visualFeatures: ['문서 분석', '질의 응답', '정보 보호', '비용 최적화']
   },
@@ -323,7 +369,8 @@ const servicesData = reactive([
     secondaryAction: 'NeoFlow 보기',
     secondaryLink: '#solutions',
     solutionTarget: 'neoflow',
-    icon: '📊',
+    serviceIcon: '📊',
+    icon: neoFlowSymbol,
     visualTitle: '통합 데이터 플랫폼',
     visualFeatures: ['소스 연계', 'ETL 자동화', '스케줄링', '품질 관리']
   },
@@ -342,7 +389,8 @@ const servicesData = reactive([
     secondaryAction: 'Orkis 보기',
     secondaryLink: '#solutions',
     solutionTarget: 'kubesync',
-    icon: '⚙️',
+    serviceIcon: '⚙️',
+    icon: orkisSymbol,
     visualTitle: '완전 자동화 DevOps',
     visualFeatures: ['CI/CD 자동화', '컨테이너 관리', '모니터링', '오토 스케일링']
   }
@@ -802,7 +850,7 @@ defineExpose({
 .featured-icon {
   width: 38px;
   height: 38px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: transparent;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -811,11 +859,25 @@ defineExpose({
   color: white;
   flex-shrink: 0;
   transition: all 0.3s ease;
+  padding: 4px;
+}
+
+.featured-icon.emoji-icon {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   box-shadow: 0 3px 10px rgba(102, 126, 234, 0.2);
+}
+
+.featured-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .featured-service-card:hover .featured-icon {
   transform: scale(1.1);
+}
+
+.featured-service-card:hover .featured-icon.emoji-icon {
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35);
 }
 
@@ -917,8 +979,22 @@ defineExpose({
 
 .mobile-service-icon {
   font-size: 2rem;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   margin-bottom: 4px;
+  height: 48px;
+}
+
+.mobile-service-icon.emoji-icon {
+  display: block;
+  height: auto;
+}
+
+.mobile-service-icon-img {
+  width: auto;
+  height: 48px;
+  object-fit: contain;
 }
 
 .mobile-service-title {
@@ -982,6 +1058,8 @@ defineExpose({
   line-height: 1.8;
   margin-bottom: 40px;
   word-break: keep-all;
+  text-align: justify;
+  word-spacing: -0.05em;
 }
 
 .service-highlights {
@@ -1020,6 +1098,20 @@ defineExpose({
   border: none;
   cursor: pointer;
   font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(42%) sepia(93%) saturate(571%) hue-rotate(208deg) brightness(95%) contrast(95%);
+}
+
+.btn-secondary:hover .btn-icon {
+  filter: brightness(0) invert(1);
 }
 
 .btn-primary {
@@ -1068,9 +1160,35 @@ defineExpose({
 
 .visual-icon {
   font-size: 4rem;
+  margin-top: 20px;
   margin-bottom: 30px;
   position: relative;
   z-index: 2;
+  color: white;
+  filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.3));
+  animation: cloudFloat 3s ease-in-out infinite;
+  min-height: 150px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 아이콘 컴포넌트가 있을 때는 애니메이션 제거하고 크기 증대 */
+.visual-icon:has(.icon-animation-container) {
+  animation: none;
+  font-size: inherit;
+  filter: none;
+  min-height: 220px;
+}
+
+@keyframes cloudFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
 }
 
 .visual-title {
@@ -1332,8 +1450,8 @@ defineExpose({
   }
 
   .section-subtitle {
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 0.85rem;
+    line-height: 1.5;
     margin-bottom: 30px;
     word-break: keep-all;
   }
@@ -1438,6 +1556,15 @@ defineExpose({
   .stat-desc {
     font-size: 0.75rem;
     line-height: 1.3;
+  }
+
+  .visual-icon {
+    font-size: 2.5rem;
+    min-height: 120px;
+  }
+
+  .visual-icon:has(.icon-animation-container) {
+    min-height: 180px;
   }
 
   .visual-title {
