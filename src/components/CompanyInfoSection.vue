@@ -5,28 +5,28 @@
         <div>
           <h2 class="section-title" style="text-align: left;">Company Information</h2>
           <div class="info-item">
-            <div class="info-icon">🏢</div>
+            <div class="info-icon"><i class="fas fa-building"></i></div>
             <div>
               <strong>회사명</strong><br>
               (주)밀키웨이
             </div>
           </div>
           <div class="info-item">
-            <div class="info-icon">👨‍💼</div>
+            <div class="info-icon"><i class="fas fa-user-tie"></i></div>
             <div>
               <strong>대표이사</strong><br>
               김세정
             </div>
           </div>
           <div class="info-item">
-            <div class="info-icon">📅</div>
+            <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
             <div>
               <strong>설립일자</strong><br>
               2025.01.01
             </div>
           </div>
           <div class="info-item">
-            <div class="info-icon">👥</div>
+            <div class="info-icon"><i class="fas fa-users"></i></div>
             <div>
               <strong>직원 수</strong><br>
               25명

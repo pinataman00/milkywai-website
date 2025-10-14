@@ -102,7 +102,7 @@
       <h4>핵심 기능</h4>
       <div class="features-grid">
         <div class="feature-item" v-for="feature in features" :key="feature.id">
-          <div class="feature-icon">{{ feature.icon }}</div>
+          <div class="feature-icon" v-html="feature.icon"></div>
           <h5>{{ feature.title }}</h5>
           <p v-for="desc in feature.descriptions" :key="desc">{{ desc }}</p>
         </div>
@@ -135,7 +135,7 @@
                 </span>
                 <span v-else>{{ message.text }}</span>
               </div>
-              <div v-if="message.isUser" class="user-avatar">👤</div>
+              <div v-if="message.isUser" class="user-avatar"><i class="fas fa-user"></i></div>
             </div>
           </div>
         </div>
@@ -213,7 +213,7 @@ export default {
       features: [
         {
           id: 1,
-          icon: '💬',
+          icon: '<i class="fas fa-comments"></i>',
           title: 'RAG 기반 검색',
           descriptions: [
             'Retrieval-Augmented Generation 기술로',
@@ -222,7 +222,7 @@ export default {
         },
         {
           id: 2,
-          icon: '📚',
+          icon: '<i class="fas fa-book"></i>',
           title: '다양한 문서 지원',
           descriptions: [
             'PDF, Word, Excel, PPT 등 다양한 문서 형식을',
@@ -231,7 +231,7 @@ export default {
         },
         {
           id: 3,
-          icon: '🎯',
+          icon: '<i class="fas fa-bullseye"></i>',
           title: '맞춤형 학습',
           descriptions: [
             '기업 고유의 데이터와 용어를 반영한',
@@ -240,7 +240,7 @@ export default {
         },
         {
           id: 4,
-          icon: '⏰',
+          icon: '<i class="fas fa-clock"></i>',
           title: '24/7 고객 지원',
           descriptions: [
             '언제든지 즉각적이고 정확한 응답으로',
@@ -249,7 +249,7 @@ export default {
         },
         {
           id: 5,
-          icon: '🔄',
+          icon: '<i class="fas fa-sync-alt"></i>',
           title: '실시간 업데이트',
           descriptions: [
             '새로운 문서나 정보가 추가될 때마다',
@@ -258,7 +258,7 @@ export default {
         },
         {
           id: 6,
-          icon: '🛡️',
+          icon: '<i class="fas fa-shield-alt"></i>',
           title: '보안 및 프라이버시',
           descriptions: [
             '기업 데이터의 보안을 보장하며',
