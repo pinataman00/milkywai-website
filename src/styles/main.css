@@ -108,13 +108,12 @@ body {
 .info-icon {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 20px;
-  color: white;
+  font-size: 1.8rem;
+  color: #667eea;
 }
 
 /* 솔루션 상세 스타일 */
@@ -367,6 +366,10 @@ body {
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
+  .section-subtitle {
+    font-size: 0.95rem;
+  }
+
   .info-grid {
     grid-template-columns: 1fr;
     gap: 40px;

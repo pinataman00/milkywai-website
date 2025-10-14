@@ -65,11 +65,11 @@
           </div>
 
           <!-- Stats Section -->
-          <div class="stats-section">
+          <div class="stats-section" ref="statsSection">
             <h3 class="stats-title">밀키웨이와 함께하는 성과</h3>
             <div class="stats-grid">
               <div v-for="stat in statsData" :key="stat.label" class="stat-item">
-                <div class="stat-number">{{ stat.number }}</div>
+                <div class="stat-number">{{ stat.displayNumber }}</div>
                 <div class="stat-label">{{ stat.label }}</div>
                 <div class="stat-desc">{{ stat.desc }}</div>
               </div>
@@ -194,11 +194,57 @@ const navigationItems = reactive([
 
 // Stats 데이터
 const statsData = reactive([
-  { number: '25+', label: '전문 인력', desc: '클라우드·AI 전문가' },
-  { number: '84%', label: '기술직 비율', desc: '높은 기술 전문성' },
-  { number: '5', label: '자체 솔루션', desc: '검증된 플랫폼' },
-  { number: '24/7', label: '기술 지원', desc: '상시 지원 체계' }
+  { number: '25+', displayNumber: '0', targetNumber: 25, suffix: '+', label: '전문 인력', desc: '클라우드·AI 전문가' },
+  { number: '84%', displayNumber: '0%', targetNumber: 84, suffix: '%', label: '기술직 비율', desc: '높은 기술 전문성' },
+  { number: '6', displayNumber: '0', targetNumber: 6, suffix: '', label: '자체 솔루션', desc: '검증된 플랫폼' },
+  { number: '24/7', displayNumber: '24/7', targetNumber: null, suffix: '', label: '기술 지원', desc: '상시 지원 체계' }
 ])
+
+// Stats 카운트업 애니메이션
+const statsSection = ref(null)
+const hasAnimated = ref(false)
+
+const animateCount = (stat, duration = 2000) => {
+  if (stat.targetNumber === null) return // 24/7 같은 경우는 애니메이션 제외
+
+  const startTime = Date.now()
+  const startValue = 0
+  const endValue = stat.targetNumber
+
+  const updateCount = () => {
+    const currentTime = Date.now()
+    const elapsed = currentTime - startTime
+    const progress = Math.min(elapsed / duration, 1)
+
+    // easeOutExpo 함수 적용
+    const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress)
+    const currentValue = Math.floor(startValue + (endValue - startValue) * easeProgress)
+
+    stat.displayNumber = currentValue + stat.suffix
+
+    if (progress < 1) {
+      requestAnimationFrame(updateCount)
+    } else {
+      stat.displayNumber = stat.number // 최종값 설정
+    }
+  }
+
+  requestAnimationFrame(updateCount)
+}
+
+const handleStatsScroll = () => {
+  if (hasAnimated.value || !statsSection.value) return
+
+  const rect = statsSection.value.getBoundingClientRect()
+  const windowHeight = window.innerHeight
+
+  // Stats 섹션이 화면의 70% 지점에 들어오면 애니메이션 시작
+  if (rect.top < windowHeight * 0.7) {
+    hasAnimated.value = true
+    statsData.forEach(stat => animateCount(stat))
+    window.removeEventListener('scroll', handleStatsScroll)
+  }
+}
 
 // Featured Services
 const featuredServices = reactive([
@@ -657,10 +703,16 @@ onMounted(() => {
 
   // Solutions Section에서의 호버 이벤트 리스닝
   window.addEventListener('solutionHover', handleSolutionHover)
+
+  // Stats 카운트업 애니메이션을 위한 스크롤 이벤트 리스너
+  window.addEventListener('scroll', handleStatsScroll)
+  // 페이지 로드 시에도 체크 (이미 화면에 보이는 경우)
+  handleStatsScroll()
 })
 
 onUnmounted(() => {
   window.removeEventListener('solutionHover', handleSolutionHover)
+  window.removeEventListener('scroll', handleStatsScroll)
 })
 
 // 외부에서 호출할 수 있는 메소드들 (전역으로 노출)

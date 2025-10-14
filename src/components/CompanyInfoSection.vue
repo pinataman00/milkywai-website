@@ -5,7 +5,9 @@
         <div>
           <h2 class="section-title" style="text-align: left;">Company Information</h2>
           <div class="info-item">
-            <div class="info-icon"><i class="fas fa-building"></i></div>
+            <div class="info-icon">
+              <img src="/favicon.svg" alt="MilkyWai" class="company-logo">
+            </div>
             <div>
               <strong>회사명</strong><br>
               (주)밀키웨이
@@ -62,6 +64,12 @@ export default {
 </script>
 
 <style scoped>
+.company-logo {
+  width: 1.5em;
+  height: 1.5em;
+  object-fit: contain;
+}
+
 .business-title {
   margin-bottom: 20px;
   font-size: 1.5rem;
