@@ -4,11 +4,16 @@
       <div class="solution-hero-content">
         <div class="solution-badge">Container Management</div>
         <div class="solution-header">
-          <h3>
-            <span class="solution-name">Orkis</span>
-            <span class="solution-pronunciation">오르키스</span>
-          </h3>
-          <p class="solution-catchphrase">완전 자동화된 DevOps의 교향곡</p>
+          <div class="header-logo">
+            <img :src="symbolImage" alt="Orkis Symbol" class="solution-header-logo">
+          </div>
+          <div class="header-text">
+            <h3>
+              <span class="solution-name">Orkis</span>
+              <span class="solution-pronunciation">오르키스</span>
+            </h3>
+            <p class="solution-catchphrase">완전 자동화된 DevOps의 교향곡</p>
+          </div>
         </div>
         <p class="solution-tagline">MSA와 컨테이너 환경을 위한 통합 관리 솔루션</p>
         <p class="solution-description">Kubernetes 환경에서 MSA 도입과 컨테이너들을 효율적으로 관리하며, CI/CD부터 모니터링까지 완전 자동화된 DevOps 환경을
@@ -18,8 +23,8 @@
         <div class="icon-animation-container">
           <!-- Main Kubernetes Icon -->
           <div class="main-icon-wrapper">
-            <i class="fas fa-cubes main-icon" :class="{ pulse: mainIconActive }"></i>
-            <div class="icon-label">Kubernetes Cluster</div>
+            <i class="fas fa-dharmachakra main-icon"></i>
+            <!-- <div class="icon-label">Kubernetes Cluster</div> -->
           </div>
 
           <!-- Pipeline Flow -->
@@ -59,27 +64,27 @@
     </div>
 
     <div class="solution-features">
-      <h4>핵심 역량</h4>
+      <h4>핵심 기능</h4>
       <div class="features-grid">
         <div class="feature-item">
-          <div class="feature-icon">🔧</div>
+          <div class="feature-icon"><i class="fas fa-wrench"></i></div>
           <h5>컨테이너 오케스트레이션</h5>
           <p>컨테이너 관리와 효율적인 리소스 운영</p>
           <p>안정적인 서비스의 시작입니다</p>
         </div>
         <div class="feature-item">
-          <div class="feature-icon">🔄</div>
+          <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
           <h5>자동화 파이프라인</h5>
           <p>애플리케이션 빌드부터 배포까지</p>
           <p>완전 자동화된 CI/CD 파이프라인 구축</p>
         </div>
         <div class="feature-item">
-          <div class="feature-icon">👁️</div>
+          <div class="feature-icon"><i class="fas fa-eye"></i></div>
           <h5>관측 가능성</h5>
           <p>Log, Metrics, Traces 수집을 통한 강력한 모니터링 및 장애 예방</p>
         </div>
         <div class="feature-item">
-          <div class="feature-icon">📈</div>
+          <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
           <h5>Auto Scaling</h5>
           <p>부하에 따라 자동으로 확장되는 스케일링으로</p>
           <p>성능은 높이고 비용은 줄이세요</p>
@@ -120,30 +125,30 @@
       </div>
 
       <div class="demo-example">
-        <h5>💡 사용 시나리오</h5>
+        <h5><i class="fas fa-lightbulb"></i> 사용 시나리오</h5>
         <p class="scenario-context">전자상거래 플랫폼을 MSA로 전환하여 확장성과 유지보수성 확보</p>
 
         <div class="before-after-container">
           <div class="before-card">
             <div class="card-header">
-              <span class="card-icon">❌</span>
+              <span class="card-icon"><i class="fas fa-times-circle"></i></span>
               <h6>도입 전</h6>
             </div>
             <div class="card-content">
               <div class="card-item">
-                <span class="item-icon">🏢</span>
+                <span class="item-icon"><i class="fas fa-building"></i></span>
                 <span class="item-text">모놀리식 구조로 배포 어려움</span>
               </div>
               <div class="card-item">
-                <span class="item-icon">⏰</span>
+                <span class="item-icon"><i class="fas fa-clock"></i></span>
                 <span class="item-text">배포 시간 2-3시간 소요</span>
               </div>
               <div class="card-item">
-                <span class="item-icon">🔍</span>
+                <span class="item-icon"><i class="fas fa-search"></i></span>
                 <span class="item-text">장애 원인 파악 지연</span>
               </div>
               <div class="card-item">
-                <span class="item-icon">⚙️</span>
+                <span class="item-icon"><i class="fas fa-cog"></i></span>
                 <span class="item-text">수동 인프라 관리</span>
               </div>
             </div>
@@ -153,24 +158,24 @@
 
           <div class="after-card">
             <div class="card-header">
-              <span class="card-icon">✅</span>
+              <span class="card-icon"><i class="fas fa-check-circle"></i></span>
               <h6>Orkis 도입 후</h6>
             </div>
             <div class="card-content">
               <div class="card-item">
-                <span class="item-icon">🎯</span>
+                <span class="item-icon"><i class="fas fa-bullseye"></i></span>
                 <span class="item-text">도메인별 마이크로서비스 분리</span>
               </div>
               <div class="card-item">
-                <span class="item-icon">🚀</span>
+                <span class="item-icon"><i class="fas fa-rocket"></i></span>
                 <span class="item-text">1일 다수 무중단 배포</span>
               </div>
               <div class="card-item">
-                <span class="item-icon">📊</span>
+                <span class="item-icon"><i class="fas fa-chart-bar"></i></span>
                 <span class="item-text">실시간 모니터링 및 즉각 알림</span>
               </div>
               <div class="card-item">
-                <span class="item-icon">🔄</span>
+                <span class="item-icon"><i class="fas fa-sync-alt"></i></span>
                 <span class="item-text">완전 자동화된 CI/CD</span>
               </div>
             </div>
@@ -179,35 +184,35 @@
       </div>
 
       <div class="tech-stack-section">
-        <h5>🛠️ 핵심 기술 스택</h5>
+        <h5><i class="fas fa-tools"></i> 핵심 기술 스택</h5>
         <div class="tech-stack-grid">
           <div class="tech-card">
-            <div class="tech-icon">☸️</div>
+            <div class="tech-icon"><i class="fas fa-dharmachakra"></i></div>
             <h6>Kubernetes</h6>
             <p>컨테이너 오케스트레이션</p>
           </div>
           <div class="tech-card">
-            <div class="tech-icon">🔧</div>
+            <div class="tech-icon"><i class="fas fa-wrench"></i></div>
             <h6>Jenkins</h6>
             <p>CI/CD 자동화</p>
           </div>
           <div class="tech-card">
-            <div class="tech-icon">🚀</div>
+            <div class="tech-icon"><i class="fas fa-rocket"></i></div>
             <h6>ArgoCD</h6>
             <p>GitOps 기반 배포</p>
           </div>
           <div class="tech-card">
-            <div class="tech-icon">🐳</div>
+            <div class="tech-icon"><i class="fab fa-docker"></i></div>
             <h6>Docker</h6>
             <p>컨테이너 런타임</p>
           </div>
           <div class="tech-card">
-            <div class="tech-icon">📊</div>
+            <div class="tech-icon"><i class="fas fa-chart-bar"></i></div>
             <h6>Prometheus</h6>
             <p>메트릭 수집</p>
           </div>
           <div class="tech-card">
-            <div class="tech-icon">📈</div>
+            <div class="tech-icon"><i class="fas fa-chart-line"></i></div>
             <h6>Grafana</h6>
             <p>모니터링 대시보드</p>
           </div>
@@ -218,7 +223,7 @@
 
     <div class="solution-architecture" :class="{ 'is-mobile': isMobile }">
       <h4 @click="toggleAccordion('architecture')">
-        Orkis 아키텍처
+        시스템 아키텍처
         <span class="accordion-icon">{{ accordionStates.architecture ? '−' : '+' }}</span>
       </h4>
       <div class="accordion-content" v-show="accordionStates.architecture">
@@ -254,10 +259,13 @@
 </template>
 
 <script>
+import symbolImage from '../../assets/solutions-logo/logo-symbol/Orkis_symbol.png'
+
 export default {
   name: 'Orkis',
   data() {
     return {
+      symbolImage,
       isMobile: false,
       accordionStates: {
         useCase: false,
@@ -358,11 +366,17 @@ export default {
 .solution-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
+  align-items: start;
   gap: 60px;
   padding: 60px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+}
+
+.solution-hero-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .solution-badge {
@@ -385,9 +399,32 @@ export default {
 
 .solution-header {
   display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 50px;
+}
+
+.header-text {
+  display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 50px;
+  flex: 1;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.solution-header-logo {
+  height: 5rem;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .solution-header h3 {
@@ -419,13 +456,15 @@ export default {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 5px;
+  margin-top: auto;
   opacity: 0.9;
 }
 
 .solution-description {
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.8;
   opacity: 0.9;
+  word-break: keep-all;
   color: rgba(255, 255, 255, 0.87);
 }
 
@@ -433,22 +472,26 @@ export default {
 .solution-hero-visual {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  height: 100%;
 }
 
 .icon-animation-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   gap: 30px;
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  height: 100%;
 }
 
 .main-icon-wrapper {
   position: relative;
   text-align: center;
+  margin-top: 80px;
   margin-bottom: 20px;
 }
 
@@ -457,11 +500,25 @@ export default {
   color: white;
   transition: all 0.3s ease;
   filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.3));
+  animation: helmSteer 4s ease-in-out infinite;
 }
 
-.main-icon.pulse {
-  animation: iconPulse 2s infinite;
-  transform: scale(1.1);
+@keyframes helmSteer {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 .icon-label {
@@ -608,6 +665,7 @@ export default {
 
 .solution-features {
   padding: 60px;
+  background: white;
 }
 
 .solution-features h4 {
@@ -681,18 +739,19 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
   margin-bottom: 40px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .use-case-step {
   background: white;
-  padding: 30px;
+  padding: 25px 20px;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   text-align: center;
-  min-width: 200px;
+  flex: 1;
+  max-width: 280px;
   position: relative;
   transition: transform 0.3s ease;
 }
@@ -944,13 +1003,16 @@ export default {
 
 @media (max-width: 576px) {
   .solution-hero {
-    padding: 40px 20px;
-    gap: 35px;
+    padding: 50px 20px;
+    gap: 45px;
   }
 
   .solution-hero h3 {
     font-size: 1.8rem;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
     margin-bottom: 0px;
   }
 
@@ -960,13 +1022,20 @@ export default {
 
   .solution-pronunciation {
     font-size: 1rem;
-    margin-top: 5px;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: -5px;
   }
 
   .solution-header {
+    flex-direction: column;
     margin-bottom: 40px;
     align-items: center;
     gap: 5px;
+  }
+
+  .solution-header-logo {
+    height: 3.6rem;
   }
 
   .solution-catchphrase {
@@ -975,7 +1044,7 @@ export default {
   }
 
   .solution-tagline {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     text-align: center;
     margin-bottom: 15px;
   }
@@ -1007,17 +1076,17 @@ export default {
   }
 
   .pipeline-flow {
-    gap: 10px;
+    gap: 12px;
   }
 
   .solution-hero-visual .pipeline-stage {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     padding: 8px;
   }
 
   .solution-hero-visual .pipeline-stage i {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 
   .solution-hero-visual .pipeline-stage span {
@@ -1264,6 +1333,11 @@ export default {
   }
 }
 
+/* Hide accordion icon on PC */
+.accordion-icon {
+  display: none;
+}
+
 /* Accordion styles for mobile */
 @media (max-width: 576px) {
   .use-case-section.is-mobile h4,
@@ -1287,6 +1361,7 @@ export default {
   }
 
   .accordion-icon {
+    display: inline;
     font-size: 1.5rem;
     font-weight: 300;
     transition: transform 0.3s ease;

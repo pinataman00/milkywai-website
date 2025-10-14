@@ -4,11 +4,16 @@
       <div class="solution-hero-content">
         <div class="solution-badge">Data Integration</div>
         <div class="solution-header">
-          <h3>
-            <span class="solution-name">NeoFlow</span>
-            <span class="solution-pronunciation">네오플로우</span>
-          </h3>
-          <p class="solution-catchphrase">데이터의 흐름을 새롭게 정의하다</p>
+          <div class="header-logo">
+            <img :src="symbolImage" alt="NeoFlow Symbol" class="solution-header-logo">
+          </div>
+          <div class="header-text">
+            <h3>
+              <span class="solution-name">NeoFlow</span>
+              <span class="solution-pronunciation">네오플로우</span>
+            </h3>
+            <p class="solution-catchphrase">데이터의 흐름을 새롭게 정의하다</p>
+          </div>
         </div>
         <p class="solution-tagline">통합 데이터 플랫폼 구축 솔루션</p>
         <p class="solution-description">다양한 데이터 소스로부터 수집, 가공, 적재까지 전 과정을 자동화하여 기업의 데이터 통합 관리를 간편하게 만들어주는 종합 솔루션입니다.</p>
@@ -22,7 +27,7 @@
               <i class="fas fa-minus stream-line line-2"></i>
               <i class="fas fa-minus stream-line line-3"></i>
             </div>
-            <div class="icon-label">Data Pipeline</div>
+            <!-- <div class="icon-label">Data Pipeline</div> -->
           </div>
 
           <!-- ETL Process Flow -->
@@ -80,13 +85,12 @@
           </div> -->
       </div>
     </div>
-  </div>
 
-  <div class="solution-features">
-    <h4>데이터 플랫폼 기능</h4>
+    <div class="solution-features">
+    <h4>핵심 기능</h4>
     <div class="features-grid">
       <div class="feature-item" v-for="feature in features" :key="feature.id">
-        <div class="feature-icon">{{ feature.icon }}</div>
+        <div class="feature-icon" v-html="feature.icon"></div>
         <h5>{{ feature.title }}</h5>
         <p>{{ feature.description }}</p>
       </div>
@@ -126,30 +130,30 @@
     </div>
 
     <div class="demo-example">
-      <h5>💡 사용 시나리오</h5>
+      <h5><i class="fas fa-lightbulb"></i> 사용 시나리오</h5>
       <p class="scenario-context">제조업체의 전사 데이터 통합 및 실시간 생산 대시보드 구축</p>
 
       <div class="before-after-container">
         <div class="before-card">
           <div class="card-header">
-            <span class="card-icon">❌</span>
+            <span class="card-icon"><i class="fas fa-times-circle"></i></span>
             <h6>도입 전</h6>
           </div>
           <div class="card-content">
             <div class="card-item">
-              <span class="item-icon">📁</span>
+              <span class="item-icon"><i class="fas fa-folder"></i></span>
               <span class="item-text">다양한 데이터 소스 수동 관리</span>
             </div>
             <div class="card-item">
-              <span class="item-icon">⏱️</span>
+              <span class="item-icon"><i class="fas fa-clock"></i></span>
               <span class="item-text">데이터 통합 작업 수일 소요</span>
             </div>
             <div class="card-item">
-              <span class="item-icon">⚠️</span>
+              <span class="item-icon"><i class="fas fa-exclamation-triangle"></i></span>
               <span class="item-text">데이터 품질 불안정</span>
             </div>
             <div class="card-item">
-              <span class="item-icon">📊</span>
+              <span class="item-icon"><i class="fas fa-chart-bar"></i></span>
               <span class="item-text">실시간 현황 파악 불가</span>
             </div>
           </div>
@@ -159,24 +163,24 @@
 
         <div class="after-card">
           <div class="card-header">
-            <span class="card-icon">✅</span>
+            <span class="card-icon"><i class="fas fa-check-circle"></i></span>
             <h6>NeoFlow 도입 후</h6>
           </div>
           <div class="card-content">
             <div class="card-item">
-              <span class="item-icon">🔗</span>
+              <span class="item-icon"><i class="fas fa-link"></i></span>
               <span class="item-text">모든 데이터 소스 자동 통합</span>
             </div>
             <div class="card-item">
-              <span class="item-icon">⚡</span>
+              <span class="item-icon"><i class="fas fa-bolt"></i></span>
               <span class="item-text">30초 단위 실시간 동기화</span>
             </div>
             <div class="card-item">
-              <span class="item-icon">✓</span>
+              <span class="item-icon"><i class="fas fa-check"></i></span>
               <span class="item-text">99.8% 데이터 품질 신뢰도</span>
             </div>
             <div class="card-item">
-              <span class="item-icon">📈</span>
+              <span class="item-icon"><i class="fas fa-chart-line"></i></span>
               <span class="item-text">실시간 생산 대시보드 제공</span>
             </div>
           </div>
@@ -185,30 +189,30 @@
     </div>
 
     <div class="data-sources-section">
-      <h5>🔌 지원 데이터 소스</h5>
+      <h5><i class="fas fa-plug"></i> 지원 데이터 소스</h5>
       <p class="sources-description">다양한 데이터 소스와 손쉽게 연결하여 통합 데이터 플랫폼을 구축하세요</p>
 
       <div class="source-category">
         <h6>Database</h6>
         <div class="source-cards">
           <div class="source-card">
-            <div class="source-card-icon">🗄️</div>
+            <div class="source-card-icon"><i class="fas fa-database"></i></div>
             <div class="source-card-name">MySQL</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon">🐘</div>
+            <div class="source-card-icon"><i class="fas fa-database"></i></div>
             <div class="source-card-name">PostgreSQL</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon">🔷</div>
+            <div class="source-card-icon"><i class="fas fa-database"></i></div>
             <div class="source-card-name">Oracle DB</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon">🍃</div>
+            <div class="source-card-icon"><i class="fas fa-database"></i></div>
             <div class="source-card-name">MongoDB</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon">⚡</div>
+            <div class="source-card-icon"><i class="fas fa-bolt"></i></div>
             <div class="source-card-name">Redis</div>
           </div>
         </div>
@@ -218,15 +222,15 @@
         <h6>Cloud Storage</h6>
         <div class="source-cards">
           <div class="source-card">
-            <div class="source-card-icon">☁️</div>
+            <div class="source-card-icon"><i class="fas fa-cloud"></i></div>
             <div class="source-card-name">AWS S3</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon">🔵</div>
+            <div class="source-card-icon"><i class="fas fa-cloud"></i></div>
             <div class="source-card-name">Azure Blob</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon">🌐</div>
+            <div class="source-card-icon"><i class="fas fa-globe"></i></div>
             <div class="source-card-name">Google Cloud Storage</div>
           </div>
         </div>
@@ -236,19 +240,19 @@
         <h6>Application & API</h6>
         <div class="source-cards">
           <div class="source-card">
-            <div class="source-card-icon">📊</div>
+            <div class="source-card-icon"><i class="fas fa-chart-bar"></i></div>
             <div class="source-card-name">Salesforce</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon">💼</div>
+            <div class="source-card-icon"><i class="fas fa-briefcase"></i></div>
             <div class="source-card-name">SAP ERP</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon">🔗</div>
+            <div class="source-card-icon"><i class="fas fa-link"></i></div>
             <div class="source-card-name">REST API</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon">📡</div>
+            <div class="source-card-icon"><i class="fas fa-project-diagram"></i></div>
             <div class="source-card-name">GraphQL</div>
           </div>
         </div>
@@ -258,19 +262,19 @@
         <h6>Streaming & Files</h6>
         <div class="source-cards">
           <div class="source-card">
-            <div class="source-card-icon">🚀</div>
+            <div class="source-card-icon"><i class="fas fa-rocket"></i></div>
             <div class="source-card-name">Apache Kafka</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon">📋</div>
+            <div class="source-card-icon"><i class="fas fa-clipboard"></i></div>
             <div class="source-card-name">CSV / Excel</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon">📄</div>
+            <div class="source-card-icon"><i class="fas fa-file-alt"></i></div>
             <div class="source-card-name">JSON / XML</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon">📝</div>
+            <div class="source-card-icon"><i class="fas fa-file-code"></i></div>
             <div class="source-card-name">Log Files</div>
           </div>
         </div>
@@ -278,25 +282,25 @@
     </div>
 
     <div class="pipeline-stats-section">
-      <h5>📈 파이프라인 성능 지표</h5>
+      <h5><i class="fas fa-chart-line"></i> 파이프라인 성능 지표</h5>
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-icon">⚡</div>
+          <div class="stat-icon"><i class="fas fa-bolt"></i></div>
           <div class="stat-value">50,000+</div>
           <div class="stat-label">초당 처리 레코드</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">🎯</div>
+          <div class="stat-icon"><i class="fas fa-bullseye"></i></div>
           <div class="stat-value">99.8%</div>
           <div class="stat-label">데이터 품질 신뢰도</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">🔄</div>
+          <div class="stat-icon"><i class="fas fa-sync-alt"></i></div>
           <div class="stat-value">실시간</div>
           <div class="stat-label">데이터 동기화</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">📊</div>
+          <div class="stat-icon"><i class="fas fa-chart-bar"></i></div>
           <div class="stat-value">30+</div>
           <div class="stat-label">지원 데이터 포맷</div>
         </div>
@@ -307,7 +311,7 @@
 
   <div class="solution-architecture" :class="{ 'is-mobile': isMobile }">
     <h4 @click="toggleAccordion('architecture')">
-      NeoFlow 아키텍처
+      시스템 아키텍처
       <span class="accordion-icon">{{ accordionStates.architecture ? '−' : '+' }}</span>
     </h4>
     <div class="accordion-content" v-show="accordionStates.architecture">
@@ -339,14 +343,17 @@
     </div>
     </div>
   </div>
-  <!-- </div> -->
+  </div>
 </template>
 
 <script>
+import symbolImage from '../../assets/solutions-logo/logo-symbol/NeoFlow_symbol.png'
+
 export default {
   name: 'NeoFlow',
   data() {
     return {
+      symbolImage,
       isMobile: false,
       accordionStates: {
         useCase: false,
@@ -369,25 +376,25 @@ export default {
       features: [
         {
           id: 1,
-          icon: '🔌',
+          icon: '<i class="fas fa-plug"></i>',
           title: '다양한 소스 연계',
           description: '데이터베이스, 파일, API... 모든 소스를 유연하게 통합해 하나의 데이터 허브를 완성합니다'
         },
         {
           id: 2,
-          icon: '⚙️',
+          icon: '<i class="fas fa-cog"></i>',
           title: 'ETL 자동화',
           description: '데이터 추출·변환·적재 전 과정을 자동화하여, 압도적인 속도와 효율을 제공합니다'
         },
         {
           id: 3,
-          icon: '📅',
+          icon: '<i class="fas fa-calendar-alt"></i>',
           title: '스케줄링 관리',
           description: '지능형 스케줄링과 모니터링으로 끊김 없는 안정적인 데이터 플로우를 구현합니다'
         },
         {
           id: 4,
-          icon: '📈',
+          icon: '<i class="fas fa-chart-line"></i>',
           title: '데이터 품질 관리',
           description: '정교한 품질 검증과 이상 탐지로, 신뢰할 수 있는 데이터 기반 의사결정을 지원합니다'
         }
@@ -534,11 +541,17 @@ export default {
 .solution-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
+  align-items: start;
   gap: 60px;
   padding: 60px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+}
+
+.solution-hero-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .solution-badge {
@@ -561,9 +574,28 @@ export default {
 
 .solution-header {
   display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 50px;
+}
+
+.header-logo {
+  flex-shrink: 0;
+}
+
+.solution-header-logo {
+  height: 5rem;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.header-text {
+  display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 50px;
 }
 
 .solution-header h3 {
@@ -595,20 +627,23 @@ export default {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 5px;
+  margin-top: auto;
   opacity: 0.9;
 }
 
 .solution-description {
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.8;
   opacity: 0.9;
+  word-break: keep-all;
   color: rgba(255, 255, 255, 0.87);
 }
 
 .solution-hero-visual {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  height: 100%;
 }
 
 .data-diagram {
@@ -622,24 +657,25 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px;
+  padding: 40px 40px 0 40px;
 }
 
 .icon-animation-container {
   position: relative;
   width: 100%;
   max-width: 500px;
-  height: 350px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   margin: 0 auto;
+  height: 100%;
 }
 
 .main-icon-wrapper {
   text-align: center;
-  margin-bottom: 40px;
+  margin-top: 40px;
+  margin-bottom: auto;
   z-index: 3;
 }
 
@@ -709,7 +745,7 @@ export default {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 0;
   width: 100%;
 }
 
@@ -1050,6 +1086,7 @@ export default {
 /* 솔루션 기능 섹션 */
 .solution-features {
   padding: 60px;
+  background: white;
 }
 
 .solution-features h4 {
@@ -1122,18 +1159,19 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
   margin-bottom: 40px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .use-case-step {
   background: white;
-  padding: 30px;
+  padding: 25px 20px;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   text-align: center;
-  min-width: 200px;
+  flex: 1;
+  max-width: 280px;
   position: relative;
   transition: transform 0.3s ease;
 }
@@ -1391,8 +1429,10 @@ export default {
   }
 
   .etl-flow {
-    flex-direction: column;
-    gap: 15px;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .flow-arrow {
@@ -1624,15 +1664,23 @@ export default {
   }
 }
 
+/* Hide accordion icon on PC */
+.accordion-icon {
+  display: none;
+}
+
 @media (max-width: 576px) {
   .solution-hero {
-    padding: 40px 20px;
-    gap: 35px;
+    padding: 50px 20px;
+    gap: 45px;
   }
 
   .solution-hero h3 {
     font-size: 1.8rem;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
     margin-bottom: 0px;
   }
 
@@ -1642,13 +1690,20 @@ export default {
 
   .solution-pronunciation {
     font-size: 1rem;
-    margin-top: 5px;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: -5px;
   }
 
   .solution-header {
+    flex-direction: column;
     margin-bottom: 40px;
     align-items: center;
     gap: 5px;
+  }
+
+  .solution-header-logo {
+    height: 3.6rem;
   }
 
   .solution-catchphrase {
@@ -1691,20 +1746,20 @@ export default {
   }
 
   .etl-flow {
-    gap: 15px;
+    gap: 8px;
   }
 
   .etl-stage {
-    min-width: 80px;
-    padding: 15px;
+    min-width: 70px;
+    padding: 10px 8px;
   }
 
   .etl-stage i {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 
   .etl-stage span {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
 
   .solution-features, .use-case-section, .solution-architecture {
@@ -1937,6 +1992,7 @@ export default {
   }
 
   .accordion-icon {
+    display: inline;
     font-size: 1.5rem;
     font-weight: 300;
     transition: transform 0.3s ease;

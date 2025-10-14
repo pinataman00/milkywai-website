@@ -4,11 +4,16 @@
       <div class="solution-hero-content">
         <div class="solution-badge">AI Document Management</div>
         <div class="solution-header">
-          <h3>
-            <span class="solution-name">Dovora</span>
-            <span class="solution-pronunciation">도보라</span>
-          </h3>
-          <p class="solution-catchphrase">문서에서 지식으로, 지식에서 통찰로</p>
+          <div class="header-logo">
+            <img :src="symbolImage" alt="Dovora Symbol" class="solution-header-logo">
+          </div>
+          <div class="header-text">
+            <h3>
+              <span class="solution-name">Dovora</span>
+              <span class="solution-pronunciation">도보라</span>
+            </h3>
+            <p class="solution-catchphrase">문서에서 지식으로, 지식에서 통찰로</p>
+          </div>
         </div>
         <p class="solution-tagline">문서 내용 기반 지능형 답변 시스템</p>
         <p class="solution-description">기존 문서 관리의 복잡함을 해결하고 문서 내용을 기반으로 정확한 답변을 제공하여 환각 현상을 최소화하는 AI 기반 문서 관리 솔루션입니다.</p>
@@ -86,15 +91,14 @@
               </div>
             </div>
           </div> -->
-        </div>
       </div>
     </div>
 
     <div class="solution-features">
-      <h4>Dovora 핵심 기능</h4>
+      <h4>핵심 기능</h4>
       <div class="features-grid">
         <div class="feature-item" v-for="feature in features" :key="feature.id">
-          <div class="feature-icon">{{ feature.icon }}</div>
+          <div class="feature-icon" v-html="feature.icon"></div>
           <h5>{{ feature.title }}</h5>
           <p v-for="desc in feature.descriptions" :key="desc">{{ desc }}</p>
         </div>
@@ -103,7 +107,7 @@
 
     <div class="document-demo-section" :class="{ 'is-mobile': isMobile }">
       <h4 @click="toggleAccordion('demo')">
-        Dovora 실사용 예시
+        실사용 예시
         <span class="accordion-icon">{{ accordionStates.demo ? '−' : '+' }}</span>
       </h4>
       <div class="accordion-content" v-show="accordionStates.demo">
@@ -119,7 +123,7 @@
           <h5>AI 문서 분석</h5>
           <div class="process-steps">
             <div class="process-step">
-              <div class="step-icon">🔍</div>
+              <div class="step-icon"><i class="fas fa-search"></i></div>
               <div class="step-content">
                 <h6>문서 검색</h6>
                 <p>관련 문서 자동 탐색</p>
@@ -127,7 +131,7 @@
               </div>
             </div>
             <div class="process-step">
-              <div class="step-icon">🧠</div>
+              <div class="step-icon"><i class="fas fa-brain"></i></div>
               <div class="step-content">
                 <h6>내용 분석</h6>
                 <p>문서 내용 정밀 분석</p>
@@ -135,7 +139,7 @@
               </div>
             </div>
             <div class="process-step">
-              <div class="step-icon">✅</div>
+              <div class="step-icon"><i class="fas fa-check-circle"></i></div>
               <div class="step-content">
                 <h6>정확도 검증</h6>
                 <p>답변 신뢰도 확인</p>
@@ -153,7 +157,7 @@
               <p>구체적으로 2023년 매출 1,250억원에서 2024년 1,544억원으로 상승하여, 294억원의 매출 증가를 기록했습니다.</p>
             </div>
             <div class="answer-source">
-              <div class="source-icon">📄</div>
+              <div class="source-icon"><i class="fas fa-file-alt"></i></div>
               <div class="source-info">
                 <strong>출처:</strong> 2024_annual_report.pdf, 15페이지<br>
                 <span class="confidence">신뢰도: 98.5%</span>
@@ -167,7 +171,7 @@
 
     <div class="solution-architecture" :class="{ 'is-mobile': isMobile }">
       <h4 @click="toggleAccordion('architecture')">
-        Dovora 시스템 아키텍처
+        시스템 아키텍처
         <span class="accordion-icon">{{ accordionStates.architecture ? '−' : '+' }}</span>
       </h4>
       <div class="accordion-content" v-show="accordionStates.architecture">
@@ -183,14 +187,17 @@
       </div>
       </div>
     </div>
-  <!-- </div> -->
+  </div>
 </template>
 
 <script>
+import symbolImage from '../../assets/solutions-logo/logo-symbol/Dovora_symbol.png'
+
 export default {
   name: 'Dovora',
   data() {
     return {
+      symbolImage,
       isFlowVisible: false,
       animationTimer: null,
       mainIconActive: false,
@@ -212,7 +219,7 @@ export default {
       features: [
         {
           id: 1,
-          icon: '📋',
+          icon: '<i class="fas fa-clipboard"></i>',
           title: '문서 기반 답변',
           descriptions: [
             '문서 정보를 기반으로 한 답변으로',
@@ -221,7 +228,7 @@ export default {
         },
         {
           id: 2,
-          icon: '🛡️',
+          icon: '<i class="fas fa-shield-alt"></i>',
           title: '구축형 솔루션',
           descriptions: [
             '구축형 솔루션 제공으로 기업 및 고객 정보를',
@@ -230,7 +237,7 @@ export default {
         },
         {
           id: 3,
-          icon: '⚡',
+          icon: '<i class="fas fa-bolt"></i>',
           title: '경량화된 LLM',
           descriptions: [
             '경량화된 LLM 사용으로 비용을 절감하면서도',
@@ -239,7 +246,7 @@ export default {
         },
         {
           id: 4,
-          icon: '🔍',
+          icon: '<i class="fas fa-search"></i>',
           title: '지능형 검색',
           descriptions: [
             '고객 니즈와 결론을 통합적으로 관리하여',
@@ -248,7 +255,7 @@ export default {
         },
         {
           id: 5,
-          icon: '🎯',
+          icon: '<i class="fas fa-bullseye"></i>',
           title: '정확성 향상',
           descriptions: [
             '문서 내용을 기반으로 한 답변으로',
@@ -257,7 +264,7 @@ export default {
         },
         {
           id: 6,
-          icon: '📊',
+          icon: '<i class="fas fa-chart-bar"></i>',
           title: '사용량 모니터링',
           descriptions: [
             '시스템 사용량과 성능을 실시간으로 모니터링하여',
@@ -432,11 +439,17 @@ export default {
 .solution-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
+  align-items: start;
   gap: 60px;
   padding: 60px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+}
+
+.solution-hero-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .solution-badge {
@@ -459,9 +472,28 @@ export default {
 
 .solution-header {
   display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 50px;
+}
+
+.header-logo {
+  flex-shrink: 0;
+}
+
+.solution-header-logo {
+  height: 5rem;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.header-text {
+  display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 50px;
 }
 
 .solution-header h3 {
@@ -493,13 +525,15 @@ export default {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 5px;
+  margin-top: auto;
   opacity: 0.9;
 }
 
 .solution-description {
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.8;
   opacity: 0.9;
+  word-break: keep-all;
   color: rgba(255, 255, 255, 0.87);
 }
 
@@ -880,6 +914,7 @@ export default {
 
 .solution-features {
   padding: 60px;
+  background: white;
 }
 
 .solution-features h4 {
@@ -1162,6 +1197,11 @@ export default {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Hide accordion icon on PC */
+.accordion-icon {
+  display: none;
+}
+
 /* Accordion styles for mobile */
 @media (max-width: 576px) {
   .document-demo-section.is-mobile h4,
@@ -1185,6 +1225,7 @@ export default {
   }
 
   .accordion-icon {
+    display: inline;
     font-size: 1.5rem;
     font-weight: 300;
     transition: transform 0.3s ease;
@@ -1233,8 +1274,10 @@ export default {
   }
 
   .processing-flow {
-    flex-direction: column;
-    gap: 15px;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .flow-arrow {
@@ -1276,13 +1319,16 @@ export default {
 
 @media (max-width: 576px) {
   .solution-hero {
-    padding: 40px 20px;
-    gap: 35px;
+    padding: 50px 20px;
+    gap: 45px;
   }
 
   .solution-hero h3 {
     font-size: 1.8rem;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
     margin-bottom: 0px;
   }
 
@@ -1292,13 +1338,20 @@ export default {
 
   .solution-pronunciation {
     font-size: 1rem;
-    margin-top: 5px;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: -5px;
   }
 
   .solution-header {
+    flex-direction: column;
     margin-bottom: 40px;
     align-items: center;
     gap: 5px;
+  }
+
+  .solution-header-logo {
+    height: 3.6rem;
   }
 
   .solution-catchphrase {

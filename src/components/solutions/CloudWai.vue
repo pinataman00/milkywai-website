@@ -4,11 +4,16 @@
       <div class="solution-hero-content">
         <div class="solution-badge">Cloud Management</div>
         <div class="solution-header">
-          <h3>
-            <span class="solution-name">CloudWai</span>
-            <span class="solution-pronunciation">클라우드웨이</span>
-          </h3>
-          <p class="solution-catchphrase">AI시대, 클라우드로 향하는 가장 확실한 길</p>
+          <div class="header-logo">
+            <img :src="symbolImage" alt="CloudWai Symbol" class="solution-header-logo">
+          </div>
+          <div class="header-text">
+            <h3>
+              <span class="solution-name">CloudWai</span>
+              <span class="solution-pronunciation">클라우드웨이</span>
+            </h3>
+            <p class="solution-catchphrase">AI시대, 클라우드로 향하는 가장 확실한 길</p>
+          </div>
         </div>
         <p class="solution-tagline">클라우드 인프라 자동구성 및 통합관리 솔루션</p>
         <p class="solution-description">템플릿 기반 자동 생성부터 통합빌링, 모니터링까지 One-Stop으로 클라우드를 총괄 관리할 수 있는 Total Management
@@ -62,35 +67,34 @@
             </div>
           </div>
         </div>
-        </div>
       </div>
     </div>
 
     <div class="solution-features">
-      <h4>주요 기능</h4>
+      <h4>핵심 기능</h4>
       <div class="features-grid">
         <div class="feature-item">
-          <div class="feature-icon">⚡</div>
+          <div class="feature-icon"><i class="fas fa-bolt"></i></div>
           <h5>자동화된 프로비저닝</h5>
           <p>템플릿 기반 클라우드 자원 자동 생성으로</p>
           <p>신속하고 정확한 인프라 구축을 실현하세요</p>
         </div>
         <div class="feature-item">
-          <div class="feature-icon">💰</div>
+          <div class="feature-icon"><i class="fas fa-dollar-sign"></i></div>
           <h5>통합 빌링 관리</h5>
           <p>복잡한 멀티 클라우드 비용을 한곳에서 관리하고,</p>
           <p> 상세한 인보이스로 투명성을 확보하세요</p>
         </div>
         <div class="feature-item">
-          <div class="feature-icon">📊</div>
+          <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
           <h5>실시간 모니터링</h5>
           <p>실시간 모니터링과 대시보드를 통해</p>
           <p>자원 사용량과 성능을 한눈에 확인하세요</p>
         </div>
         <div class="feature-item">
-          <div class="feature-icon">🗺️</div>
+          <div class="feature-icon"><i class="fas fa-map"></i></div>
           <h5>토폴로지 맵</h5>
-          <p>클라우드 인프라 구조를 직관적인 맵으로 시각화하여</p> 
+          <p>클라우드 인프라 구조를 직관적인 맵으로 시각화하여</p>
           <p>관리와 운영 효율성을 극대화합니다</p>
         </div>
       </div>
@@ -98,31 +102,31 @@
 
     <div class="use-case-section" :class="{ 'is-mobile': isMobile }">
       <h4 @click="toggleAccordion('useCase')">
-        CloudWai 실사용 예시
+        실사용 예시
         <span class="accordion-icon">{{ accordionStates.useCase ? '−' : '+' }}</span>
       </h4>
       <div class="accordion-content" v-show="accordionStates.useCase">
       <div class="before-after-container">
         <div class="before-card">
           <div class="card-header">
-            <span class="card-icon">❌</span>
+            <span class="card-icon"><i class="fas fa-times-circle"></i></span>
             <h6>CloudWai 도입 전</h6>
           </div>
           <div class="card-content">
             <div class="card-item">
-              <span class="item-icon">🖥️</span>
+              <span class="item-icon"><i class="fas fa-desktop"></i></span>
               <span class="item-text">AWS, Azure, GCP 콘솔을 각각 접속해서 관리</span>
             </div>
             <div class="card-item">
-              <span class="item-icon">💸</span>
+              <span class="item-icon"><i class="fas fa-money-bill-wave"></i></span>
               <span class="item-text">각 클라우드별 복잡한 빌링 시스템으로 비용 파악 어려움</span>
             </div>
             <div class="card-item">
-              <span class="item-icon">⏱️</span>
+              <span class="item-icon"><i class="fas fa-clock"></i></span>
               <span class="item-text">인프라 구축에 수일 소요, 반복 작업 많음</span>
             </div>
             <div class="card-item">
-              <span class="item-icon">📊</span>
+              <span class="item-icon"><i class="fas fa-chart-bar"></i></span>
               <span class="item-text">서비스별 모니터링 도구가 제각각, 통합 불가</span>
             </div>
           </div>
@@ -130,24 +134,24 @@
         <div class="arrow-divider">→</div>
         <div class="after-card">
           <div class="card-header">
-            <span class="card-icon">✅</span>
+            <span class="card-icon"><i class="fas fa-check-circle"></i></span>
             <h6>CloudWai 도입 후</h6>
           </div>
           <div class="card-content">
             <div class="card-item">
-              <span class="item-icon">🎯</span>
+              <span class="item-icon"><i class="fas fa-bullseye"></i></span>
               <span class="item-text">단일 콘솔에서 멀티클라우드 통합 관리</span>
             </div>
             <div class="card-item">
-              <span class="item-icon">💰</span>
+              <span class="item-icon"><i class="fas fa-dollar-sign"></i></span>
               <span class="item-text">통합 빌링으로 전체 비용 한눈에 파악 및 최적화</span>
             </div>
             <div class="card-item">
-              <span class="item-icon">⚡</span>
+              <span class="item-icon"><i class="fas fa-bolt"></i></span>
               <span class="item-text">템플릿 기반 3분 내 인프라 자동 배포</span>
             </div>
             <div class="card-item">
-              <span class="item-icon">📈</span>
+              <span class="item-icon"><i class="fas fa-chart-line"></i></span>
               <span class="item-text">통합 모니터링 대시보드로 실시간 추적</span>
             </div>
           </div>
@@ -158,7 +162,7 @@
 
     <div class="solution-architecture" :class="{ 'is-mobile': isMobile }">
       <h4 @click="toggleAccordion('architecture')">
-        CloudWai 아키텍처
+        시스템 아키텍처
         <span class="accordion-icon">{{ accordionStates.architecture ? '−' : '+' }}</span>
       </h4>
       <div class="accordion-content" v-show="accordionStates.architecture">
@@ -190,14 +194,19 @@
       </div>
       </div>
     </div>
-  <!-- </div> -->
+  </div>
 </template>
 
 <script>
+import logoImage from '../../assets/solutions-logo/logo-vertical/CloudWai_vertical.png'
+import symbolImage from '../../assets/solutions-logo/logo-symbol/CloudWai_symbol.png'
+
 export default {
   name: 'CloudWai',
   data() {
     return {
+      logoImage,
+      symbolImage,
       activeServer: null,
       activeFeature: null,
       mainIconActive: false,
@@ -305,18 +314,47 @@ export default {
 .solution-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
+  align-items: start;
   gap: 60px;
   padding: 60px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
 }
 
+.solution-hero-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .solution-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 50px;
+}
+
+.header-text {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 50px;
+  flex: 1;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.solution-header-logo {
+  height: 5rem;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .solution-header h3 {
@@ -366,13 +404,15 @@ export default {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 5px;
+  margin-top: auto;
   opacity: 0.9;
 }
 
 .solution-description {
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.8;
   opacity: 0.9;
+  word-break: keep-all;
   color: rgba(255, 255, 255, 0.87);
 }
 
@@ -380,16 +420,19 @@ export default {
 .solution-hero-visual {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  height: 100%;
 }
 
 .visual-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   gap: 40px;
   width: 100%;
   max-width: 450px;
+  height: 100%;
 }
 
 .icon-animation-container {
@@ -627,6 +670,7 @@ export default {
 
 .solution-features {
   padding: 60px;
+  background: white;
 }
 
 .solution-features h4 {
@@ -855,6 +899,11 @@ export default {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Hide accordion icon on PC */
+.accordion-icon {
+  display: none;
+}
+
 /* Accordion styles for mobile */
 @media (max-width: 576px) {
   .use-case-section.is-mobile h4,
@@ -878,6 +927,7 @@ export default {
   }
 
   .accordion-icon {
+    display: inline;
     font-size: 1.5rem;
     font-weight: 300;
     transition: transform 0.3s ease;
@@ -981,13 +1031,16 @@ export default {
 
 @media (max-width: 576px) {
   .solution-hero {
-    padding: 40px 20px;
-    gap: 35px;
+    padding: 50px 20px;
+    gap: 45px;
   }
 
   .solution-hero h3 {
     font-size: 1.8rem;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
     margin-bottom: 0px;
   }
 
@@ -997,13 +1050,20 @@ export default {
 
   .solution-pronunciation {
     font-size: 1rem;
-    margin-top: 5px;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: -5px;
   }
 
   .solution-header {
+    flex-direction: column;
     margin-bottom: 40px;
     align-items: center;
     gap: 5px;
+  }
+
+  .solution-header-logo {
+    height: 3.6rem;
   }
 
   .solution-catchphrase {
@@ -1064,24 +1124,25 @@ export default {
   }
 
   .feature-points {
-    gap: 8px;
+    gap: 12px;
+    flex-wrap: nowrap;
   }
 
   .feature-point {
-    width: calc(50% - 4px);
-    height: 75px;
+    width: 70px;
+    height: 70px;
     padding: 8px;
-    gap: 5px;
+    gap: 6px;
   }
 
   .feature-point .feature-icon {
-    font-size: 1.1rem;
-    padding-top: 5px;
+    font-size: 1.2rem;
+    padding-top: 6px;
   }
 
   .feature-point span:last-child {
     font-size: 0.65rem;
-    padding-bottom: 5px;
+    padding-bottom: 6px;
   }
 
   .solution-features {

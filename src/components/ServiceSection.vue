@@ -101,11 +101,11 @@
               </div>
             </div>
             <div class="service-visual" @mouseenter="handleVisualHover" @mouseleave="handleVisualLeave">
-              <!-- 동적 아이콘 컴포넌트 또는 이모지 -->
+              <!-- 동적 아이콘 컴포넌트 또는 FontAwesome 아이콘 -->
               <div class="visual-icon">
                 <component v-if="serviceIconComponents[service.category]"
                            :is="serviceIconComponents[service.category]" />
-                <template v-else>{{ service.serviceIcon }}</template>
+                <span v-else v-html="service.serviceIcon"></span>
               </div>
               <h4 class="visual-title">{{ service.visualTitle }}</h4>
               <div class="visual-features">
@@ -269,8 +269,8 @@ const servicesData = reactive([
     primaryAction: '상담 신청',
     secondaryAction: '포트폴리오 보기',
     secondaryLink: '#portfolio',
-    serviceIcon: '💡',
-    icon: '💡',
+    serviceIcon: '<i class="fas fa-lightbulb"></i>',
+    icon: '<i class="fas fa-lightbulb"></i>',
     visualTitle: '전략적 클라우드 컨설팅',
     visualFeatures: ['아키텍처 설계', '비용 최적화', '보안 강화', '성능 튜닝']
   },
@@ -289,7 +289,7 @@ const servicesData = reactive([
     secondaryAction: 'CloudWai 보기',
     secondaryLink: '#solutions',
     solutionTarget: 'cloudwai',
-    serviceIcon: '☁️',
+    serviceIcon: '<i class="fas fa-cloud"></i>',
     icon: cloudWaiSymbol,
     visualTitle: '완전 관리형 클라우드',
     visualFeatures: ['자동 프로비저닝', '통합 빌링', '실시간 모니터링', '토폴로지 맵']
@@ -309,7 +309,7 @@ const servicesData = reactive([
     secondaryAction: 'Verora 보기',
     secondaryLink: '#solutions',
     solutionTarget: 'dapq',
-    serviceIcon: '🤖',
+    serviceIcon: '<i class="fas fa-robot"></i>',
     icon: veroraSymbol,
     visualTitle: 'RAG 기반 AI 채팅',
     visualFeatures: ['문서 임베딩', 'RAG 검색', '실시간 응답', '학습 최적화']
@@ -329,7 +329,7 @@ const servicesData = reactive([
     secondaryAction: 'Siora 보기',
     secondaryLink: '#solutions',
     solutionTarget: 'dataq',
-    serviceIcon: '🔍',
+    serviceIcon: '<i class="fas fa-search"></i>',
     icon: sioraSymbol,
     visualTitle: '자연어 SQL 변환',
     visualFeatures: ['자연어 이해', 'SQL 생성', '메타데이터 분석', '인사이트 도출']
@@ -349,7 +349,7 @@ const servicesData = reactive([
     secondaryAction: 'Dovora 보기',
     secondaryLink: '#solutions',
     solutionTarget: 'dovora',
-    serviceIcon: '📄',
+    serviceIcon: '<i class="fas fa-file-alt"></i>',
     icon: dovoraSymbol,
     visualTitle: '지능형 문서 관리',
     visualFeatures: ['문서 분석', '질의 응답', '정보 보호', '비용 최적화']
@@ -369,7 +369,7 @@ const servicesData = reactive([
     secondaryAction: 'NeoFlow 보기',
     secondaryLink: '#solutions',
     solutionTarget: 'neoflow',
-    serviceIcon: '📊',
+    serviceIcon: '<i class="fas fa-chart-bar"></i>',
     icon: neoFlowSymbol,
     visualTitle: '통합 데이터 플랫폼',
     visualFeatures: ['소스 연계', 'ETL 자동화', '스케줄링', '품질 관리']
@@ -389,7 +389,7 @@ const servicesData = reactive([
     secondaryAction: 'Orkis 보기',
     secondaryLink: '#solutions',
     solutionTarget: 'kubesync',
-    serviceIcon: '⚙️',
+    serviceIcon: '<i class="fas fa-cog"></i>',
     icon: orkisSymbol,
     visualTitle: '완전 자동화 DevOps',
     visualFeatures: ['CI/CD 자동화', '컨테이너 관리', '모니터링', '오토 스케일링']

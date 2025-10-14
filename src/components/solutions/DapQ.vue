@@ -115,10 +115,10 @@
     </div>
 
     <div class="solution-features">
-      <h4>Verora 핵심 기능</h4>
+      <h4>핵심 기능</h4>
       <div class="features-grid">
         <div class="feature-item" v-for="feature in features" :key="feature.id">
-          <div class="feature-icon">{{ feature.icon }}</div>
+          <div class="feature-icon" v-html="feature.icon"></div>
           <h5>{{ feature.title }}</h5>
           <p v-for="desc in feature.descriptions" :key="desc">{{ desc }}</p>
         </div>
@@ -130,7 +130,7 @@
       <div class="chat-container">
         <div class="chat-header">
           <div class="chat-title">
-            <span class="chat-icon">💬</span>
+            <span class="chat-icon"><i class="fas fa-comments"></i></span>
             Verora AI Assistant
             <span class="online-status">● 온라인</span>
           </div>
@@ -143,14 +143,14 @@
             :class="{ 'user-message': message.isUser, 'ai-message': !message.isUser }"
           >
             <div class="message-content">
-              <div v-if="!message.isUser" class="ai-avatar">🤖</div>
+              <div v-if="!message.isUser" class="ai-avatar"><i class="fas fa-robot"></i></div>
               <div class="message-bubble">
                 <span v-if="message.isTyping" class="typing-indicator">
                   <span></span><span></span><span></span>
                 </span>
                 <span v-else>{{ message.text }}</span>
               </div>
-              <div v-if="message.isUser" class="user-avatar">👤</div>
+              <div v-if="message.isUser" class="user-avatar"><i class="fas fa-user"></i></div>
             </div>
           </div>
         </div>
@@ -162,7 +162,7 @@
     </div>
 
     <div class="solution-architecture">
-      <h4>Verora 아키텍처</h4>
+      <h4>시스템 아키텍처</h4>
       <div class="architecture-diagram">
         <div class="arch-layer" v-for="layer in architectureLayers" :key="layer.id">
           <h5>{{ layer.title }}</h5>
@@ -206,7 +206,7 @@ export default {
       features: [
         {
           id: 1,
-          icon: '💬',
+          icon: '<i class="fas fa-comments"></i>',
           title: 'RAG 기반 검색',
           descriptions: [
             'Retrieval-Augmented Generation 기술로',
@@ -215,7 +215,7 @@ export default {
         },
         {
           id: 2,
-          icon: '📚',
+          icon: '<i class="fas fa-book"></i>',
           title: '다양한 문서 지원',
           descriptions: [
             'PDF, Word, Excel, PPT 등 다양한 문서 형식을',
@@ -224,7 +224,7 @@ export default {
         },
         {
           id: 3,
-          icon: '🎯',
+          icon: '<i class="fas fa-bullseye"></i>',
           title: '맞춤형 학습',
           descriptions: [
             '기업 고유의 데이터와 용어를 반영한',
@@ -233,7 +233,7 @@ export default {
         },
         {
           id: 4,
-          icon: '⏰',
+          icon: '<i class="fas fa-clock"></i>',
           title: '24/7 고객 지원',
           descriptions: [
             '언제든지 즉각적이고 정확한 응답으로',
@@ -242,7 +242,7 @@ export default {
         },
         {
           id: 5,
-          icon: '🔄',
+          icon: '<i class="fas fa-sync-alt"></i>',
           title: '실시간 업데이트',
           descriptions: [
             '새로운 문서나 정보가 추가될 때마다',
@@ -251,7 +251,7 @@ export default {
         },
         {
           id: 6,
-          icon: '🛡️',
+          icon: '<i class="fas fa-shield-alt"></i>',
           title: '보안 및 프라이버시',
           descriptions: [
             '기업 데이터의 보안을 보장하며',
@@ -437,11 +437,17 @@ export default {
 .solution-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
+  align-items: start;
   gap: 60px;
   padding: 60px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+}
+
+.solution-hero-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .solution-badge {
@@ -466,6 +472,7 @@ export default {
   font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 20px;
+  margin-top: auto;
   opacity: 0.9;
 }
 
@@ -473,18 +480,24 @@ export default {
   font-size: 1.1rem;
   line-height: 1.8;
   opacity: 0.9;
+  word-break: keep-all;
 }
 
 .solution-hero-visual {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  height: 100%;
 }
 
 .ai-diagram {
   text-align: center;
   position: relative;
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* AI 챗봇 라인아트 애니메이션 */
@@ -867,6 +880,7 @@ export default {
 
 .solution-features {
   padding: 60px;
+  background: white;
 }
 
 .solution-features h4 {
@@ -1198,6 +1212,42 @@ export default {
 }
 
 @media (max-width: 576px) {
+  .solution-hero {
+    padding: 50px 20px;
+    gap: 45px;
+  }
+
+  .solution-hero h3 {
+    font-size: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 0px;
+  }
+
+  .solution-name {
+    text-align: center;
+  }
+
+  .solution-pronunciation {
+    font-size: 1rem;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: -5px;
+  }
+
+  .solution-header {
+    flex-direction: column;
+    margin-bottom: 40px;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .solution-header-logo {
+    height: 3.6rem;
+  }
+
   .features-grid { grid-template-columns: 1fr; }
   .chat-messages { min-height: 250px; max-height: 250px; }
 }

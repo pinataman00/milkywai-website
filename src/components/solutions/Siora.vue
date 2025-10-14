@@ -4,11 +4,16 @@
       <div class="solution-hero-content">
         <div class="solution-badge">Natural Language to SQL</div>
         <div class="solution-header">
-          <h3>
-            <span class="solution-name">Siora</span>
-            <span class="solution-pronunciation">시오라</span>
-          </h3>
-          <p class="solution-catchphrase">데이터와 대화하다, 인사이트를 발견하다</p>
+          <div class="header-logo">
+            <img :src="symbolImage" alt="Siora Symbol" class="solution-header-logo">
+          </div>
+          <div class="header-text">
+            <h3>
+              <span class="solution-name">Siora</span>
+              <span class="solution-pronunciation">시오라</span>
+            </h3>
+            <p class="solution-catchphrase">데이터와 대화하다, 인사이트를 발견하다</p>
+          </div>
         </div>
         <p class="solution-tagline">자연어를 SQL로 변환하는 지능형 데이터 분석 플랫폼</p>
         <p class="solution-description">AI를 이용해 자연어 질의를 SQL로 자동 변환하여, SQL 전문 지식 없이도 누구나 쉽게 데이터를 추출하고 분석할 수 있는 혁신적인 플랫폼입니다.</p>
@@ -19,7 +24,7 @@
           <div class="main-icon-wrapper">
             <i class="fas fa-question-circle main-icon" :class="{ hidden: iconTransformed }"></i>
             <i class="fas fa-lightbulb main-icon transformed-icon" :class="{ show: iconTransformed }"></i>
-            <div class="icon-label">Just ask & Get Insight!</div>
+            <!-- <div class="icon-label">Just ask & Get Insight!</div> -->
           </div>
 
           <!-- Conversion Flow -->
@@ -83,13 +88,12 @@
           </div> -->
         </div>
       </div>
-    </div>
 
     <div class="solution-features">
-      <h4>Siora 핵심 기능</h4>
+      <h4>핵심 기능</h4>
       <div class="features-grid">
         <div class="feature-item" v-for="feature in features" :key="feature.id">
-          <div class="feature-icon">{{ feature.icon }}</div>
+          <div class="feature-icon" v-html="feature.icon"></div>
           <h5>{{ feature.title }}</h5>
           <p v-for="desc in feature.descriptions" :key="desc">{{ desc }}</p>
         </div>
@@ -98,7 +102,7 @@
 
     <div class="solution-demo" :class="{ 'is-mobile': isMobile }">
       <h4 @click="toggleAccordion('demo')">
-        Siora 실사용 예시
+        실사용 예시
         <span class="accordion-icon">{{ accordionStates.demo ? '−' : '+' }}</span>
       </h4>
       <div class="accordion-content" v-show="accordionStates.demo">
@@ -129,21 +133,21 @@ LIMIT 5;</code></pre>
           <h5>도출된 인사이트</h5>
           <div class="insight-cards">
             <div class="insight-card primary">
-              <div class="insight-icon">📊</div>
+              <div class="insight-icon"><i class="fas fa-chart-bar"></i></div>
               <div class="insight-content">
                 <h6>매출 집중도 분석</h6>
                 <p>상위 5개 제품이 전체 매출의 <strong>45%</strong>를 차지하여 높은 집중도를 보임</p>
               </div>
             </div>
             <div class="insight-card success">
-              <div class="insight-icon">💡</div>
+              <div class="insight-icon"><i class="fas fa-lightbulb"></i></div>
               <div class="insight-content">
                 <h6>최고 성과 제품</h6>
                 <p>제품 A가 2위 대비 <strong>2배 이상</strong> 높은 매출을 기록하며 주력 제품으로 확인</p>
               </div>
             </div>
             <div class="insight-card warning">
-              <div class="insight-icon">📈</div>
+              <div class="insight-icon"><i class="fas fa-chart-line"></i></div>
               <div class="insight-content">
                 <h6>전략적 제안</h6>
                 <p>상위 제품군 집중 마케팅 및 재고 관리로 <strong>매출 극대화</strong> 가능</p>
@@ -157,13 +161,13 @@ LIMIT 5;</code></pre>
 
     <div class="solution-architecture" :class="{ 'is-mobile': isMobile }">
       <h4 @click="toggleAccordion('architecture')">
-        Siora 시스템 아키텍처
+        시스템 아키텍처
         <span class="accordion-icon">{{ accordionStates.architecture ? '−' : '+' }}</span>
       </h4>
       <div class="accordion-content" v-show="accordionStates.architecture">
       <div class="architecture-flow">
         <div class="arch-step" v-for="layer in architectureLayers" :key="layer.id">
-          <div class="arch-icon">{{ layer.icon }}</div>
+          <div class="arch-icon" v-html="layer.icon"></div>
           <h5>{{ layer.title }}</h5>
           <div class="arch-description">{{ layer.description }}</div>
           <div class="arch-components">
@@ -175,14 +179,17 @@ LIMIT 5;</code></pre>
       </div>
       </div>
     </div>
-  <!-- </div> -->
+  </div>
 </template>
 
 <script>
+import symbolImage from '../../assets/solutions-logo/logo-symbol/Siora_symbol.png'
+
 export default {
   name: 'Siora',
   data() {
     return {
+      symbolImage,
       isFlowVisible: false,
       animationTimer: null,
       typingTimer: null,
@@ -235,7 +242,7 @@ export default {
       features: [
         {
           id: 1,
-          icon: '💬',
+          icon: '<i class="fas fa-comments"></i>',
           title: '자연어 이해',
           descriptions: [
             '복잡한 비즈니스 질문을 자연어로 입력하면',
@@ -244,7 +251,7 @@ export default {
         },
         {
           id: 2,
-          icon: '🧠',
+          icon: '<i class="fas fa-brain"></i>',
           title: '스키마 자동 분석',
           descriptions: [
             '데이터베이스 스키마를 자동으로 분석하여',
@@ -253,7 +260,7 @@ export default {
         },
         {
           id: 3,
-          icon: '⚡',
+          icon: '<i class="fas fa-bolt"></i>',
           title: '실시간 SQL 생성',
           descriptions: [
             '질의와 동시에 최적화된 SQL을 생성하여',
@@ -263,7 +270,7 @@ export default {
         {
           id: 4,
           title: '메타데이터 활용',
-          icon: '📊',
+          icon: '<i class="fas fa-chart-bar"></i>',
           descriptions: [
             '테이블 간 관계, 컬럼 의미, 비즈니스 규칙을',
             '학습하여 더욱 정확한 SQL을 생성합니다'
@@ -271,7 +278,7 @@ export default {
         },
         {
           id: 5,
-          icon: '🎯',
+          icon: '<i class="fas fa-bullseye"></i>',
           title: '성능 최적화',
           descriptions: [
             '쿼리 성능을 고려한 최적화된 SQL을 생성하여',
@@ -280,7 +287,7 @@ export default {
         },
         {
           id: 6,
-          icon: '📈',
+          icon: '<i class="fas fa-chart-line"></i>',
           title: '인사이트 자동 도출',
           descriptions: [
             '분석 결과에서 비즈니스 인사이트를 자동으로 도출하여',
@@ -291,28 +298,28 @@ export default {
       architectureLayers: [
         {
           id: 1,
-          icon: '🎤',
+          icon: '<i class="fas fa-microphone"></i>',
           title: 'Natural Language Processing',
           description: '사용자 질의 이해 및 의도 파악',
           components: ['NLP Engine', 'Intent Recognition', 'Entity Extraction']
         },
         {
           id: 2,
-          icon: '🗄️',
+          icon: '<i class="fas fa-database"></i>',
           title: 'Metadata Management',
           description: '데이터베이스 스키마 분석 및 관리',
           components: ['Schema Analyzer', 'Relationship Mapping', 'Data Dictionary']
         },
         {
           id: 3,
-          icon: '🔧',
+          icon: '<i class="fas fa-wrench"></i>',
           title: 'SQL Generation Engine',
           description: 'AI 기반 SQL 자동 생성',
           components: ['Query Builder', 'Optimization Engine', 'Validation Layer']
         },
         {
           id: 4,
-          icon: '📊',
+          icon: '<i class="fas fa-chart-bar"></i>',
           title: 'Result Processing',
           description: '결과 처리 및 인사이트 도출',
           components: ['Data Visualization', 'Insight Engine', 'Report Generator']
@@ -537,11 +544,17 @@ export default {
 .solution-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
+  align-items: start;
   gap: 60px;
   padding: 60px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+}
+
+.solution-hero-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .solution-badge {
@@ -564,9 +577,32 @@ export default {
 
 .solution-header {
   display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 50px;
+}
+
+.header-text {
+  display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 50px;
+  flex: 1;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.solution-header-logo {
+  height: 5rem;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .solution-header h3 {
@@ -598,13 +634,15 @@ export default {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 5px;
+  margin-top: auto;
   opacity: 0.9;
 }
 
 .solution-description {
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.8;
   opacity: 0.9;
+  word-break: keep-all;
   color: rgba(255, 255, 255, 0.87);
 }
 
@@ -961,6 +999,7 @@ export default {
 
 .solution-features {
   padding: 60px;
+  background: white;
 }
 
 .solution-features h4 {
@@ -1234,6 +1273,11 @@ export default {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Hide accordion icon on PC */
+.accordion-icon {
+  display: none;
+}
+
 /* Accordion styles for mobile */
 @media (max-width: 576px) {
   .solution-demo.is-mobile h4,
@@ -1257,6 +1301,7 @@ export default {
   }
 
   .accordion-icon {
+    display: inline;
     font-size: 1.5rem;
     font-weight: 300;
     transition: transform 0.3s ease;
@@ -1326,8 +1371,10 @@ export default {
   .icon-animation-container { height: 280px; }
 
   .conversion-flow {
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .arrow-wrapper {
@@ -1347,13 +1394,16 @@ export default {
 
 @media (max-width: 576px) {
   .solution-hero {
-    padding: 40px 20px;
-    gap: 35px;
+    padding: 50px 20px;
+    gap: 45px;
   }
 
   .solution-hero h3 {
     font-size: 1.8rem;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
     margin-bottom: 0px;
   }
 
@@ -1363,13 +1413,20 @@ export default {
 
   .solution-pronunciation {
     font-size: 1rem;
-    margin-top: 5px;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: -5px;
   }
 
   .solution-header {
+    flex-direction: column;
     margin-bottom: 40px;
     align-items: center;
     gap: 5px;
+  }
+
+  .solution-header-logo {
+    height: 3.6rem;
   }
 
   .solution-catchphrase {
@@ -1378,7 +1435,7 @@ export default {
   }
 
   .solution-tagline {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     text-align: center;
     margin-bottom: 15px;
   }
