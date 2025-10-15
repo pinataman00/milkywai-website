@@ -93,10 +93,6 @@
     </div>
 
     <div class="use-case-section" :class="{ 'is-mobile': isMobile }">
-      <h4 @click="toggleAccordion('useCase')">
-        실사용 예시
-        <span class="accordion-icon">{{ accordionStates.useCase ? '−' : '+' }}</span>
-      </h4>
       <div class="accordion-content" v-show="accordionStates.useCase">
       <div class="use-case-demo">
         <div class="use-case-step">
@@ -130,9 +126,9 @@
 
         <div class="before-after-container">
           <div class="before-card">
-            <div class="card-header">
-              <span class="card-icon"><i class="fas fa-times-circle"></i></span>
-              <h6>도입 전</h6>
+            <div class="card-header card-header-vertical">
+              <font-awesome-icon :icon="['fas', 'face-frown']" class="card-icon-large" />
+              <h6>BEFORE</h6>
             </div>
             <div class="card-content">
               <div class="card-item">
@@ -157,9 +153,8 @@
           <div class="arrow-divider">→</div>
 
           <div class="after-card">
-            <div class="card-header">
-              <span class="card-icon"><i class="fas fa-check-circle"></i></span>
-              <h6>Orkis 도입 후</h6>
+            <div class="card-header card-header-vertical">
+              <img :src="logoImage" alt="Orkis" class="card-logo" />
             </div>
             <div class="card-content">
               <div class="card-item">
@@ -187,32 +182,44 @@
         <h5><i class="fas fa-tools"></i> 핵심 기술 스택</h5>
         <div class="tech-stack-grid">
           <div class="tech-card">
-            <div class="tech-icon"><i class="fas fa-dharmachakra"></i></div>
+            <div class="tech-logo-wrapper">
+              <img :src="kubernetesLogo" alt="Kubernetes" class="tech-logo">
+            </div>
             <h6>Kubernetes</h6>
             <p>컨테이너 오케스트레이션</p>
           </div>
           <div class="tech-card">
-            <div class="tech-icon"><i class="fas fa-wrench"></i></div>
+            <div class="tech-logo-wrapper">
+              <img :src="jenkinsLogo" alt="Jenkins" class="tech-logo">
+            </div>
             <h6>Jenkins</h6>
             <p>CI/CD 자동화</p>
           </div>
           <div class="tech-card">
-            <div class="tech-icon"><i class="fas fa-rocket"></i></div>
+            <div class="tech-logo-wrapper">
+              <img :src="argoLogo" alt="ArgoCD" class="tech-logo">
+            </div>
             <h6>ArgoCD</h6>
             <p>GitOps 기반 배포</p>
           </div>
           <div class="tech-card">
-            <div class="tech-icon"><i class="fab fa-docker"></i></div>
+            <div class="tech-logo-wrapper">
+              <img :src="dockerLogo" alt="Docker" class="tech-logo">
+            </div>
             <h6>Docker</h6>
             <p>컨테이너 런타임</p>
           </div>
           <div class="tech-card">
-            <div class="tech-icon"><i class="fas fa-chart-bar"></i></div>
+            <div class="tech-logo-wrapper">
+              <img :src="prometheusLogo" alt="Prometheus" class="tech-logo">
+            </div>
             <h6>Prometheus</h6>
             <p>메트릭 수집</p>
           </div>
           <div class="tech-card">
-            <div class="tech-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="tech-logo-wrapper">
+              <img :src="grafanaLogo" alt="Grafana" class="tech-logo">
+            </div>
             <h6>Grafana</h6>
             <p>모니터링 대시보드</p>
           </div>
@@ -259,13 +266,27 @@
 </template>
 
 <script>
+import logoImage from '../../assets/solutions-logo/logo-vertical/Orkis_vertical.png'
 import symbolImage from '../../assets/solutions-logo/logo-symbol/Orkis_symbol.png'
+import kubernetesLogo from '../../assets/brands_ci/kubernetes.svg'
+import jenkinsLogo from '../../assets/brands_ci/jenkins.svg'
+import argoLogo from '../../assets/brands_ci/symbol/argo_symbol.svg'
+import dockerLogo from '../../assets/brands_ci/symbol/docker_symbol.svg'
+import prometheusLogo from '../../assets/brands_ci/prometheus.svg'
+import grafanaLogo from '../../assets/brands_ci/symbol/grafana_symbol.svg'
 
 export default {
   name: 'Orkis',
   data() {
     return {
+      logoImage,
       symbolImage,
+      kubernetesLogo,
+      jenkinsLogo,
+      argoLogo,
+      dockerLogo,
+      prometheusLogo,
+      grafanaLogo,
       isMobile: false,
       accordionStates: {
         useCase: false,
@@ -464,7 +485,6 @@ export default {
   font-size: 1.1rem;
   line-height: 1.8;
   opacity: 0.9;
-  word-break: keep-all;
   color: rgba(255, 255, 255, 0.87);
 }
 
@@ -859,8 +879,29 @@ export default {
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
+.card-header-vertical {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+  padding: 20px;
+  border-bottom: none;
+}
+
 .card-icon {
   font-size: 1.5rem;
+}
+
+.card-icon-large {
+  font-size: 3.5rem;
+  color: #dc2626;
+}
+
+.card-logo {
+  max-width: 180px;
+  height: auto;
+  object-fit: contain;
 }
 
 .card-header h6 {
@@ -1187,8 +1228,21 @@ export default {
     padding-bottom: 12px;
   }
 
+  .card-header-vertical {
+    padding: 15px;
+    gap: 10px;
+  }
+
   .card-icon {
     font-size: 1.3rem;
+  }
+
+  .card-icon-large {
+    font-size: 2.5rem;
+  }
+
+  .card-logo {
+    max-width: 130px;
   }
 
   .card-header h6 {
@@ -1236,8 +1290,9 @@ export default {
     padding: 18px 15px;
   }
 
-  .tech-icon {
-    font-size: 2rem;
+  .tech-logo-wrapper {
+    width: 60px;
+    height: 60px;
     margin-bottom: 10px;
   }
 
@@ -1307,9 +1362,19 @@ export default {
   box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
 }
 
-.tech-icon {
-  font-size: 2.5rem;
-  margin-bottom: 12px;
+.tech-logo-wrapper {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tech-logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .tech-card h6 {

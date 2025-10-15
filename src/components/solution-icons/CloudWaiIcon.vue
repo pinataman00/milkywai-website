@@ -55,7 +55,7 @@ onBeforeUnmount(() => {
 }
 
 .main-icon.pulse {
-  animation: cloudFloat 3s ease-in-out infinite, iconPulse 2s ease-in-out infinite;
+  animation: cloudFloat 3s ease-in-out infinite;
 }
 
 @keyframes cloudFloat {
@@ -64,15 +64,6 @@ onBeforeUnmount(() => {
   }
   50% {
     transform: translateY(-15px);
-  }
-}
-
-@keyframes iconPulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
   }
 }
 

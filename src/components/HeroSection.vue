@@ -265,7 +265,6 @@ export default {
     font-size: 2.2rem;
     line-height: 1.3;
     margin-bottom: 15px;
-    word-break: keep-all; /* 한글 줄바꿈 개선 */
   }
 
   .hero p {
@@ -273,7 +272,6 @@ export default {
     font-size: 1rem;
     line-height: 1.5;
     margin-bottom: 30px;
-    word-break: keep-all;
   }
 
   .services-preview {
@@ -283,8 +281,8 @@ export default {
   }
 
   .service-tag {
-    width: 80%;
-    max-width: 300px;
+    width: 90%;
+    max-width: 400px;
     text-align: center;
   }
 

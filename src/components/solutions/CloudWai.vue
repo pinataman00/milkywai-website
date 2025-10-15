@@ -33,15 +33,15 @@
             <!-- Server Infrastructure Icons -->
             <div class="server-icons">
               <div class="server-icon" :class="{ active: activeServer === 'aws' }">
-                <i class="fas fa-server"></i>
+                <img :src="awsLogo" alt="AWS" class="server-logo">
                 <span class="server-label">AWS</span>
               </div>
               <div class="server-icon" :class="{ active: activeServer === 'azure' }">
-                <i class="fas fa-network-wired"></i>
+                <img :src="azureLogo" alt="Azure" class="server-logo">
                 <span class="server-label">Azure</span>
               </div>
               <div class="server-icon" :class="{ active: activeServer === 'gcp' }">
-                <i class="fas fa-database"></i>
+                <img :src="gcpLogo" alt="GCP" class="server-logo">
                 <span class="server-label">GCP</span>
               </div>
             </div>
@@ -101,16 +101,12 @@
     </div>
 
     <div class="use-case-section" :class="{ 'is-mobile': isMobile }">
-      <h4 @click="toggleAccordion('useCase')">
-        실사용 예시
-        <span class="accordion-icon">{{ accordionStates.useCase ? '−' : '+' }}</span>
-      </h4>
       <div class="accordion-content" v-show="accordionStates.useCase">
       <div class="before-after-container">
         <div class="before-card">
-          <div class="card-header">
-            <span class="card-icon"><i class="fas fa-times-circle"></i></span>
-            <h6>CloudWai 도입 전</h6>
+          <div class="card-header card-header-vertical">
+            <font-awesome-icon :icon="['fas', 'face-frown']" class="card-icon-large" />
+            <h6>BEFORE</h6>
           </div>
           <div class="card-content">
             <div class="card-item">
@@ -133,9 +129,8 @@
         </div>
         <div class="arrow-divider">→</div>
         <div class="after-card">
-          <div class="card-header">
-            <span class="card-icon"><i class="fas fa-check-circle"></i></span>
-            <h6>CloudWai 도입 후</h6>
+          <div class="card-header card-header-vertical">
+            <img :src="logoImage" alt="CloudWai" class="card-logo" />
           </div>
           <div class="card-content">
             <div class="card-item">
@@ -200,6 +195,9 @@
 <script>
 import logoImage from '../../assets/solutions-logo/logo-vertical/CloudWai_vertical.png'
 import symbolImage from '../../assets/solutions-logo/logo-symbol/CloudWai_symbol.png'
+import awsLogo from '../../assets/brands_ci/servers/aws.svg'
+import azureLogo from '../../assets/brands_ci/servers/azure.svg'
+import gcpLogo from '../../assets/brands_ci/servers/gcp.svg'
 
 export default {
   name: 'CloudWai',
@@ -207,6 +205,9 @@ export default {
     return {
       logoImage,
       symbolImage,
+      awsLogo,
+      azureLogo,
+      gcpLogo,
       activeServer: null,
       activeFeature: null,
       mainIconActive: false,
@@ -412,7 +413,6 @@ export default {
   font-size: 1.1rem;
   line-height: 1.8;
   opacity: 0.9;
-  word-break: keep-all;
   color: rgba(255, 255, 255, 0.87);
 }
 
@@ -508,6 +508,20 @@ export default {
   color: white;
   margin-bottom: 8px;
   filter: drop-shadow(0 3px 10px rgba(255, 255, 255, 0.5));
+}
+
+.server-logo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 8px;
+  filter: brightness(0) invert(1) drop-shadow(0 3px 10px rgba(255, 255, 255, 0.3));
+  transition: all 0.3s ease;
+}
+
+.server-icon.active .server-logo {
+  filter: brightness(0) invert(1) drop-shadow(0 5px 15px rgba(255, 255, 255, 0.6));
+  transform: scale(1.1);
 }
 
 .server-label {
@@ -784,9 +798,30 @@ export default {
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
+.card-header-vertical {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+  padding: 20px;
+  border-bottom: none;
+}
+
 .card-icon {
   font-size: 2rem;
   flex-shrink: 0;
+}
+
+.card-icon-large {
+  font-size: 4rem;
+  color: #dc2626;
+}
+
+.card-logo {
+  max-width: 200px;
+  height: auto;
+  object-fit: contain;
 }
 
 .card-header h6 {
@@ -993,6 +1028,11 @@ export default {
     font-size: 1.5rem;
   }
 
+  .server-logo {
+    width: 40px;
+    height: 40px;
+  }
+
   .feature-points {
     flex-wrap: wrap;
     max-width: 100%;
@@ -1119,6 +1159,12 @@ export default {
     margin-bottom: 5px;
   }
 
+  .server-logo {
+    width: 35px;
+    height: 35px;
+    margin-bottom: 5px;
+  }
+
   .server-label {
     font-size: 0.7rem;
   }
@@ -1191,12 +1237,25 @@ export default {
     padding-bottom: 12px;
   }
 
+  .card-header-vertical {
+    padding: 15px;
+    gap: 10px;
+  }
+
   .card-header h6 {
     font-size: 0.95rem;
   }
 
   .card-icon {
     font-size: 1.3rem;
+  }
+
+  .card-icon-large {
+    font-size: 3rem;
+  }
+
+  .card-logo {
+    max-width: 150px;
   }
 
   .card-content {

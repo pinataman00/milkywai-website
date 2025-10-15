@@ -42,10 +42,12 @@
                 </div>
                 <h4 class="featured-service-title">{{ service.title }}</h4>
               </div>
-              <p class="featured-service-desc">{{ service.description }}</p>
-              <div class="featured-highlights">
-                <div v-for="highlight in service.highlights.slice(0, 2)" :key="highlight" class="featured-highlight">
-                  {{ highlight }}
+              <div class="featured-content-area">
+                <p class="featured-service-desc">{{ service.description }}</p>
+                <div class="featured-highlights">
+                  <div v-for="highlight in service.highlights.slice(0, 2)" :key="highlight" class="featured-highlight">
+                    {{ highlight }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -100,12 +102,23 @@
                 </button>
               </div>
             </div>
-            <div class="service-visual" @mouseenter="handleVisualHover" @mouseleave="handleVisualLeave">
-              <!-- 동적 아이콘 컴포넌트 또는 FontAwesome 아이콘 -->
-              <div class="visual-icon">
-                <component v-if="serviceIconComponents[service.category]"
-                           :is="serviceIconComponents[service.category]" />
-                <span v-else v-html="service.serviceIcon"></span>
+            <div class="service-visual"
+                 @mouseenter="hoveredVisual = service.category"
+                 @mouseleave="hoveredVisual = null"
+                 @click="handleVisualClick(service)">
+              <!-- 동적 아이콘 컴포넌트 또는 FontAwesome 아이콘 또는 Vertical 로고 -->
+              <div class="visual-icon" :class="{ 'has-logo': hoveredVisual === service.category && serviceVerticalLogos[service.category] }">
+                <!-- Hover 시 Vertical 로고 표시 -->
+                <img v-if="hoveredVisual === service.category && serviceVerticalLogos[service.category]"
+                     :src="serviceVerticalLogos[service.category]"
+                     :alt="service.name"
+                     class="vertical-logo">
+                <!-- 기본 아이콘 -->
+                <template v-else>
+                  <component v-if="serviceIconComponents[service.category]"
+                             :is="serviceIconComponents[service.category]" />
+                  <span v-else v-html="service.serviceIcon"></span>
+                </template>
               </div>
               <h4 class="visual-title">{{ service.visualTitle }}</h4>
               <div class="visual-features">
@@ -133,6 +146,14 @@ import neoFlowSymbol from '../assets/solutions-logo/logo-symbol/NeoFlow_symbol.p
 import orkisSymbol from '../assets/solutions-logo/logo-symbol/Orkis_symbol.png'
 import faviconIcon from '../assets/favicon.svg'
 
+// Vertical 로고 import
+import cloudWaiVertical from '../assets/solutions-logo/logo-vertical/CloudWai_vertical.png'
+import veroraVertical from '../assets/solutions-logo/logo-vertical/Verora_vertical.png'
+import sioraVertical from '../assets/solutions-logo/logo-vertical/Siora_vertical.png'
+import dovoraVertical from '../assets/solutions-logo/logo-vertical/Dovora_vertical.png'
+import neoFlowVertical from '../assets/solutions-logo/logo-vertical/NeoFlow_vertical.png'
+import orkisVertical from '../assets/solutions-logo/logo-vertical/Orkis_vertical.png'
+
 // Solution icon components import
 import CloudWaiIcon from './solution-icons/CloudWaiIcon.vue'
 import VeroraIcon from './solution-icons/VeroraIcon.vue'
@@ -148,12 +169,13 @@ const emit = defineEmits(['go-to-solution'])
 // Reactive data
 const activeCategory = ref('all')
 const highlightedService = ref(null)
+const hoveredVisual = ref(null)
 
 // 서비스-솔루션 매핑 (컴포넌트 내부에서 정의)
 const serviceSolutionMapping = {
   'consulting': null,
   'cloud': 'cloudwai',
-  'dapq': 'dapq',
+  'dapq': 'verora',
   'dataq': 'dataq',
   'dovora': 'dovora',
   'data': 'neoflow',
@@ -162,7 +184,7 @@ const serviceSolutionMapping = {
 
 const solutionServiceMapping = {
   'cloudwai': 'cloud',
-  'dapq': 'dapq',
+  'verora': 'dapq',
   'dataq': 'dataq',
   'dovora': 'dovora',
   'neoflow': 'data',
@@ -178,6 +200,17 @@ const serviceIconComponents = {
   'data': NeoFlowIcon,
   'devops': OrkisIcon,
   'consulting': ConsultingIcon
+}
+
+// 서비스 카테고리별 vertical 로고 매핑
+const serviceVerticalLogos = {
+  'cloud': cloudWaiVertical,
+  'dapq': veroraVertical,
+  'dataq': sioraVertical,
+  'dovora': dovoraVertical,
+  'data': neoFlowVertical,
+  'devops': orkisVertical,
+  'consulting': null
 }
 
 // 네비게이션 아이템
@@ -354,7 +387,7 @@ const servicesData = reactive([
     primaryAction: 'Verora 상담 신청',
     secondaryAction: 'Verora 보기',
     secondaryLink: '#solutions',
-    solutionTarget: 'dapq',
+    solutionTarget: 'verora',
     serviceIcon: '<i class="fas fa-robot"></i>',
     icon: veroraSymbol,
     visualTitle: 'RAG 기반 AI 채팅',
@@ -613,12 +646,14 @@ const handleSecondaryClick = (service) => {
   }
 } */
 
-const handleVisualHover = (event) => {
-  event.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'
-}
-
-const handleVisualLeave = (event) => {
-  event.currentTarget.style.transform = 'translateY(0) scale(1)'
+const handleVisualClick = (service) => {
+  if (service.solutionTarget) {
+    // 솔루션 섹션으로 이동
+    emit('go-to-solution', service.solutionTarget)
+    window.location.hash = `solutions-${service.solutionTarget}`
+    showNavigationFeedback(service.solutionTarget)
+    scrollToSolutionContent(service.solutionTarget)
+  }
 }
 
 const showNavigationFeedback = (solutionType) => {
@@ -692,13 +727,17 @@ onMounted(() => {
   setTimeout(() => {
     const cloudButton = document.querySelector('.solution-nav-btn:nth-child(1)')
     const kubeButton = document.querySelector('.solution-nav-btn:nth-child(2)')
-    const dapqButton = document.querySelector('.solution-nav-btn:nth-child(3)')
-    const dataButton = document.querySelector('.solution-nav-btn:nth-child(4)')
+    const veroraButton = document.querySelector('.solution-nav-btn:nth-child(3)')
+    const sioraButton = document.querySelector('.solution-nav-btn:nth-child(4)')
+    const neoflowButton = document.querySelector('.solution-nav-btn:nth-child(5)')
+    const dovoraButton = document.querySelector('.solution-nav-btn:nth-child(6)')
 
     if (cloudButton) cloudButton.setAttribute('data-solution', 'cloudwai')
     if (kubeButton) kubeButton.setAttribute('data-solution', 'kubesync')
-    if (dapqButton) dapqButton.setAttribute('data-solution', 'dapq')
-    if (dataButton) dataButton.setAttribute('data-solution', 'neoflow')
+    if (veroraButton) veroraButton.setAttribute('data-solution', 'verora')
+    if (sioraButton) sioraButton.setAttribute('data-solution', 'dataq')
+    if (neoflowButton) neoflowButton.setAttribute('data-solution', 'neoflow')
+    if (dovoraButton) dovoraButton.setAttribute('data-solution', 'dovora')
   }, 100)
 
   // Solutions Section에서의 호버 이벤트 리스닝
@@ -849,7 +888,7 @@ defineExpose({
 .featured-service-card {
   background: white;
   border-radius: 14px;
-  padding: 24px 20px;
+  padding: 18px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 2px solid transparent;
@@ -857,10 +896,11 @@ defineExpose({
   position: relative;
   overflow: hidden;
   height: auto;
-  min-height: 180px;
+  min-height: 150px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 12px;
   width: 100%;
 }
 
@@ -896,7 +936,6 @@ defineExpose({
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 6px;
 }
 
 .featured-icon {
@@ -955,18 +994,39 @@ defineExpose({
   color: #667eea;
 }
 
+.featured-content-area {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  min-height: 50px;
+  margin-top: 0;
+}
+
 .featured-service-desc {
   color: #4a5568;
-  line-height: 1.5;
-  margin-bottom: 8px;
-  margin-top: 6px;
+  line-height: 1.6;
   text-align: left;
-  font-size: 0.85rem;
-  word-break: keep-all;
+  font-size: 0.9rem;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.featured-service-card:hover .featured-service-desc,
+.featured-service-card.highlighted .featured-service-desc {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .featured-highlights {
@@ -974,15 +1034,28 @@ defineExpose({
   flex-wrap: wrap;
   gap: 6px;
   justify-content: flex-start;
-  margin-top: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.featured-service-card:hover .featured-highlights,
+.featured-service-card.highlighted .featured-highlights {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
 }
 
 .featured-highlight {
   background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
   color: #5a67d8;
-  padding: 6px 12px;
-  border-radius: 12px;
-  font-size: 0.75rem;
+  padding: 8px 16px;
+  border-radius: 14px;
+  font-size: 0.85rem;
   font-weight: 600;
   border: 1px solid #e2e8ff;
   white-space: nowrap;
@@ -1060,7 +1133,6 @@ defineExpose({
   font-size: 0.85rem;
   color: #667eea;
   font-weight: 500;
-  word-break: keep-all;
   line-height: 1.5;
 }
 
@@ -1109,7 +1181,6 @@ defineExpose({
   color: #666;
   line-height: 1.8;
   margin-bottom: 40px;
-  word-break: keep-all;
   text-align: justify;
   word-spacing: -0.05em;
 }
@@ -1197,6 +1268,11 @@ defineExpose({
   position: relative;
   overflow: hidden;
   transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.service-visual:hover {
+  transform: translateY(-10px) scale(1.02);
 }
 
 .service-visual::before {
@@ -1232,6 +1308,20 @@ defineExpose({
   font-size: inherit;
   filter: none;
   min-height: 220px;
+}
+
+/* Vertical 로고가 표시될 때 애니메이션 제거 */
+.visual-icon.has-logo {
+  animation: none;
+  filter: none;
+}
+
+.vertical-logo {
+  max-width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  filter: brightness(0) invert(1) drop-shadow(0 4px 15px rgba(255, 255, 255, 0.3));
 }
 
 @keyframes cloudFloat {
@@ -1364,7 +1454,7 @@ defineExpose({
   }
 
   .featured-service-card {
-    height: 165px;
+    min-height: 140px;
     padding: 16px 14px;
   }
 
@@ -1417,13 +1507,13 @@ defineExpose({
 
   .featured-service-card {
     padding: 14px;
-    height: 125px;
-    justify-content: space-between;
+    min-height: 115px;
+    justify-content: center;
+    gap: 10px;
   }
 
   .temp {
     gap: 10px;
-    margin-bottom: 8px;
   }
 
   .featured-icon {
@@ -1436,19 +1526,22 @@ defineExpose({
     font-size: 0.9rem;
   }
 
+  .featured-content-area {
+    min-height: 45px;
+  }
+
   .featured-service-desc {
-    font-size: 0.75rem;
-    margin-top: 4px;
-    margin-bottom: 6px;
+    font-size: 0.78rem;
+    -webkit-line-clamp: 2;
   }
 
   .featured-highlights {
-    gap: 4px;
+    gap: 5px;
   }
 
   .featured-highlight {
-    font-size: 0.65rem;
-    padding: 4px 8px;
+    font-size: 0.72rem;
+    padding: 6px 12px;
   }
 
   .service-detail {
@@ -1505,7 +1598,6 @@ defineExpose({
     font-size: 0.85rem;
     line-height: 1.5;
     margin-bottom: 30px;
-    word-break: keep-all;
   }
 
   .service-nav {
@@ -1617,6 +1709,10 @@ defineExpose({
 
   .visual-icon:has(.icon-animation-container) {
     min-height: 180px;
+  }
+
+  .vertical-logo {
+    max-height: 140px;
   }
 
   .visual-title {

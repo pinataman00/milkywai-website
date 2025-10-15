@@ -480,7 +480,6 @@ export default {
   font-size: 1.1rem;
   line-height: 1.8;
   opacity: 0.9;
-  word-break: keep-all;
 }
 
 .solution-hero-visual {

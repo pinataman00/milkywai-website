@@ -2,7 +2,7 @@
   <section class="section reference-section" id="reference">
     <div class="container">
       <h2 class="section-title">밀키웨이와 함께하는 고객</h2>
-      <p class="section-subtitle">믿음과 신뢰를 바탕으로 함께 성장하고 있는 고객사들입니다</p>
+      <p class="section-subtitle">믿음과 신뢰를 바탕으로<span class="mobile-break"> </span>함께 성장하고 있는 고객사들입니다</p>
       
       <div class="logo-carousel-container">
         <div class="logo-carousel" ref="logoCarousel">
@@ -110,7 +110,10 @@ export default {
   font-size: 1.2rem;
   color: #666;
   margin-bottom: 80px;
-  word-break: keep-all;
+}
+
+.mobile-break {
+  display: inline;
 }
 
 .logo-carousel-container {
@@ -222,15 +225,23 @@ export default {
   .section {
     padding: 60px 0 80px 0;
   }
-  
+
   .reference-section::after {
     display: block;
   }
-  
+
   .section-title {
     font-size: 2rem;
   }
-  
+
+  .section-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .mobile-break {
+    display: block;
+  }
+
   .logo-track {
     gap: 30px;
     animation-duration: 25s;

@@ -14,8 +14,10 @@
           <a href="#solutions" @click="handleSolutionsClick" class="solutions-main-link">
             Solutions
             <!-- PC와 모바일 상태 모두 반영 -->
-            <svg class="dropdown-arrow" :class="{ open: isDropdownOpen || isMobileSolutionsOpen }" width="12" height="8" viewBox="0 0 12 8" fill="none">
-              <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <svg class="dropdown-arrow" :class="{ open: isDropdownOpen || isMobileSolutionsOpen }" width="12" height="8"
+              viewBox="0 0 12 8" fill="none">
+              <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
             </svg>
           </a>
 
@@ -29,9 +31,14 @@
               <div class="solutions-grid">
                 <a v-for="solution in solutions" :key="solution.id" href="#solutions" class="solution-item"
                   @click="handleSolutionClick(solution.id)">
-                  <div class="solution-icon">{{ solution.icon }}</div>
+                  <div class="solution-icon">
+                    <img :src="solution.icon" :alt="solution.name + ' logo'" class="solution-icon-img">
+                  </div>
                   <div class="solution-info">
-                    <h4>{{ solution.name }}</h4>
+                    <div class="solution-title">
+                      <h4>{{ solution.name }}</h4>
+                      <p>{{ solution.pron }}</p>
+                    </div>
                     <p>{{ solution.description }}</p>
                   </div>
                 </a>
@@ -43,7 +50,9 @@
           <div class="mobile-submenu" :class="{ visible: isMobileSolutionsOpen }">
             <a v-for="solution in solutions" :key="solution.id" href="#solutions" class="mobile-solution-item"
               @click="handleSolutionClick(solution.id)">
-              <span class="mobile-solution-icon">{{ solution.icon }}</span>
+              <span class="mobile-solution-icon">
+                <img :src="solution.icon" :alt="solution.name + ' logo'" class="mobile-solution-icon-img">
+              </span>
               <div class="mobile-solution-info">
                 <span class="mobile-solution-name">{{ solution.name }}</span>
                 <span class="mobile-solution-desc">{{ solution.description }}</span>
@@ -71,6 +80,13 @@
 <script>
 import { ref } from 'vue'
 import logo from '../assets/milkywai.svg'
+// Solution symbol logos
+import cloudWaiSymbol from '../assets/solutions-logo/logo-symbol/CloudWai_symbol.png'
+import orkisSymbol from '../assets/solutions-logo/logo-symbol/Orkis_symbol.png'
+import veroraSymbol from '../assets/solutions-logo/logo-symbol/Verora_symbol.png'
+import sioraSymbol from '../assets/solutions-logo/logo-symbol/Siora_symbol.png'
+import neoFlowSymbol from '../assets/solutions-logo/logo-symbol/NeoFlow_symbol.png'
+import dovoraSymbol from '../assets/solutions-logo/logo-symbol/Dovora_symbol.png'
 
 export default {
   name: 'HeaderComponent',
@@ -92,38 +108,44 @@ export default {
       {
         id: 'cloudwai',
         name: 'CloudWai',
+        pron: '클라우드웨이',
         description: '클라우드 인프라 자동구성 및 통합관리',
-        icon: '☁️'
+        icon: cloudWaiSymbol
       },
       {
         id: 'kubesync',
         name: 'Orkis',
+        pron: '오르키스',
         description: 'MSA와 컨테이너 환경 통합 관리',
-        icon: '⚙️'
+        icon: orkisSymbol
       },
       {
         id: 'dapq',
         name: 'Verora',
+        pron: '베로라',
         description: 'RAG 기반 생성형 AI 채팅 서비스',
-        icon: '🤖'
+        icon: veroraSymbol
       },
       {
         id: 'dataq',
         name: 'Siora',
+        pron: '시오라',
         description: '자연어를 SQL로 변환하는 데이터 분석 플랫폼',
-        icon: '🔍'
+        icon: sioraSymbol
       },
       {
         id: 'neoflow',
         name: 'NeoFlow',
+        pron: '네오플로우',
         description: '통합 데이터 플랫폼 구축',
-        icon: '📊'
+        icon: neoFlowSymbol
       },
       {
         id: 'dovora',
         name: 'Dovora',
+        pron: '도보라',
         description: 'AI 기반 지능형 문서 관리 시스템',
-        icon: '📄'
+        icon: dovoraSymbol
       }
     ])
 
@@ -319,7 +341,8 @@ export default {
 .dropdown-arrow {
   transition: transform 0.3s ease;
   margin-left: 4px;
-  display: none; /* PC에서는 화살표 숨김 */
+  display: none;
+  /* PC에서는 화살표 숨김 */
 }
 
 .dropdown-arrow.open {
@@ -337,8 +360,8 @@ export default {
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
-  min-width: 650px;
-  max-width: 700px;
+  min-width: 750px;
+  max-width: 850px;
   margin-top: 10px;
   border: 1px solid #f0f0f0;
   z-index: 1001;
@@ -410,25 +433,45 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: transparent;
   border-radius: 10px;
-  color: white;
   flex-shrink: 0;
+  margin-right: 4px;
+  padding: 0;
 }
 
-.solution-info h4 {
-  font-size: 1rem;
-  font-weight: 600;
+.solution-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.solution-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
   margin-bottom: 4px;
-  color: #333;
 }
 
-.solution-info p {
+.solution-title h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  /* color: #333; */
+  color: #667eea;
+  margin: 0;
+}
+
+.solution-title p {
+  font-size: 0.85rem;
+  color: #667eea;
+  margin: 0;
+}
+
+.solution-info > p {
   font-size: 0.8rem;
   color: #666;
   line-height: 1.3;
   margin: 0;
-  word-break: keep-all;
 }
 
 /* 햄버거 메뉴 - 기본적으로 숨김 */
@@ -470,6 +513,7 @@ export default {
 
 /* 모바일 스타일 */
 @media (max-width: 768px) {
+
   /* 햄버거 메뉴 버튼 보이기 */
   .mobile-menu {
     display: flex;
@@ -577,10 +621,16 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: transparent;
     border-radius: 8px;
-    color: white;
     flex-shrink: 0;
+    padding: 0;
+  }
+
+  .mobile-solution-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   .mobile-solution-info {

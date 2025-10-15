@@ -339,12 +339,14 @@ body {
   background: rgba(255,255,255,0.1);
   border-radius: 10px;
   backdrop-filter: blur(10px);
+  text-align: center;
 }
 
-.contact-item i {
+.contact-icon {
   font-size: 2rem;
-  margin-bottom: 15px;
+  margin: 0 auto 15px auto;
   display: block;
+  color: #93a4f4;
 }
 
 .copyright-info p {
@@ -392,14 +394,10 @@ body {
 
   .solution-tagline {
     font-size: 1.2rem;
-    word-break: keep-all;
   }
 
   .solution-features {
     padding: 40px 30px;
-  }
-  .solution-features p {
-    word-break: keep-all;
   }
 
   .features-grid {

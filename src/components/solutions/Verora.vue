@@ -579,7 +579,6 @@ export default {
   font-size: 1.1rem;
   line-height: 1.8;
   opacity: 0.9;
-  word-break: keep-all;
   color: rgba(255, 255, 255, 0.87);
 }
 

@@ -98,10 +98,6 @@
   </div>
 
   <div class="use-case-section" :class="{ 'is-mobile': isMobile }">
-    <h4 @click="toggleAccordion('useCase')">
-      실사용 예시
-      <span class="accordion-icon">{{ accordionStates.useCase ? '−' : '+' }}</span>
-    </h4>
     <div class="accordion-content" v-show="accordionStates.useCase">
     <div class="use-case-demo">
       <div class="use-case-step">
@@ -135,9 +131,9 @@
 
       <div class="before-after-container">
         <div class="before-card">
-          <div class="card-header">
-            <span class="card-icon"><i class="fas fa-times-circle"></i></span>
-            <h6>도입 전</h6>
+          <div class="card-header card-header-vertical">
+            <font-awesome-icon :icon="['fas', 'face-frown']" class="card-icon-large" />
+            <h6>BEFORE</h6>
           </div>
           <div class="card-content">
             <div class="card-item">
@@ -162,9 +158,8 @@
         <div class="arrow-divider">→</div>
 
         <div class="after-card">
-          <div class="card-header">
-            <span class="card-icon"><i class="fas fa-check-circle"></i></span>
-            <h6>NeoFlow 도입 후</h6>
+          <div class="card-header card-header-vertical">
+            <img :src="logoImage" alt="NeoFlow" class="card-logo" />
           </div>
           <div class="card-content">
             <div class="card-item">
@@ -196,23 +191,33 @@
         <h6>Database</h6>
         <div class="source-cards">
           <div class="source-card">
-            <div class="source-card-icon"><i class="fas fa-database"></i></div>
+            <div class="source-card-icon">
+              <img :src="mysqlLogo" alt="MySQL" class="source-logo">
+            </div>
             <div class="source-card-name">MySQL</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon"><i class="fas fa-database"></i></div>
+            <div class="source-card-icon">
+              <img :src="postgresqlLogo" alt="PostgreSQL" class="source-logo">
+            </div>
             <div class="source-card-name">PostgreSQL</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon"><i class="fas fa-database"></i></div>
+            <div class="source-card-icon">
+              <img :src="oracleLogo" alt="Oracle DB" class="source-logo">
+            </div>
             <div class="source-card-name">Oracle DB</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon"><i class="fas fa-database"></i></div>
+            <div class="source-card-icon">
+              <img :src="mongodbLogo" alt="MongoDB" class="source-logo">
+            </div>
             <div class="source-card-name">MongoDB</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon"><i class="fas fa-bolt"></i></div>
+            <div class="source-card-icon">
+              <img :src="redisLogo" alt="Redis" class="source-logo">
+            </div>
             <div class="source-card-name">Redis</div>
           </div>
         </div>
@@ -222,15 +227,21 @@
         <h6>Cloud Storage</h6>
         <div class="source-cards">
           <div class="source-card">
-            <div class="source-card-icon"><i class="fas fa-cloud"></i></div>
+            <div class="source-card-icon">
+              <img :src="awsS3Logo" alt="AWS S3" class="source-logo">
+            </div>
             <div class="source-card-name">AWS S3</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon"><i class="fas fa-cloud"></i></div>
+            <div class="source-card-icon">
+              <img :src="azureBlobLogo" alt="Azure Blob" class="source-logo">
+            </div>
             <div class="source-card-name">Azure Blob</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon"><i class="fas fa-globe"></i></div>
+            <div class="source-card-icon">
+              <img :src="googleCloudStorageLogo" alt="Google Cloud Storage" class="source-logo">
+            </div>
             <div class="source-card-name">Google Cloud Storage</div>
           </div>
         </div>
@@ -240,11 +251,15 @@
         <h6>Application & API</h6>
         <div class="source-cards">
           <div class="source-card">
-            <div class="source-card-icon"><i class="fas fa-chart-bar"></i></div>
+            <div class="source-card-icon">
+              <img :src="salesforceLogo" alt="Salesforce" class="source-logo">
+            </div>
             <div class="source-card-name">Salesforce</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon"><i class="fas fa-briefcase"></i></div>
+            <div class="source-card-icon">
+              <img :src="sapErpLogo" alt="SAP ERP" class="source-logo">
+            </div>
             <div class="source-card-name">SAP ERP</div>
           </div>
           <div class="source-card">
@@ -252,7 +267,9 @@
             <div class="source-card-name">REST API</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon"><i class="fas fa-project-diagram"></i></div>
+            <div class="source-card-icon">
+              <img :src="graphqlLogo" alt="GraphQL" class="source-logo">
+            </div>
             <div class="source-card-name">GraphQL</div>
           </div>
         </div>
@@ -262,11 +279,15 @@
         <h6>Streaming & Files</h6>
         <div class="source-cards">
           <div class="source-card">
-            <div class="source-card-icon"><i class="fas fa-rocket"></i></div>
+            <div class="source-card-icon">
+              <img :src="apacheKafkaLogo" alt="Apache Kafka" class="source-logo">
+            </div>
             <div class="source-card-name">Apache Kafka</div>
           </div>
           <div class="source-card">
-            <div class="source-card-icon"><i class="fas fa-clipboard"></i></div>
+            <div class="source-card-icon">
+              <img :src="excelCsvLogo" alt="CSV / Excel" class="source-logo">
+            </div>
             <div class="source-card-name">CSV / Excel</div>
           </div>
           <div class="source-card">
@@ -347,13 +368,41 @@
 </template>
 
 <script>
+import logoImage from '../../assets/solutions-logo/logo-vertical/NeoFlow_vertical.png'
 import symbolImage from '../../assets/solutions-logo/logo-symbol/NeoFlow_symbol.png'
+import mysqlLogo from '../../assets/brands_ci/symbol/mysql_symbol.svg'
+import postgresqlLogo from '../../assets/brands_ci/postgresql.svg'
+import oracleLogo from '../../assets/brands_ci/symbol/oracle_symbol.svg'
+import mongodbLogo from '../../assets/brands_ci/symbol/mogodb_symbol.svg'
+import redisLogo from '../../assets/brands_ci/redis.svg'
+import awsS3Logo from '../../assets/brands_ci/aws_s3.png'
+import azureBlobLogo from '../../assets/brands_ci/azure_blob.svg'
+import googleCloudStorageLogo from '../../assets/brands_ci/google_cloud_storage.svg'
+import salesforceLogo from '../../assets/brands_ci/salesforce.svg'
+import sapErpLogo from '../../assets/brands_ci/sap_erp.svg'
+import graphqlLogo from '../../assets/brands_ci/symbol/graphql_symbol.svg'
+import apacheKafkaLogo from '../../assets/brands_ci/symbol/kafka_symbol.svg'
+import excelCsvLogo from '../../assets/brands_ci/excel_csv.svg'
 
 export default {
   name: 'NeoFlow',
   data() {
     return {
+      logoImage,
       symbolImage,
+      mysqlLogo,
+      postgresqlLogo,
+      oracleLogo,
+      mongodbLogo,
+      redisLogo,
+      awsS3Logo,
+      azureBlobLogo,
+      googleCloudStorageLogo,
+      salesforceLogo,
+      sapErpLogo,
+      graphqlLogo,
+      apacheKafkaLogo,
+      excelCsvLogo,
       isMobile: false,
       accordionStates: {
         useCase: false,
@@ -635,7 +684,6 @@ export default {
   font-size: 1.1rem;
   line-height: 1.8;
   opacity: 0.9;
-  word-break: keep-all;
   color: rgba(255, 255, 255, 0.87);
 }
 
@@ -1279,8 +1327,29 @@ export default {
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
+.card-header-vertical {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+  padding: 20px;
+  border-bottom: none;
+}
+
 .card-icon {
   font-size: 1.5rem;
+}
+
+.card-icon-large {
+  font-size: 3.5rem;
+  color: #dc2626;
+}
+
+.card-logo {
+  max-width: 180px;
+  height: auto;
+  object-fit: contain;
 }
 
 .card-header h6 {
@@ -1568,11 +1637,13 @@ export default {
   border-radius: 12px;
   padding: 20px 25px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 12px;
   transition: all 0.3s ease;
   min-width: 150px;
   flex: 1;
+  text-align: center;
 }
 
 .source-card:hover {
@@ -1584,6 +1655,17 @@ export default {
 
 .source-card-icon {
   font-size: 1.8rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.source-logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .source-card-name {
@@ -1854,8 +1936,21 @@ export default {
     padding-bottom: 12px;
   }
 
+  .card-header-vertical {
+    padding: 15px;
+    gap: 10px;
+  }
+
   .card-icon {
     font-size: 1.3rem;
+  }
+
+  .card-icon-large {
+    font-size: 2.5rem;
+  }
+
+  .card-logo {
+    max-width: 130px;
   }
 
   .card-header h6 {
@@ -1923,6 +2018,8 @@ export default {
 
   .source-card-icon {
     font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
   }
 
   .source-card-name {

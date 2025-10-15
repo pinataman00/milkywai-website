@@ -13,12 +13,9 @@
           </button>
           <div class="solution-tooltip">
             <div class="tooltip-content">
-              <div class="tooltip-solution-title">
-                <h4>☁️ CloudWai</h4>
-                <p>클라우드웨이</p>
-              </div>
+              <img :src="cloudWaiLogo" alt="CloudWai logo" class="tooltip-solution-logo tooltip-logo-cloudwai">
               <p>클라우드 인프라 자동구성 및 통합관리 솔루션</p>
-              <span class="tooltip-detail">프로비저닝-빌링-모니터링, One-Stop 관리</span>
+              <!-- <span class="tooltip-detail">프로비저닝-빌링-모니터링, One-Stop 관리</span> -->
             </div>
             <div class="tooltip-arrow"></div>
           </div>
@@ -31,13 +28,9 @@
           </button>
           <div class="solution-tooltip">
             <div class="tooltip-content">
-
-              <div class="tooltip-solution-title">
-                <h4>⚙️ Orkis</h4>
-                <p>오르키스</p>
-              </div>
+              <img :src="orkisLogo" alt="Orkis logo" class="tooltip-solution-logo tooltip-logo-orkis">
               <p>MSA와 컨테이너 환경을 위한 통합 관리 솔루션</p>
-              <span class="tooltip-detail">컨테이너부터 CI/CD·모니터링까지 완전 자동화된 DevOps 시스템</span>
+              <!-- <span class="tooltip-detail">컨테이너부터 CI/CD·모니터링까지 완전 자동화된 DevOps 시스템</span> -->
             </div>
             <div class="tooltip-arrow"></div>
           </div>
@@ -50,12 +43,9 @@
           </button>
           <div class="solution-tooltip">
             <div class="tooltip-content">
-              <div class="tooltip-solution-title">
-                <h4>🤖 Verora</h4>
-                <p>베로라</p>
-              </div>
+              <img :src="veroraLogo" alt="Verora logo" class="tooltip-solution-logo tooltip-logo-verora">
               <p>RAG 기반 생성형 AI 채팅 서비스</p>
-              <span class="tooltip-detail">기업 내부 데이터 기반 24/7 지능형 고객 지원</span>
+              <!-- <span class="tooltip-detail">기업 내부 데이터 기반 24/7 지능형 고객 지원</span> -->
             </div>
             <div class="tooltip-arrow"></div>
           </div>
@@ -68,12 +58,9 @@
           </button>
           <div class="solution-tooltip">
             <div class="tooltip-content">
-              <div class="tooltip-solution-title">
-                <h4>🔍 Siora</h4>
-                <p>시오라</p>
-              </div>
+              <img :src="sioraLogo" alt="Siora logo" class="tooltip-solution-logo tooltip-logo-siora">
               <p>자연어를 SQL로 변환하는 데이터 분석 플랫폼</p>
-              <span class="tooltip-detail">SQL 지식 없이도 누구나 쉽게 데이터 분석 가능</span>
+              <!-- <span class="tooltip-detail">SQL 지식 없이도 누구나 쉽게 데이터 분석 가능</span> -->
             </div>
             <div class="tooltip-arrow"></div>
           </div>
@@ -86,12 +73,9 @@
           </button>
           <div class="solution-tooltip">
             <div class="tooltip-content">
-              <div class="tooltip-solution-title">
-                <h4>📊 NeoFlow</h4>
-                <p>네오플로우</p>
-              </div>
+              <img :src="neoFlowLogo" alt="NeoFlow logo" class="tooltip-solution-logo tooltip-logo-neoflow">
               <p>통합 데이터 플랫폼 구축 솔루션</p>
-              <span class="tooltip-detail">데이터 수집, 가공, 적재까지의 전과정 자동화</span>
+              <!-- <span class="tooltip-detail">데이터 수집, 가공, 적재까지의 전과정 자동화</span> -->
             </div>
             <div class="tooltip-arrow"></div>
           </div>
@@ -104,12 +88,9 @@
           </button>
           <div class="solution-tooltip">
             <div class="tooltip-content">
-              <div class="tooltip-solution-title">
-                <h4>📄 Dovora</h4>
-                <p>도보라</p>
-              </div>
+              <img :src="dovoraLogo" alt="Dovora logo" class="tooltip-solution-logo tooltip-logo-dovora">
               <p>AI 기반 지능형 문서 관리 시스템</p>
-              <span class="tooltip-detail">문서 내용 기반 정확한 답변으로 환각 현상 최소화</span>
+              <!-- <span class="tooltip-detail">문서 내용 기반 정확한 답변으로 환각 현상 최소화</span> -->
             </div>
             <div class="tooltip-arrow"></div>
           </div>
@@ -136,6 +117,13 @@ import Verora from './solutions/Verora.vue'
 import Siora from './solutions/Siora.vue'
 import NeoFlow from './solutions/NeoFlow.vue'
 import Dovora from './solutions/Dovora.vue'
+// logo
+import cloudWaiLogo from '../assets/solutions-logo/CloudWai.png'
+import orkisLogo from '../assets/solutions-logo/Orkis.png'
+import veroraLogo from '../assets/solutions-logo/Verora.png'
+import sioraLogo from '../assets/solutions-logo/Siora.png'
+import neoFlowLogo from '../assets/solutions-logo/NeoFlow.png'
+import dovoraLogo from '../assets/solutions-logo/Dovora.png'
 
 export default {
   name: 'SolutionsSection',
@@ -155,7 +143,13 @@ export default {
   },
   data() {
     return {
-      isNavAtTop: false
+      isNavAtTop: false,
+      cloudWaiLogo,
+      orkisLogo,
+      veroraLogo,
+      sioraLogo,
+      neoFlowLogo,
+      dovoraLogo,
     }
   },
   emits: ['change-solution'],
@@ -262,7 +256,6 @@ export default {
   font-size: 1.2rem;
   color: #666;
   margin-bottom: 60px;
-  word-break: keep-all;
 }
 
 .solutions-section {
@@ -311,11 +304,25 @@ export default {
 
 .tooltip-content {
   padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.tooltip-solution-logo {
+  width: 100%;
+  max-width: 250px;
+  height: 40px;
+  object-fit: contain;
+  object-position: left;
+  margin: 0 0 10px 3px;
+  display: block;
 }
 
 .tooltip-solution-title {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 8px;
 }
@@ -405,6 +412,7 @@ export default {
     /*min-width: 280px;*/
     min-width: 350px;
     max-width: 320px;
+    overflow: hidden;
   }
 
   .solution-nav-item:hover .solution-tooltip {
@@ -504,6 +512,10 @@ export default {
 }
 
 @media (max-width: 768px) {
+  .section-subtitle {
+    font-size: 0.95rem;
+  }
+
   .solution-nav {
     margin-bottom: 30px;
     /* 간격 축소 */
