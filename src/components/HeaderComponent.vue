@@ -7,7 +7,7 @@
 
       <!-- 데스크톱/모바일 메뉴 -->
       <ul class="nav-links" :class="{ 'mobile-open': isMobileMenuOpen }">
-        <li><a href="#home" @click="closeMobileMenu">Home</a></li>
+        <li class="home-menu"><a href="#home" @click="closeMobileMenu">Home</a></li>
         <li><a href="#services" @click="handleServicesClick">Services</a></li>
         <li><a href="#reference" @click="closeMobileMenu">Reference</a></li>
         <li class="solutions-dropdown" @mouseenter="showDropdown" @mouseleave="hideDropdown">
@@ -551,6 +551,11 @@ export default {
     margin: 0;
   }
 
+  /* 모바일에서 Home 메뉴 숨김 */
+  .home-menu {
+    display: none;
+  }
+
   /* Solutions 메뉴 아이템만 특별 처리 */
   .solutions-dropdown {
     position: relative;
@@ -592,7 +597,7 @@ export default {
   }
 
   .mobile-submenu.visible {
-    max-height: 400px;
+    max-height: 500px;
   }
 
   .mobile-solution-item {

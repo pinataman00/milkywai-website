@@ -101,6 +101,10 @@
     </div>
 
     <div class="solution-demo" :class="{ 'is-mobile': isMobile }">
+      <h4 @click="toggleAccordion('demo')">
+        자연어→SQL 변환 데모
+        <span class="accordion-icon">{{ accordionStates.demo ? '−' : '+' }}</span>
+      </h4>
       <div class="accordion-content" v-show="accordionStates.demo">
       <div class="demo-container">
         <div class="demo-query">

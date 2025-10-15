@@ -101,6 +101,10 @@
     </div>
 
     <div class="use-case-section" :class="{ 'is-mobile': isMobile }">
+      <h4 @click="toggleAccordion('useCase')">
+        실사용 예시
+        <span class="accordion-icon">{{ accordionStates.useCase ? '−' : '+' }}</span>
+      </h4>
       <div class="accordion-content" v-show="accordionStates.useCase">
       <div class="before-after-container">
         <div class="before-card">
@@ -635,8 +639,8 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 12px;
+  gap: 10px;
+  padding: 16px 12px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   backdrop-filter: blur(10px);
@@ -655,11 +659,11 @@ export default {
 }
 
 .feature-point .feature-icon {
-  padding-top: 10px;
   font-size: 1.5rem;
   color: white;
   transition: all 0.3s ease;
   background: none;
+  margin: 0;
 }
 
 .feature-point.active .feature-icon {
@@ -674,7 +678,7 @@ export default {
   opacity: 0.9;
   text-align: center;
   white-space: nowrap;
-  padding-bottom: 10px;
+  margin: 0;
 }
 
 @keyframes featureGlow {

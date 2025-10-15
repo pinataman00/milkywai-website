@@ -110,6 +110,10 @@
     </div>
 
     <div class="chat-demo-section" :class="{ 'is-mobile': isMobile }">
+      <h4 @click="toggleAccordion('demo')">
+        AI 챗봇 데모
+        <span class="accordion-icon">{{ accordionStates.demo ? '−' : '+' }}</span>
+      </h4>
       <div class="accordion-content" v-show="accordionStates.demo">
       <div class="chat-container">
         <div class="chat-header">

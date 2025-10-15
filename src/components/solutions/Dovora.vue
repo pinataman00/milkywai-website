@@ -106,6 +106,10 @@
     </div>
 
     <div class="document-demo-section" :class="{ 'is-mobile': isMobile }">
+      <h4 @click="toggleAccordion('demo')">
+        문서 검색 데모
+        <span class="accordion-icon">{{ accordionStates.demo ? '−' : '+' }}</span>
+      </h4>
       <div class="accordion-content" v-show="accordionStates.demo">
       <div class="demo-container">
         <div class="demo-query">

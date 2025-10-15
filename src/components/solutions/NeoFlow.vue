@@ -98,6 +98,10 @@
   </div>
 
   <div class="use-case-section" :class="{ 'is-mobile': isMobile }">
+    <h4 @click="toggleAccordion('useCase')">
+      실사용 예시
+      <span class="accordion-icon">{{ accordionStates.useCase ? '−' : '+' }}</span>
+    </h4>
     <div class="accordion-content" v-show="accordionStates.useCase">
     <div class="use-case-demo">
       <div class="use-case-step">
