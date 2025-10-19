@@ -8,7 +8,7 @@
         <div class="logo-carousel" ref="logoCarousel">
           <div class="logo-track">
             <div class="logo-item" v-for="(logo, index) in infiniteLogos" :key="`logo-${index}`">
-              <img :src="logo.image" :alt="logo.name" class="client-logo">
+              <img :src="logo.image" :alt="logo.name" class="client-logo" :class="{ 'pwc-logo': logo.name === 'PwC' }">
             </div>
           </div>
         </div>
@@ -39,12 +39,14 @@
 
 <script>
 // 실제 고객사 로고 이미지들 import
-import samsungLogo from '../assets/clients/Samsung.png'
-import samsungSdsLogo from '../assets/clients/Samsung_SDS.png'
+import samsungLogo from '../assets/clients/Samsung_electronics_ci.svg'
+import samsungSdsLogo from '../assets/clients/samsung_sds_ci.svg'
 import lotteLogo from '../assets/clients/Lotte_duty-free.png'
 import skHynixLogo from '../assets/clients/SK-hynix.png'
 import skTelecomLogo from '../assets/clients/SK-telecom.png'
 import kostatLogo from '../assets/clients/Kostat.png'
+import hdMarinLogo from '../assets/clients/hd_marin_solution.png'
+import pwcLogo from '../assets/clients/pwc.svg'
 
 export default {
   name: 'ReferenceSection',
@@ -57,6 +59,8 @@ export default {
         { id: 4, name: 'SK Hynix', image: skHynixLogo },
         { id: 5, name: 'SK Telecom', image: skTelecomLogo },
         { id: 6, name: 'Kostat', image: kostatLogo },
+        { id: 7, name: 'HD Marin Solution', image: hdMarinLogo },
+        { id: 8, name: 'PwC', image: pwcLogo },
       ]
     }
   },
@@ -171,6 +175,15 @@ export default {
   transform: scale(1.05);
 }
 
+.pwc-logo {
+  max-height: 75px !important;
+  transform: scale(1.25);
+}
+
+.pwc-logo:hover {
+  transform: scale(1.3);
+}
+
 .reference-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -255,6 +268,15 @@ export default {
   
   .client-logo {
     max-height: 40px;
+  }
+
+  .pwc-logo {
+    max-height: 50px !important;
+    transform: scale(1.2);
+  }
+
+  .pwc-logo:hover {
+    transform: scale(1.25);
   }
   
   .reference-stats {
