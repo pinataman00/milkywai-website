@@ -31,7 +31,7 @@
             <div class="info-icon"><i class="fas fa-users"></i></div>
             <div>
               <strong>직원 수</strong><br>
-              25명
+              32명
             </div>
           </div>
         </div>

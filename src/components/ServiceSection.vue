@@ -36,8 +36,9 @@
               @click="handleFeaturedServiceClick(service.category)" @mouseenter="highlightServiceFromFeatured(service.category)"
               @mouseleave="clearHighlight">
               <div class="temp">
-                <div class="featured-icon" :class="{ 'emoji-icon': typeof service.icon === 'string' && service.icon.length < 5 }">
-                  <img v-if="typeof service.icon !== 'string' || service.icon.length > 5" :src="service.icon" :alt="service.title + ' logo'" class="featured-icon-img">
+                <div class="featured-icon" :class="{ 'emoji-icon': typeof service.icon === 'string' && service.icon.length < 5 && !service.icon.startsWith('fa-') }">
+                  <img v-if="typeof service.icon !== 'string' || (typeof service.icon === 'string' && !service.icon.startsWith('fa-') && service.icon.length > 5)" :src="service.icon" :alt="service.title + ' logo'" class="featured-icon-img">
+                  <i v-else-if="typeof service.icon === 'string' && service.icon.startsWith('fa-')" :class="['fas', service.icon]" class="fontawesome-icon"></i>
                   <template v-else>{{ service.icon }}</template>
                 </div>
                 <h4 class="featured-service-title">{{ service.title }}</h4>
@@ -57,8 +58,9 @@
           <div class="mobile-services-keywords">
             <button v-for="service in featuredServices" :key="`mobile-${service.category}`" class="mobile-service-btn"
               @click="handleFeaturedServiceClick(service.category)">
-              <span class="mobile-service-icon" :class="{ 'emoji-icon': typeof service.icon === 'string' && service.icon.length < 5 }">
-                <img v-if="typeof service.icon !== 'string' || service.icon.length > 5" :src="service.icon" :alt="service.title + ' logo'" class="mobile-service-icon-img">
+              <span class="mobile-service-icon">
+                <img v-if="typeof service.icon !== 'string' || (typeof service.icon === 'string' && !service.icon.startsWith('fa-') && service.icon.length > 5)" :src="service.icon" :alt="service.title + ' logo'" class="mobile-service-icon-img">
+                <i v-else-if="typeof service.icon === 'string' && service.icon.startsWith('fa-')" :class="['fas', service.icon]" class="mobile-fontawesome-icon"></i>
                 <template v-else>{{ service.icon }}</template>
               </span>
               <div class="mobile-service-title">{{ service.title }}</div>
@@ -140,7 +142,7 @@ import { ref, reactive, onMounted, onUnmounted } from 'vue'
 // 심볼 로고 import
 import cloudWaiSymbol from '../assets/solutions-logo/logo-symbol/CloudWai_symbol.png'
 import veroraSymbol from '../assets/solutions-logo/logo-symbol/Verora_symbol.png'
-import sioraSymbol from '../assets/solutions-logo/logo-symbol/Siora_symbol.svg'
+import sioraSymbol from '../assets/solutions-logo/logo-symbol/Siora_symbol.png'
 import dovoraSymbol from '../assets/solutions-logo/logo-symbol/Dovora_symbol.png'
 import neoFlowSymbol from '../assets/solutions-logo/logo-symbol/NeoFlow_symbol.png'
 import orkisSymbol from '../assets/solutions-logo/logo-symbol/Orkis_symbol.png'
@@ -149,7 +151,7 @@ import faviconIcon from '../assets/favicon.svg'
 // Vertical 로고 import
 import cloudWaiVertical from '../assets/solutions-logo/logo-vertical/CloudWai_vertical.png'
 import veroraVertical from '../assets/solutions-logo/logo-vertical/Verora_vertical.png'
-import sioraVertical from '../assets/solutions-logo/logo-vertical/Siora-vertical.svg'
+import sioraVertical from '../assets/solutions-logo/logo-vertical/Siora_vertical.png'
 import dovoraVertical from '../assets/solutions-logo/logo-vertical/Dovora_vertical.png'
 import neoFlowVertical from '../assets/solutions-logo/logo-vertical/NeoFlow_vertical.png'
 import orkisVertical from '../assets/solutions-logo/logo-vertical/Orkis_vertical.png'
@@ -162,6 +164,7 @@ import DovoraIcon from './solution-icons/DovoraIcon.vue'
 import NeoFlowIcon from './solution-icons/NeoFlowIcon.vue'
 import OrkisIcon from './solution-icons/OrkisIcon.vue'
 import ConsultingIcon from './solution-icons/ConsultingIcon.vue'
+import DataVizIcon from './solution-icons/DataVizIcon.vue'
 
 // emit 정의 추가 (script setup 최상단에)
 const emit = defineEmits(['go-to-solution'])
@@ -179,6 +182,7 @@ const serviceSolutionMapping = {
   'dataq': 'dataq',
   'dovora': 'dovora',
   'data': 'neoflow',
+  'dataviz': null,
   'devops': 'kubesync'
 }
 
@@ -198,6 +202,7 @@ const serviceIconComponents = {
   'dataq': SioraIcon,
   'dovora': DovoraIcon,
   'data': NeoFlowIcon,
+  'dataviz': DataVizIcon,
   'devops': OrkisIcon,
   'consulting': ConsultingIcon
 }
@@ -209,6 +214,7 @@ const serviceVerticalLogos = {
   'dataq': sioraVertical,
   'dovora': dovoraVertical,
   'data': neoFlowVertical,
+  'dataviz': null,
   'devops': orkisVertical,
   'consulting': null
 }
@@ -218,16 +224,17 @@ const navigationItems = reactive([
   { category: 'all', name: '전체 서비스' },
   { category: 'consulting', name: '컨설팅' },
   { category: 'cloud', name: '클라우드' },
+  { category: 'devops', name: 'DevOps' },
   { category: 'dapq', name: 'AI 챗봇' },
-  { category: 'dataq', name: '데이터 분석' },
   { category: 'dovora', name: 'AI 문서관리' },
+  { category: 'dataq', name: 'AI데이터 분석' },
   { category: 'data', name: '데이터 플랫폼' },
-  { category: 'devops', name: 'DevOps' }
+  { category: 'dataviz', name: '데이터 시각화' }
 ])
 
 // Stats 데이터
 const statsData = reactive([
-  { number: '25+', displayNumber: '0', targetNumber: 25, suffix: '+', label: '전문 인력', desc: '클라우드·AI 전문가' },
+  { number: '32+', displayNumber: '0', targetNumber: 32, suffix: '+', label: '전문 인력', desc: '클라우드·AI 전문가' },
   { number: '84%', displayNumber: '0%', targetNumber: 84, suffix: '%', label: '기술직 비율', desc: '높은 기술 전문성' },
   { number: '6', displayNumber: '0', targetNumber: 6, suffix: '', label: '자체 솔루션', desc: '검증된 플랫폼' },
   { number: '24/7', displayNumber: '24/7', targetNumber: null, suffix: '', label: '기술 지원', desc: '상시 지원 체계' }
@@ -296,18 +303,18 @@ const featuredServices = reactive([
     highlights: ['자동 프로비저닝', '통합 빌링', '실시간 모니터링']
   },
   {
+    category: 'devops',
+    icon: orkisSymbol,
+    title: 'DevOps',
+    description: 'Orkis가 MSA 환경의 복잡한 배포와 운영을 자동화로 간편하게 만들어 드립니다',
+    highlights: ['CI/CD 자동화', '컨테이너 관리', '모니터링']
+  },
+  {
     category: 'dapq',
     icon: veroraSymbol,
     title: 'AI 챗봇',
     description: 'RAG 기술로 기업 데이터를 학습한 지능형 AI가 24시간 고객 응대를 책임집니다',
     highlights: ['AI 채팅', 'RAG 검색', '24/7 고객지원']
-  },
-  {
-    category: 'dataq',
-    icon: sioraSymbol,
-    title: '데이터 분석',
-    description: '복잡한 SQL 없이 자연어만으로 원하는 데이터 분석 결과를 즉시 확인하세요',
-    highlights: ['자연어 질의', 'SQL 자동변환', '실시간 분석']
   },
   {
     category: 'dovora',
@@ -317,6 +324,13 @@ const featuredServices = reactive([
     highlights: ['문서 기반 답변', '환각 현상 최소화', '비용 절감']
   },
   {
+    category: 'dataq',
+    icon: sioraSymbol,
+    title: 'AI데이터 분석',
+    description: '복잡한 SQL 없이 자연어만으로 원하는 데이터 분석 결과를 즉시 확인하세요',
+    highlights: ['자연어 질의', 'SQL 자동변환', '실시간 분석']
+  },
+  {
     category: 'data',
     icon: neoFlowSymbol,
     title: '데이터 플랫폼',
@@ -324,11 +338,11 @@ const featuredServices = reactive([
     highlights: ['데이터 통합', 'ETL 자동화', '품질 관리']
   },
   {
-    category: 'devops',
-    icon: orkisSymbol,
-    title: 'DevOps',
-    description: 'Orkis가 MSA 환경의 복잡한 배포와 운영을 자동화로 간편하게 만들어 드립니다',
-    highlights: ['CI/CD 자동화', '컨테이너 관리', '모니터링']
+    category: 'dataviz',
+    icon: 'fa-chart-line',
+    title: '데이터 시각화',
+    description: 'Tableau를 활용하여 다양한 데이터 소스를 인터랙티브한 대시보드로 변환하고 실시간 인사이트를 도출합니다',
+    highlights: ['다양한 소스 연결', '인터랙티브 대시보드', '실시간 인사이트']
   }
 ])
 
@@ -374,6 +388,26 @@ const servicesData = reactive([
     visualFeatures: ['자동 프로비저닝', '통합 빌링', '실시간 모니터링', '토폴로지 맵']
   },
   {
+    category: 'devops',
+    badge: 'DevOps',
+    name: 'Solution / DevOps',
+    description: 'MSA와 컨테이너 환경에서 소프트웨어 개발, 테스트, 배포 과정을 자동화합니다. CI/CD 파이프라인과 관측 가능성을 통해 개발 속도와 서비스 안정성을 동시에 확보합니다',
+    highlights: [
+      '컨테이너 오케스트레이션 (Kubernetes)',
+      'CI/CD 파이프라인 자동화',
+      '관측 가능성 (Observability) 구현',
+      'Auto Scaling 및 성능 최적화'
+    ],
+    primaryAction: 'DevOps 문의',
+    secondaryAction: 'Orkis 보기',
+    secondaryLink: '#solutions',
+    solutionTarget: 'kubesync',
+    serviceIcon: '<i class="fas fa-cog"></i>',
+    icon: orkisSymbol,
+    visualTitle: '완전 자동화 DevOps',
+    visualFeatures: ['CI/CD 자동화', '컨테이너 관리', '모니터링', '오토 스케일링']
+  },
+  {
     category: 'dapq',
     badge: 'AI Chat',
     name: 'AI 챗봇 서비스',
@@ -392,26 +426,6 @@ const servicesData = reactive([
     icon: veroraSymbol,
     visualTitle: 'RAG 기반 AI 채팅',
     visualFeatures: ['문서 임베딩', 'RAG 검색', '실시간 응답', '학습 최적화']
-  },
-  {
-    category: 'dataq',
-    badge: 'Data Analytics',
-    name: '데이터 분석 서비스',
-    description: 'AI를 이용해 자연어 질의를 SQL로 자동 변환하는 혁신적인 플랫폼입니다. SQL 전문 지식 없이도 원하는 데이터를 쉽게 추출하고 분석할 수 있습니다',
-    highlights: [
-      '자연어를 SQL로 실시간 변환',
-      '데이터베이스 스키마 자동 분석',
-      '메타데이터 기반 지능형 매핑',
-      '비즈니스 인사이트 자동 도출'
-    ],
-    primaryAction: 'Siora 상담 신청',
-    secondaryAction: 'Siora 보기',
-    secondaryLink: '#solutions',
-    solutionTarget: 'dataq',
-    serviceIcon: '<i class="fas fa-search"></i>',
-    icon: sioraSymbol,
-    visualTitle: '자연어 SQL 변환',
-    visualFeatures: ['자연어 이해', 'SQL 생성', '메타데이터 분석', '인사이트 도출']
   },
   {
     category: 'dovora',
@@ -434,6 +448,26 @@ const servicesData = reactive([
     visualFeatures: ['문서 분석', '질의 응답', '정보 보호', '비용 최적화']
   },
   {
+    category: 'dataq',
+    badge: 'Data Analytics',
+    name: 'AI데이터 분석 서비스',
+    description: 'AI를 이용해 자연어 질의를 SQL로 자동 변환하는 혁신적인 플랫폼입니다. SQL 전문 지식 없이도 원하는 데이터를 쉽게 추출하고 분석할 수 있습니다',
+    highlights: [
+      '자연어를 SQL로 실시간 변환',
+      '데이터베이스 스키마 자동 분석',
+      '메타데이터 기반 지능형 매핑',
+      '비즈니스 인사이트 자동 도출'
+    ],
+    primaryAction: 'Siora 상담 신청',
+    secondaryAction: 'Siora 보기',
+    secondaryLink: '#solutions',
+    solutionTarget: 'dataq',
+    serviceIcon: '<i class="fas fa-search"></i>',
+    icon: sioraSymbol,
+    visualTitle: '자연어 SQL 변환',
+    visualFeatures: ['자연어 이해', 'SQL 생성', '메타데이터 분석', '인사이트 도출']
+  },
+  {
     category: 'data',
     badge: 'Data Integration',
     name: '데이터 플랫폼 구축',
@@ -454,24 +488,23 @@ const servicesData = reactive([
     visualFeatures: ['소스 연계', 'ETL 자동화', '스케줄링', '품질 관리']
   },
   {
-    category: 'devops',
-    badge: 'DevOps',
-    name: 'Solution / DevOps',
-    description: 'MSA와 컨테이너 환경에서 소프트웨어 개발, 테스트, 배포 과정을 자동화합니다. CI/CD 파이프라인과 관측 가능성을 통해 개발 속도와 서비스 안정성을 동시에 확보합니다',
+    category: 'dataviz',
+    badge: 'Data Visualization',
+    name: '데이터 시각화 서비스',
+    description: 'Tableau를 활용하여 다양한 데이터 소스를 통합 연결하고 인터랙티브한 대시보드로 변환합니다. 실시간 인사이트 도출과 부서 간 투명한 지표 공유를 통해 데이터 기반 의사결정을 지원합니다',
     highlights: [
-      '컨테이너 오케스트레이션 (Kubernetes)',
-      'CI/CD 파이프라인 자동화',
-      '관측 가능성 (Observability) 구현',
-      'Auto Scaling 및 성능 최적화'
+      '다양한 데이터 소스 통합 연결',
+      '인터랙티브 대시보드 구축',
+      '실시간 인사이트 도출 및 분석',
+      '부서 간 투명한 지표 공유 체계'
     ],
-    primaryAction: 'DevOps 문의',
-    secondaryAction: 'Orkis 보기',
-    secondaryLink: '#solutions',
-    solutionTarget: 'kubesync',
-    serviceIcon: '<i class="fas fa-cog"></i>',
-    icon: orkisSymbol,
-    visualTitle: '완전 자동화 DevOps',
-    visualFeatures: ['CI/CD 자동화', '컨테이너 관리', '모니터링', '오토 스케일링']
+    primaryAction: '시각화 상담',
+    secondaryAction: '포트폴리오 보기',
+    secondaryLink: '#portfolio',
+    serviceIcon: '<i class="fas fa-chart-line"></i>',
+    icon: '<i class="fas fa-chart-line"></i>',
+    visualTitle: 'Tableau 기반 시각화',
+    visualFeatures: ['데이터 연결', '대시보드 구축', '인사이트 도출', '협업 공유']
   }
 ])
 
@@ -969,6 +1002,11 @@ defineExpose({
   object-fit: contain;
 }
 
+.fontawesome-icon {
+  font-size: 1.5rem;
+  color: #667eea;
+}
+
 .featured-service-card:hover .featured-icon {
   transform: scale(1.1);
 }
@@ -1125,6 +1163,11 @@ defineExpose({
   width: auto;
   height: 48px;
   object-fit: contain;
+}
+
+.mobile-fontawesome-icon {
+  font-size: 2.5rem;
+  color: #667eea;
 }
 
 .mobile-service-title {
