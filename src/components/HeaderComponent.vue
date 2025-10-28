@@ -84,7 +84,7 @@ import logo from '../assets/milkywai.svg'
 import cloudWaiSymbol from '../assets/solutions-logo/logo-symbol/CloudWai_symbol.png'
 import orkisSymbol from '../assets/solutions-logo/logo-symbol/Orkis_symbol.png'
 import veroraSymbol from '../assets/solutions-logo/logo-symbol/Verora_symbol.png'
-import sioraSymbol from '../assets/solutions-logo/logo-symbol/Siora_symbol.png'
+import sioraSymbol from '../assets/solutions-logo/logo-symbol/Siora_symbol.svg'
 import neoFlowSymbol from '../assets/solutions-logo/logo-symbol/NeoFlow_symbol.png'
 import dovoraSymbol from '../assets/solutions-logo/logo-symbol/Dovora_symbol.png'
 
@@ -120,7 +120,7 @@ export default {
         icon: orkisSymbol
       },
       {
-        id: 'dapq',
+        id: 'verora',
         name: 'Verora',
         pron: '베로라',
         description: 'RAG 기반 생성형 AI 채팅 서비스',
