@@ -17,7 +17,7 @@
             <div class="info-icon"><i class="fas fa-user-tie"></i></div>
             <div>
               <strong>대표이사</strong><br>
-              김세정
+              유병수
             </div>
           </div>
           <div class="info-item">
