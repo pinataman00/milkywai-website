@@ -10,7 +10,7 @@
         <div class="contact-item">
           <font-awesome-icon :icon="['fas', 'location-dot']" class="contact-icon" />
           <h3>주소</h3>
-          <p>서울시 서초구 강남대로51길 10<br>B1층 106-80호</p>
+          <p>서울시 서초구 강남대로51길 10</p>
         </div>
 
         <div class="contact-item">
