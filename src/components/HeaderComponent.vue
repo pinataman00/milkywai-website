@@ -105,6 +105,7 @@ export default {
 
     // 솔루션 데이터 (SolutionSection과 동일하게 맞춤)
     const solutions = ref([
+      /* CloudWai 주석처리 (임시 배포용)
       {
         id: 'cloudwai',
         name: 'CloudWai',
@@ -112,6 +113,7 @@ export default {
         description: '클라우드 인프라 자동구성 및 통합관리',
         icon: cloudWaiSymbol
       },
+      */
       {
         id: 'kubesync',
         name: 'Orkis',
@@ -133,6 +135,7 @@ export default {
         description: '자연어를 SQL로 변환하는 데이터 분석 플랫폼',
         icon: sioraSymbol
       },
+      /* NeoFlow 주석처리 (임시 배포용)
       {
         id: 'neoflow',
         name: 'NeoFlow',
@@ -140,6 +143,7 @@ export default {
         description: '통합 데이터 플랫폼 구축',
         icon: neoFlowSymbol
       },
+      */
       {
         id: 'dovora',
         name: 'Dovora',
@@ -399,8 +403,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 15px;
-  max-height: 400px;
-  overflow-y: auto;
+  padding-top: 5px;
 }
 
 .solution-item {

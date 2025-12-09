@@ -28,11 +28,14 @@
 
     <!-- 히어로 컨텐츠 -->
     <div class="hero-content">
-      <h1>클라우드·데이터·AI로 여는 비즈니스 혁신</h1>
+      <!-- <h1>클라우드·데이터·AI로 여는 비즈니스 혁신</h1> -->
+      <h1>데이터·AI로 여는 비즈니스 혁신</h1>
       <p>혁신적인 기술과 전문성을 바탕으로 고객의 경쟁력을 높이는 최적의 솔루션을 제공합니다</p>
       <div class="services-preview">
-        <div class="service-tag" @click="goToSolution('cloudwai')">Cloud Service</div>
-        <div class="service-tag" @click="goToSolution('neoflow')">Data Platform</div>
+        <!-- CloudWai 주석처리 (임시 배포용) -->
+        <!-- <div class="service-tag" @click="goToSolution('cloudwai')">Cloud Service</div> -->
+        <!-- NeoFlow 주석처리 (임시 배포용) -->
+        <!-- <div class="service-tag" @click="goToSolution('neoflow')">Data Platform</div> -->
         <div class="service-tag" @click="goToSolution('verora')">AI Chatbot</div>
         <div class="service-tag" @click="goToSolution('dataq')">AI Data Analytics</div>
         <div class="service-tag" @click="goToSolution('dovora')">AI Document</div>

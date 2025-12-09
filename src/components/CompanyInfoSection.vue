@@ -1,41 +1,56 @@
 <template>
   <section class="section company-info" id="about">
     <div class="container">
-      <div class="info-grid">
+      <!-- <div class="info-grid"> -->
+      <div>
         <div>
           <h2 class="section-title" style="text-align: left;">Company Information</h2>
-          <div class="info-item">
-            <div class="info-icon">
-              <img src="/favicon.svg" alt="MilkyWai" class="company-logo">
+          <div class="info-items-grid">
+            <div class="info-item">
+              <div class="info-icon">
+                <img src="/favicon.svg" alt="MilkyWai" class="company-logo">
+              </div>
+              <div>
+                <strong>회사명</strong><br>
+                (주)밀키웨이
+              </div>
             </div>
-            <div>
-              <strong>회사명</strong><br>
-              (주)밀키웨이
+            <div class="info-item">
+              <div class="info-icon"><i class="fas fa-user-tie"></i></div>
+              <div>
+                <strong>대표이사</strong><br>
+                <!-- 유병수 -->
+                김세정
+              </div>
             </div>
-          </div>
-          <div class="info-item">
-            <div class="info-icon"><i class="fas fa-user-tie"></i></div>
-            <div>
-              <strong>대표이사</strong><br>
-              유병수
+            <div class="info-item">
+              <div class="info-icon"><i class="fas fa-building"></i></div>
+              <div>
+                <!-- <strong>설립일자</strong><br>
+                2025.01.01 -->
+                <strong>주요 사업</strong><br>
+                AI 서비스 구축 · 운영
+                / 솔루션 및 서비스 플랫폼
+                <!-- <ul class="business-list">
+                  <li class="business-item">
+                    <strong>AI 서비스 구축 / 운영</strong>
+                  </li>
+                  <li class="business-item">
+                    <strong>솔루션 및 서비스 플랫폼</strong>
+                  </li>
+                </ul> -->
+              </div>
             </div>
-          </div>
-          <div class="info-item">
-            <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
-            <div>
-              <strong>설립일자</strong><br>
-              2025.01.01
-            </div>
-          </div>
-          <div class="info-item">
-            <div class="info-icon"><i class="fas fa-users"></i></div>
-            <div>
-              <strong>직원 수</strong><br>
-              32명
+            <div class="info-item">
+              <div class="info-icon"><i class="fas fa-users"></i></div>
+              <div>
+                <strong>직원 수</strong><br>
+                32명
+              </div>
             </div>
           </div>
         </div>
-        <div>
+        <!-- <div>
           <h3 class="business-title">주요 사업</h3>
           <ul class="business-list">
             <li class="business-item">
@@ -51,7 +66,7 @@
               <strong>솔루션 및 서비스 플랫폼</strong>
             </li>
           </ul>
-        </div>
+        </div> -->
       </div>
     </div>
   </section>
@@ -64,6 +79,18 @@ export default {
 </script>
 
 <style scoped>
+.info-items-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 576px) {
+  .info-items-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .company-logo {
   width: 1.5em;
   height: 1.5em;
@@ -77,6 +104,8 @@ export default {
 
 .business-list {
   list-style: none;
+  display: flex;
+  gap: 10px;
 }
 
 .business-item {
@@ -84,6 +113,6 @@ export default {
   padding: 15px;
   background: white;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 </style>

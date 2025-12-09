@@ -53,13 +53,13 @@ export default {
   data() {
     return {
       clientLogos: [
-        { id: 1, name: 'Samsung Electronics', image: samsungLogo },
+        // { id: 1, name: 'Samsung Electronics', image: samsungLogo },
         { id: 2, name: 'Samsung SDS', image: samsungSdsLogo },
-        { id: 3, name: 'Lotte Duty Free', image: lotteLogo },
-        { id: 4, name: 'SK Hynix', image: skHynixLogo },
+        // { id: 3, name: 'Lotte Duty Free', image: lotteLogo },
+        // { id: 4, name: 'SK Hynix', image: skHynixLogo },
         { id: 5, name: 'SK Telecom', image: skTelecomLogo },
         { id: 6, name: 'Kostat', image: kostatLogo },
-        { id: 7, name: 'HD Marin Solution', image: hdMarinLogo },
+        // { id: 7, name: 'HD Marin Solution', image: hdMarinLogo },
         { id: 8, name: 'PwC', image: pwcLogo },
       ]
     }

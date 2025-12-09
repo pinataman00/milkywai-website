@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       isScrolled: false,
-      activeSolution: 'cloudwai',
+      activeSolution: 'kubesync', // cloudwai 대신 kubesync로 변경 (임시 배포용)
       heroBackgroundType: 'cyber',
       isDevelopmentMode: true // 배포시 false로 변경      
     }

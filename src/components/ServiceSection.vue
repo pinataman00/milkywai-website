@@ -6,7 +6,8 @@
         <!-- <h2 class="section-title">클라우드부터 AI까지, 디지털 혁신의 완성</h2> -->
         <h2 class="section-title">비용 절감부터 생산성 향상까지 <br/> 눈에 보이는 변화를 만듭니다</h2>
         <p class="section-subtitle">전문 기술팀의 검증된 역량으로
-          클라우드 구축부터 AI 도입까지 단계별 맞춤 서비스를 제공합니다</p>
+          <!-- 클라우드 구축부터 AI 도입까지 단계별 맞춤 서비스를 제공합니다</p> -->
+          맞춤 서비스를 제공합니다</p>
       </div>
 
       <!-- Navigation -->
@@ -142,7 +143,8 @@ import { ref, reactive, onMounted, onUnmounted } from 'vue'
 // 심볼 로고 import
 import cloudWaiSymbol from '../assets/solutions-logo/logo-symbol/CloudWai_symbol.png'
 import veroraSymbol from '../assets/solutions-logo/logo-symbol/Verora_symbol.png'
-import sioraSymbol from '../assets/solutions-logo/logo-symbol/Siora_symbol.png'
+// import sioraSymbol from '../assets/solutions-logo/logo-symbol/Siora_symbol.png'
+import sioraSymbol from '../assets/solutions-logo/logo-symbol/Siora_symbol.svg'
 import dovoraSymbol from '../assets/solutions-logo/logo-symbol/Dovora_symbol.png'
 import neoFlowSymbol from '../assets/solutions-logo/logo-symbol/NeoFlow_symbol.png'
 import orkisSymbol from '../assets/solutions-logo/logo-symbol/Orkis_symbol.png'
@@ -223,20 +225,22 @@ const serviceVerticalLogos = {
 const navigationItems = reactive([
   { category: 'all', name: '전체 서비스' },
   { category: 'consulting', name: '컨설팅' },
-  { category: 'cloud', name: '클라우드' },
+  // { category: 'cloud', name: '클라우드' }, // CloudWai 주석처리 (임시 배포용)
   { category: 'devops', name: 'DevOps' },
   { category: 'dapq', name: 'AI 챗봇' },
   { category: 'dovora', name: 'AI 문서관리' },
   { category: 'dataq', name: 'AI데이터 분석' },
-  { category: 'data', name: '데이터 플랫폼' },
+  // { category: 'data', name: '데이터 플랫폼' }, // NeoFlow 주석처리 (임시 배포용)
   { category: 'dataviz', name: '데이터 시각화' }
 ])
 
 // Stats 데이터
 const statsData = reactive([
-  { number: '32+', displayNumber: '0', targetNumber: 32, suffix: '+', label: '전문 인력', desc: '클라우드·AI 전문가' },
+  // { number: '32+', displayNumber: '0', targetNumber: 32, suffix: '+', label: '전문 인력', desc: '클라우드·AI 전문가' },
+  { number: '32+', displayNumber: '0', targetNumber: 32, suffix: '+', label: '전문 인력', desc: '데이터·AI 전문가' },
   { number: '84%', displayNumber: '0%', targetNumber: 84, suffix: '%', label: '기술직 비율', desc: '높은 기술 전문성' },
-  { number: '6', displayNumber: '0', targetNumber: 6, suffix: '', label: '자체 솔루션', desc: '검증된 플랫폼' },
+  // { number: '6', displayNumber: '0', targetNumber: 6, suffix: '', label: '자체 솔루션', desc: '검증된 플랫폼' },
+  { number: '4', displayNumber: '0', targetNumber: 4, suffix: '', label: '자체 솔루션', desc: '검증된 플랫폼' },
   { number: '24/7', displayNumber: '24/7', targetNumber: null, suffix: '', label: '기술 지원', desc: '상시 지원 체계' }
 ])
 
@@ -292,9 +296,11 @@ const featuredServices = reactive([
     category: 'consulting',
     icon: faviconIcon,
     title: '컨설팅',
-    description: '클라우드 전략 수립부터 데이터 활용까지, 디지털 전환의 완벽한 시작점을 제공합니다',
+    // description: '클라우드 전략 수립부터 데이터 활용까지, 디지털 전환의 완벽한 시작점을 제공합니다',
+    description: '디지털 전환의 완벽한 시작점을 제공합니다',
     highlights: ['전략 수립', '아키텍처 설계', '비용 최적화']
   },
+  /* CloudWai 주석처리 (임시 배포용)
   {
     category: 'cloud',
     icon: cloudWaiSymbol,
@@ -302,6 +308,7 @@ const featuredServices = reactive([
     description: 'CloudWai로 클라우드 인프라 자동 구성부터 통합 관리까지 한 번에 해결하세요',
     highlights: ['자동 프로비저닝', '통합 빌링', '실시간 모니터링']
   },
+  */
   {
     category: 'devops',
     icon: orkisSymbol,
@@ -330,6 +337,7 @@ const featuredServices = reactive([
     description: '복잡한 SQL 없이 자연어만으로 원하는 데이터 분석 결과를 즉시 확인하세요',
     highlights: ['자연어 질의', 'SQL 자동변환', '실시간 분석']
   },
+  /* NeoFlow 주석처리 (임시 배포용)
   {
     category: 'data',
     icon: neoFlowSymbol,
@@ -337,6 +345,7 @@ const featuredServices = reactive([
     description: 'NeoFlow로 흩어진 데이터를 하나로 통합하여 체계적인 데이터 관리를 실현하세요',
     highlights: ['데이터 통합', 'ETL 자동화', '품질 관리']
   },
+  */
   {
     category: 'dataviz',
     icon: 'fa-chart-line',
@@ -351,11 +360,11 @@ const servicesData = reactive([
   {
     category: 'consulting',
     badge: 'Consulting',
-    name: '클라우드/데이터 컨설팅',
-    description: '클라우드 환경 최적화와 데이터 분석을 통해 기업의 비즈니스 모델 변화를 지원하며, 데이터 기반 의사결정을 통해 경쟁력을 높이고 비즈니스 효율성을 촉진합니다',
+    name: '데이터/AI 컨설팅',
+    description: '데이터 환경 최적화와 데이터 분석을 통해 기업의 비즈니스 모델 변화를 지원하며, 데이터 기반 의사결정을 통해 경쟁력을 높이고 비즈니스 효율성을 촉진합니다',
     highlights: [
-      '클라우드 마이그레이션 전략 수립',
-      '인프라 아키텍처 최적화 설계',
+      '디지털 전환 전략 수립',
+      '데이터 아키텍처 최적화 설계',
       '데이터 플랫폼 구축 컨설팅',
       '비용 최적화 및 운영 효율성 개선'
     ],
@@ -364,9 +373,10 @@ const servicesData = reactive([
     secondaryLink: '#portfolio',
     serviceIcon: '<i class="fas fa-lightbulb"></i>',
     icon: '<i class="fas fa-lightbulb"></i>',
-    visualTitle: '전략적 클라우드 컨설팅',
+    visualTitle: '전략적 컨설팅',
     visualFeatures: ['아키텍처 설계', '비용 최적화', '보안 강화', '성능 튜닝']
   },
+  /* CloudWai 주석처리 (임시 배포용)
   {
     category: 'cloud',
     badge: 'Infrastructure',
@@ -387,6 +397,7 @@ const servicesData = reactive([
     visualTitle: '완전 관리형 클라우드',
     visualFeatures: ['자동 프로비저닝', '통합 빌링', '실시간 모니터링', '토폴로지 맵']
   },
+  */
   {
     category: 'devops',
     badge: 'DevOps',
@@ -450,7 +461,7 @@ const servicesData = reactive([
   {
     category: 'dataq',
     badge: 'Data Analytics',
-    name: 'AI데이터 분석 서비스',
+    name: 'AI 데이터 분석 서비스',
     description: 'AI를 이용해 자연어 질의를 SQL로 자동 변환하는 혁신적인 플랫폼입니다. SQL 전문 지식 없이도 원하는 데이터를 쉽게 추출하고 분석할 수 있습니다',
     highlights: [
       '자연어를 SQL로 실시간 변환',
@@ -467,6 +478,7 @@ const servicesData = reactive([
     visualTitle: '자연어 SQL 변환',
     visualFeatures: ['자연어 이해', 'SQL 생성', '메타데이터 분석', '인사이트 도출']
   },
+  /* NeoFlow 주석처리 (임시 배포용)
   {
     category: 'data',
     badge: 'Data Integration',
@@ -487,6 +499,7 @@ const servicesData = reactive([
     visualTitle: '통합 데이터 플랫폼',
     visualFeatures: ['소스 연계', 'ETL 자동화', '스케줄링', '품질 관리']
   },
+  */
   {
     category: 'dataviz',
     badge: 'Data Visualization',
@@ -912,13 +925,13 @@ defineExpose({
 
 .featured-services-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 20px;
   margin-bottom: 80px;
   margin-top: 15px;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1498,7 +1511,7 @@ defineExpose({
   .featured-services-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 14px;
-    max-width: 1000px;
+    max-width: 900px;
   }
 
   .featured-service-card {

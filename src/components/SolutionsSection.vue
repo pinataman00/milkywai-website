@@ -6,6 +6,7 @@
 
       <!-- Solution Navigation -->
       <div class="solution-nav" :class="{ 'nav-at-top': isNavAtTop }">
+        <!-- CloudWai 주석처리 (임시 배포용)
         <div class="solution-nav-item">
           <button class="solution-nav-btn" :class="{ active: activeSolution === 'cloudwai' }"
             @click="changeSolution('cloudwai')">
@@ -15,11 +16,11 @@
             <div class="tooltip-content">
               <img :src="cloudWaiLogo" alt="CloudWai logo" class="tooltip-solution-logo tooltip-logo-cloudwai">
               <p>클라우드 인프라 자동구성 및 통합관리 솔루션</p>
-              <!-- <span class="tooltip-detail">프로비저닝-빌링-모니터링, One-Stop 관리</span> -->
             </div>
             <div class="tooltip-arrow"></div>
           </div>
         </div>
+        -->
 
         <div class="solution-nav-item">
           <button class="solution-nav-btn" :class="{ active: activeSolution === 'kubesync' }"
@@ -66,6 +67,7 @@
           </div>
         </div>
 
+        <!-- NeoFlow 주석처리 (임시 배포용)
         <div class="solution-nav-item">
           <button class="solution-nav-btn" :class="{ active: activeSolution === 'neoflow' }"
             @click="changeSolution('neoflow')">
@@ -75,11 +77,11 @@
             <div class="tooltip-content">
               <img :src="neoFlowLogo" alt="NeoFlow logo" class="tooltip-solution-logo tooltip-logo-neoflow">
               <p>통합 데이터 플랫폼 구축 솔루션</p>
-              <!-- <span class="tooltip-detail">데이터 수집, 가공, 적재까지의 전과정 자동화</span> -->
             </div>
             <div class="tooltip-arrow"></div>
           </div>
         </div>
+        -->
 
         <div class="solution-nav-item">
           <button class="solution-nav-btn" :class="{ active: activeSolution === 'dovora' }"
@@ -99,11 +101,13 @@
 
       <!-- Solution Details -->
       <div class="solution-content">
-        <CloudWai v-if="activeSolution === 'cloudwai'" class="solution-item" />
+        <!-- CloudWai 주석처리 (임시 배포용) -->
+        <!-- <CloudWai v-if="activeSolution === 'cloudwai'" class="solution-item" /> -->
         <Orkis v-if="activeSolution === 'kubesync'" class="solution-item" />
         <Verora v-if="activeSolution === 'verora'" class="solution-item" />
         <Siora v-if="activeSolution === 'dataq'" class="solution-item" />
-        <NeoFlow v-if="activeSolution === 'neoflow'" class="solution-item" />
+        <!-- NeoFlow 주석처리 (임시 배포용) -->
+        <!-- <NeoFlow v-if="activeSolution === 'neoflow'" class="solution-item" /> -->
         <Dovora v-if="activeSolution === 'dovora'" class="solution-item" />
       </div>
     </div>
@@ -138,7 +142,7 @@ export default {
   props: {
     activeSolution: {
       type: String,
-      default: 'cloudwai'
+      default: 'kubesync' // cloudwai 대신 kubesync로 변경 (임시 배포용)
     }
   },
   data() {
