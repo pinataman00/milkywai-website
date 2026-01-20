@@ -5,7 +5,8 @@
       <div>
         <div>
           <h2 class="section-title" style="text-align: left;">Company Information</h2>
-          <div class="info-items-grid">
+          <!-- <div class="info-items-grid"> -->
+          <div>
             <div class="info-item">
               <div class="info-icon">
                 <img src="/favicon.svg" alt="MilkyWai" class="company-logo">
@@ -15,14 +16,13 @@
                 (주)밀키웨이
               </div>
             </div>
-            <div class="info-item">
+            <!-- <div class="info-item">
               <div class="info-icon"><i class="fas fa-user-tie"></i></div>
               <div>
                 <strong>대표이사</strong><br>
-                <!-- 유병수 -->
-                김세정
+                
               </div>
-            </div>
+            </div> -->
             <div class="info-item">
               <div class="info-icon"><i class="fas fa-building"></i></div>
               <div>
